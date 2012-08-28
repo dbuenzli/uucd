@@ -1,0 +1,4 @@
+<**/*.{ml,mli}> : annot, debug, package(xmlm)
+<src> : include
+<test> : include
+<test/test.{byte,native}> : package(xmlm)
