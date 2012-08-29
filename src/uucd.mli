@@ -27,7 +27,7 @@
     {- The Unicode Consortium. 
     {e {{:http://www.unicode.org/versions/latest}The Unicode Standard}}.
     (latest version)}
-    {- Mark David, Ken Whistler. 
+    {- Mark Davis, Ken Whistler. 
     {e {{:http://www.unicode.org/reports/tr44/}UAX #44 Unicode Character
     Database}}. (latest version)}
     {- Eric Muller.
