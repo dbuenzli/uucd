@@ -1,14 +1,14 @@
 OASISFormat: 0.3
 Name: uucd
 Version: 0.9.0
-Synopsis: Unicode Character Database decoder for OCaml
+Synopsis: Unicode character database decoder for OCaml
 Authors: Daniel Bünzli <daniel.buenzli at erratique.ch>
 Copyrights: (c) 2012 Daniel C. Bünzli
 License: BSD3
 Homepage: http://erratique.ch/software/uucd
 Description:
   Uucd is an OCaml module to decode the data of the [Unicode
-  Character Database][1] from its XML [representation][2]. It provides
+  character database][1] from its XML [representation][2]. It provides
   high-level (but not efficient) access to the data so that efficient
   representations can be extracted.
   .

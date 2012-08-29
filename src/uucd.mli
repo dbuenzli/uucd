@@ -4,10 +4,10 @@
    %%NAME%% release %%VERSION%%
   ---------------------------------------------------------------------------*)
 
-(** Unicode Character Database decoder.
+(** Unicode character database decoder.
 
     [Uucd] decodes the data of the
-    {{:http://www.unicode.org/reports/tr44}Unicode Character Database}
+    {{:http://www.unicode.org/reports/tr44}Unicode character database}
     from its XML representation. It provides high-level (but not
     efficient) access to the data so that efficient representations
     can be extracted.
@@ -21,7 +21,7 @@
     
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
-    {e Version %%VERSION%% - Unicode version %%UNICODEVERSION%% - %%AUTHORS%% }
+    {e Release %%VERSION%% - Unicode version %%UNICODEVERSION%% - %%AUTHORS%% }
     {3 References}
     {ul
     {- The Unicode Consortium. 
@@ -406,7 +406,7 @@ val kWubi : string prop
 val kXerox : string prop
 val kZVariant : string prop
 
-(** {1:db Unicode Character Databases} *)
+(** {1:db Unicode character databases} *)
 
 type block = (cp * cp) * string
 (** The type for blocks. Code point range, name of the block. *)
@@ -442,7 +442,7 @@ type t =
     cjk_radicals : cjk_radical list; 
     emoji_sources : emoji_source list; 
 }
-(** The type for Unicode Character Databases. 
+(** The type for Unicode character databases. 
     
     {b Note.} Absence of an optional top-level field in the database
     is denoted by the neutral element of its type (empty string, empty
@@ -461,7 +461,7 @@ type src = [ `Channel of in_channel | `String of string ]
 (** The type for input sources. *)
 
 type decoder 
-(** The type for Unicode Character Database decoders. *)
+(** The type for Unicode character database decoders. *)
 
 val decoder : [< src] -> decoder
 (** [decoder src] is a decoder that inputs from [src]. *)
