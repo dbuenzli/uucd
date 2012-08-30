@@ -1,5 +1,5 @@
 #directory "_build/src"
 #use "topfind"
 #require "xmlm"
-#load "ucdm.cmo"
+#load "uucd.cmo"
 #use "test/test.ml"
