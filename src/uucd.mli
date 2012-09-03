@@ -236,10 +236,10 @@ val name_alias :
 list prop
 
 val nfc_quick_check : [ `True | `False | `Maybe ] prop
-val nfd_quick_check : bool prop
+val nfd_quick_check : [ `True | `False | `Maybe ] prop
 val nfkc_quick_check : [ `True | `False | `Maybe ] prop
 val nfkc_casefold : [`Self | `Cps of cp list] prop
-val nfkd_quick_check : bool prop
+val nfkd_quick_check : [ `True | `False | `Maybe ] prop
 val noncharacter_code_point : bool prop
 val numeric_type : [ `None | `De | `Di | `Nu ] prop
 val numeric_value : [`NaN | `Frac of int * int | `Num of int64] prop

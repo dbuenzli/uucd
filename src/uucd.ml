@@ -865,10 +865,10 @@ let math = Math, o_bool
 let name = Name, o_name
 let name_alias = Name_alias, o_name_alias
 let nfc_quick_check = Nfc_quick_check, o_bool_maybe
-let nfd_quick_check = Nfd_quick_check, o_bool
+let nfd_quick_check = Nfd_quick_check, o_bool_maybe
 let nfkc_quick_check = Nfkc_quick_check, o_bool_maybe
 let nfkc_casefold = Nfkc_casefold, o_cps_map
-let nfkd_quick_check = Nfkd_quick_check, o_bool
+let nfkd_quick_check = Nfkd_quick_check, o_bool_maybe
 let noncharacter_code_point = Noncharacter_code_point, o_bool
 let numeric_type = Numeric_type, o_numeric_type
 let numeric_value = Numeric_value, o_numeric_value
@@ -1108,10 +1108,10 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "Math" (Math, i_bool);
   map "NChar" (Noncharacter_code_point, i_bool);
   map "NFC_QC" (Nfc_quick_check, i_bool_maybe);
-  map "NFD_QC" (Nfd_quick_check, i_bool);
+  map "NFD_QC" (Nfd_quick_check, i_bool_maybe);
   map "NFKC_QC" (Nfkc_quick_check, i_bool_maybe);
   map "NFKC_CF" (Nfkc_casefold, i_cps_map ~empty:true);
-  map "NFKD_QC" (Nfkd_quick_check, i_bool);
+  map "NFKD_QC" (Nfkd_quick_check, i_bool_maybe);
   map "OAlpha" (Other_alphabetic, i_bool);
   map "ODI" (Other_default_ignorable_code_point, i_bool);
   map "OGr_Ext" (Other_grapheme_extend, i_bool);
