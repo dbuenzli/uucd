@@ -9,8 +9,8 @@ Homepage: http://erratique.ch/software/uucd
 Description:
   Uucd is an OCaml module to decode the data of the [Unicode
   character database][1] from its XML [representation][2]. It provides
-  high-level (but not efficient) access to the data so that efficient
-  representations can be extracted.
+  high-level (but not necessarily efficient) access to the data so that 
+  efficient representations can be extracted.
   .
   Uucd is made of a single module, depends on [Xmlm][3] and is 
   distributed under the BSD3 license.

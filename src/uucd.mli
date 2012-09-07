@@ -9,8 +9,8 @@
     [Uucd] decodes the data of the
     {{:http://www.unicode.org/reports/tr44}Unicode character database}
     from its XML representation. It provides high-level (but not
-    efficient) access to the data so that efficient representations
-    can be extracted.
+    necessarily efficient) access to the data so that efficient
+    representations can be extracted.
 
     [Uucd] decodes the representation described in the Annex #42 of
     Unicode %%UNICODEVERSION%%. Subsequent versions may be decoded as
