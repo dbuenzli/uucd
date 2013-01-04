@@ -349,7 +349,8 @@ type value =                                (* the type for property values. *)
     | `Pd | `Ps | `Pe | `Pi | `Pf | `Po | `Sm | `Sc | `Sk | `So | `Zs | `Zl 
     | `Zp | `Cc | `Cf | `Cs | `Co | `Cn ]
 | Grapheme_cluster_break_v of
-    [`CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `SM | `T  | `V  | `XX ]
+    [`CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `RI | `SM | `T  | `V  
+    | `XX ]
 | Hangul_syllable_type_v of [ `L | `LV | `LVT | `T | `V | `NA ]
 | Int_v of int
 | Indic_syllabic_category_v of 
@@ -378,8 +379,8 @@ type value =                                (* the type for property values. *)
 | Line_break_v of
     [ `AI | `AL | `B2 | `BA | `BB | `BK | `CB | `CJ | `CL | `CM | `CP | `CR 
     | `EX | `GL | `H2 | `H3 | `HL | `HY | `ID | `IN | `IS | `JL | `JT | `JV 
-    | `LF | `NL | `NS | `NU | `OP | `PO | `PR | `QU | `SA | `SG | `SP | `SY 
-    | `WJ | `XX | `ZW ]
+    | `LF | `NL | `NS | `NU | `OP | `PO | `PR | `QU | `RI | `SA | `SG | `SP 
+    | `SY | `WJ | `XX | `ZW ]
 | Name_v of [`Pattern of string | `Name of string ]
 | Name_alias_v of 
     (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment]) 
@@ -397,7 +398,7 @@ type value =                                (* the type for property values. *)
 | UAX_42_element_v of [ `Reserved | `Noncharacter | `Surrogate | `Char ] 
 | Word_break_v of
     [ `CR | `EX | `Extend | `FO | `KA | `LE | `LF | `MB | `ML | `MN | `NL 
-    | `NU | `XX ]
+    | `NU | `RI | `XX ]
 
 (* property value projection *)
 
@@ -628,8 +629,8 @@ end
   
 let i_grapheme_cluster_break v = Grapheme_cluster_break_v begin match v with
 | "CN" -> `CN | "CR" -> `CR | "EX" -> `EX | "L" -> `L  | "LF" -> `LF 
-| "LV" -> `LV | "LVT" -> `LVT | "PP" -> `PP | "SM" -> `SM | "T" -> `T  
-| "V" -> `V  | "XX" -> `XX 
+| "LV" -> `LV | "LVT" -> `LVT | "PP" -> `PP | "RI" -> `RI | "SM" -> `SM 
+| "T" -> `T  | "V" -> `V  | "XX" -> `XX 
 | v -> err (err_att_val v)
 end
 
@@ -706,8 +707,8 @@ let i_line_break v = Line_break_v begin match v with
 | "H3" -> `H3 | "HL" -> `HL | "HY" -> `HY | "ID" -> `ID | "IN" -> `IN 
 | "IS" -> `IS | "JL" -> `JL | "JT" -> `JT | "JV" -> `JV | "LF" -> `LF 
 | "NL" -> `NL | "NS" -> `NS | "NU" -> `NU | "OP" -> `OP | "PO" -> `PO 
-| "PR" -> `PR | "QU" -> `QU | "SA" -> `SA | "SG" -> `SG | "SP" -> `SP 
-| "SY" -> `SY | "WJ" -> `WJ | "XX" -> `XX | "ZW" -> `ZW 
+| "PR" -> `PR | "QU" -> `QU | "RI" -> `RI | "SA" -> `SA | "SG" -> `SG 
+| "SP" -> `SP | "SY" -> `SY | "WJ" -> `WJ | "XX" -> `XX | "ZW" -> `ZW 
 | v -> err (err_att_val v)
 end
 
@@ -787,7 +788,7 @@ let i_word_break v = Word_break_v begin match v with
 | "CR" -> `CR | "EX" -> `EX | "Extend" -> `Extend | "FO" -> `FO 
 | "KA" -> `KA | "LE" -> `LE | "LF" -> `LF | "MB" -> `MB | "ML" -> `ML 
 | "MN" -> `MN | "NL" -> `NL | "NU" -> `NU 
-| "XX" -> `XX
+| "RI" -> `RI | "XX" -> `XX
 | v -> err (err_att_val v)
 end
 

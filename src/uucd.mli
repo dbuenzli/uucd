@@ -171,7 +171,7 @@ val general_category :
 
 val grapheme_base : bool prop
 val grapheme_cluster_break : 
-  [ `CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `SM | `T  | `V  
+  [ `CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `RI | `SM | `T  | `V  
   | `XX ] prop
 
 val grapheme_extend : bool prop
@@ -217,8 +217,8 @@ val joining_type : [ `U | `C | `T | `D | `L | `R ] prop
 val line_break : 
   [ `AI | `AL | `B2 | `BA | `BB | `BK | `CB | `CJ | `CL | `CM | `CP | `CR | `EX
   | `GL | `H2 | `H3 | `HL | `HY | `ID | `IN | `IS | `JL | `JT | `JV | `LF | `NL
-  | `NS | `NU | `OP | `PO | `PR | `QU | `SA | `SG | `SP | `SY | `WJ | `XX | `ZW
-  ] prop
+  | `NS | `NU | `OP | `PO | `PR | `QU | `RI | `SA | `SG | `SP | `SY | `WJ | `XX
+  | `ZW ] prop
 
 val logical_order_exception : bool prop
 val lowercase : bool prop
@@ -298,7 +298,7 @@ val variation_selector : bool prop
 val white_space : bool prop
 val word_break :
   [ `CR | `EX | `Extend | `FO | `KA | `LE | `LF | `MB | `ML | `MN | `NL | `NU
-  | `XX ] prop
+  | `RI | `XX ] prop
 
 val xid_continue : bool prop
 val xid_start : bool prop

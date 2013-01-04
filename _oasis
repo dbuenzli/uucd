@@ -1,6 +1,6 @@
 OASISFormat: 0.3
 Name: uucd
-Version: 0.9.1
+Version: 0.9.2
 Synopsis: Unicode character database decoder for OCaml
 Authors: Daniel Bünzli <daniel.buenzli at erratique.ch>
 Copyrights: (c) 2012 Daniel C. Bünzli
@@ -51,7 +51,7 @@ Document samples
  DataFiles: test/*.ml
 
 Document UnicodeVersion
- Title: 6.1.0
+ Title: 6.2.0
 
 SourceRepository head
  Type: git
