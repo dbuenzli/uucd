@@ -46,7 +46,7 @@ type cp = Cp.t
 
 let is_cp i = 0x0000 <= i && i <= 0x10_FFFF
 let is_scalar_value i = 
-  0x0000 <= i && i <= 0xD7FF && 0xE000 <= i && i <= 0x10FFFF
+  (0x0000 <= i && i <= 0xD7FF) || (0xE000 <= i && i <= 0x10FFFF)
 
 let cp_of_string v =                           (* parses a code point value. *)
   let is_hex c = (0x30 <= c && c <= 0x39) || (0x41 <= c && c <= 0x46) in
