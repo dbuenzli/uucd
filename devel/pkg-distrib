@@ -40,6 +40,10 @@ if [ -f $LOC/pkg-distrib-hook ]; then
     . $LOC/pkg-distrib-hook
 fi
 
+# Remove dev scripts 
+
+rm -R -f devel
+
 # Clean and wrap up the project
 ocaml setup.ml -distclean
 
