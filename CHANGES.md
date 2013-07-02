@@ -3,7 +3,6 @@ v0.9.2 2013-01-04 La Forclaz (VS)
 
 - Updated for Unicode 6.2.0.
 
-
 v0.9.1 2013-01-04 La Forclaz (VS)
 ---------------------------------
 
