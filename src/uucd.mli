@@ -83,11 +83,13 @@ val alphabetic : bool prop
 val ascii_hex_digit : bool prop
 val bidi_class :
   [ `AL | `AN | `B | `BN | `CS | `EN | `ES | `ET | `L | `LRE | `LRO | `NSM 
-  | `ON | `PDF | `R | `RLE | `RLO | `S | `WS ] prop
+  | `ON | `PDF | `R | `RLE | `RLO | `S | `WS | `LRI | `RLI | `FSI | `PDI ] prop
 
 val bidi_control : bool prop
 val bidi_mirrored : bool prop
 val bidi_mirroring_glyph : cp option prop
+val bidi_paired_bracket : [ `Self | `Cp of cp ] prop
+val bidi_paired_bracket_type : [ `O | `C | `N ] prop
 val block : 
 [ `Aegean_Numbers | `Alchemical | `Alphabetic_PF | `Ancient_Greek_Music 
 | `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A 
@@ -298,7 +300,7 @@ val variation_selector : bool prop
 val white_space : bool prop
 val word_break :
   [ `CR | `EX | `Extend | `FO | `KA | `LE | `LF | `MB | `ML | `MN | `NL | `NU
-  | `RI | `XX ] prop
+  | `RI | `XX | `DQ | `HL | `SQ ] prop
 
 val xid_continue : bool prop
 val xid_start : bool prop

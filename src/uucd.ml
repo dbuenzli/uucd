@@ -74,6 +74,8 @@ type key =                            (* the type for property keys (names). *)
 | Bidi_control
 | Bidi_mirrored
 | Bidi_mirroring_glyph
+| Bidi_paired_bracket
+| Bidi_paired_bracket_type
 | Block
 | Canonical_combining_class
 | Cased
@@ -334,7 +336,8 @@ type value =                                (* the type for property values. *)
     | `VS | `VS_Sup | `Yi_Radicals | `Yi_Syllables | `Yijing ] 
 | Bidi_class_v of
     [ `AL | `AN | `B | `BN | `CS | `EN | `ES | `ET | `L | `LRE | `LRO | `NSM 
-    | `ON | `PDF | `R | `RLE | `RLO | `S | `WS ]
+    | `ON | `PDF | `R | `RLE | `RLO | `S | `WS | `LRI | `RLI | `FSI | `PDI ]
+| Bidi_paired_bracket_type_v of [ `O | `C | `N ]
 | Bool_v of bool
 | Bool_maybe_v of [ `True | `False | `Maybe ]
 | Cp_v of cp
@@ -398,12 +401,15 @@ type value =                                (* the type for property values. *)
 | UAX_42_element_v of [ `Reserved | `Noncharacter | `Surrogate | `Char ] 
 | Word_break_v of
     [ `CR | `EX | `Extend | `FO | `KA | `LE | `LF | `MB | `ML | `MN | `NL 
-    | `NU | `RI | `XX ]
+    | `NU | `RI | `XX | `DQ | `HL | `SQ ]
 
 (* property value projection *)
 
 let o_age = function Age_v v -> v | _ -> assert false
 let o_bidi_class = function Bidi_class_v v -> v | _ -> assert false
+let o_bidi_paired_bracket_type = 
+  function Bidi_paired_bracket_type_v v -> v | _ -> assert false
+    
 let o_block = function Block_v v -> v | _ -> assert false
 let o_bool = function Bool_v v -> v | _ -> assert false
 let o_bool_maybe = function Bool_maybe_v v -> v | _ -> assert false
@@ -462,6 +468,12 @@ let i_bidi_class v = Bidi_class_v begin match v with
 | "EN" -> `EN | "ES" -> `ES | "ET" -> `ET | "L" -> `L | "LRE" -> `LRE 
 | "LRO" -> `LRO | "NSM" -> `NSM | "ON" -> `ON | "PDF" -> `PDF | "R" -> `R 
 | "RLE" -> `RLE | "RLO" -> `RLO | "S" -> `S | "WS" -> `WS 
+| "LRI" -> `LRI | "RLI" -> `RLI | "FSI" -> `FSI | "PDI" -> `PDI 
+| v -> err (err_att_val v)
+end
+
+let i_bidi_paired_bracket_type v = Bidi_paired_bracket_type_v begin match v with
+| "o" -> `O | "c" -> `C | "n" -> `N 
 | v -> err (err_att_val v)
 end
 
@@ -595,7 +607,7 @@ end
 let i_cp v = Cp_v (cp_of_string v)
 let i_cp_map v = 
   if v = "#" then Cp_map_v `Self else Cp_map_v (`Cp (cp_of_string v))
-  
+
 let i_cp_opt v = 
   if v = "" then Cp_opt_v None else Cp_opt_v (Some (cp_of_string v))
 
@@ -788,7 +800,7 @@ let i_word_break v = Word_break_v begin match v with
 | "CR" -> `CR | "EX" -> `EX | "Extend" -> `Extend | "FO" -> `FO 
 | "KA" -> `KA | "LE" -> `LE | "LF" -> `LF | "MB" -> `MB | "ML" -> `ML 
 | "MN" -> `MN | "NL" -> `NL | "NU" -> `NU 
-| "RI" -> `RI | "XX" -> `XX
+| "RI" -> `RI | "XX" -> `XX | "DQ" -> `DQ | "HL" -> `HL | "SQ" -> `SQ
 | v -> err (err_att_val v)
 end
 
@@ -812,6 +824,10 @@ let bidi_class = Bidi_class, o_bidi_class
 let bidi_control = Bidi_control, o_bool
 let bidi_mirrored = Bidi_mirrored, o_bool
 let bidi_mirroring_glyph = Bidi_mirroring_glyph, o_cp_opt
+let bidi_paired_bracket = Bidi_paired_bracket, o_cp_map
+let bidi_paired_bracket_type = 
+  Bidi_paired_bracket_type, o_bidi_paired_bracket_type
+
 let block = Block, o_block
 let canonical_combining_class = Canonical_combining_class, o_int
 let cased = Cased, o_bool
@@ -1144,6 +1160,8 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "bc" (Bidi_class, i_bidi_class);
   map "blk" (Block, i_block);
   map "bmg" (Bidi_mirroring_glyph, i_cp_opt);
+  map "bpb" (Bidi_paired_bracket, i_cp_map);
+  map "bpt" (Bidi_paired_bracket_type, i_bidi_paired_bracket_type);
   map "ccc" (Canonical_combining_class, i_int);
   map "cf" (Case_folding, i_cps_map ~empty:false);
   map "dm" (Decomposition_mapping,  (i_cps_map ~empty:true));
