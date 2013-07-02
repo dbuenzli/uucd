@@ -1,5 +1,5 @@
 (*---------------------------------------------------------------------------
-   Copyright %%COPYRIGHT%%. All rights reserved.
+   Copyright 2012 Daniel C. Bünzli. All rights reserved.
    Distributed under the BSD3 license, see license at the end of the file.
    %%NAME%% release %%VERSION%%
   ---------------------------------------------------------------------------*)
@@ -507,7 +507,7 @@ let u_1F42B_gc = Uucd.cp_prop ucd 0x1F42B Uucd.general_category
 *)
     
 (*---------------------------------------------------------------------------
-   Copyright %%COPYRIGHT%%
+   Copyright 2012 Daniel C. Bünzli.
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
