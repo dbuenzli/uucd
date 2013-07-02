@@ -1,4 +1,4 @@
-Uucd - Unicode character database decoder for OCaml
+Uucd — Unicode character database decoder for OCaml
 -------------------------------------------------------------------------------
 Release %%VERSION%%
 

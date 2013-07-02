@@ -11,8 +11,7 @@ TAR=${TAR="tar"}
 . $LOC/pkg-info
 
 rm -R -f $CLONEDIR
-#git clone -b master . $CLONEDIR
-cp -R . $CLONEDIR
+git clone -b master . $CLONEDIR
 cd $CLONEDIR
 
 # Substitute a few things
