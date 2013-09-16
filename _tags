@@ -1,4 +1,5 @@
-<**/*.{ml,mli}> : annot, debug, package(xmlm)
+<**/*.{ml,mli}> : bin_annot
 <src> : include
 <test> : include
+<src/uucd.{mli,ml}> : package(xmlm)
 <test/test.{byte,native}> : package(xmlm)

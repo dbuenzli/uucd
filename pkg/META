@@ -1,0 +1,8 @@
+version = "%%VERSION%%"
+description = "Unicode character database decoder for OCaml"
+archive(byte) = "uucd.cma"
+archive(byte, plugin) = "uucd.cma"
+archive(native) = "uucd.cmxa"
+archive(native, plugin) = "uucd.cmxs"
+exists_if = "uucd.cma"
+

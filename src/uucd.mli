@@ -21,7 +21,8 @@
     
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
-    {e Release %%VERSION%% - Unicode version %%UNICODEVERSION%% - %%AUTHORS%% }
+    {e Release %%VERSION%% — Unicode version %%UNICODEVERSION%% — 
+       %%MAINTAINER%% }
     {3 References}
     {ul
     {- The Unicode Consortium. 

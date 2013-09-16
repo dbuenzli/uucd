@@ -24,19 +24,8 @@ Uucd can be installed with `opam`:
 
     opam install uucd
 
-Otherwise to install Uucd you need at least : 
-
-    OCaml %%OCAMLVERSION%% %%PPDEPS%%
-
-If you have `findlib`, it can be installed by typing :
-
-    ocaml setup.ml -configure
-    ocaml setup.ml -build 
-    ocaml setup.ml -install
-
-If you don't, `uucd.mli` and `uucd.ml` contain everything, the
-code, the documentation and the license. Install the dependencies and
-use the sources the way you want.
+If you don't use `opam` consult the [`opam`](opam) file for build
+instructions and a complete specification of the dependencies.
 
 
 ## Documentation
@@ -53,6 +42,6 @@ is a generated version in the `doc` directory of the distribution.
 Sample programs are located in the `test` directory of the
 distribution. They can be built with:
 
-    ocamlbuild test/tests.otarget
+    ocamlbuild -use-ocamlfind tests.otarget
 
 The resulting binaries are in `_build/test`.
