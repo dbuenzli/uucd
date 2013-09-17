@@ -5,6 +5,7 @@ authors: ["Daniel Bünzli <daniel.buenzl i@erratique.ch>"]
 doc: "http://erratique.ch/software/uucd/doc/Uucd"
 tags: [ "unicode" "database" "decoder" ]
 license: "BSD3"
+depends: [ "xmlm" ]
 ocaml-version: [>= "4.00.0"]
 build: 
 [
