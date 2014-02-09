@@ -10,7 +10,8 @@ LOC=`dirname $0`
 NATIVE=$1
 
 add lib pkg/META                
-add lib src/uucd.mli      
+add lib src/uucd.mli
+add lib src/uucd.cmti
 add lib src/uucd.cmi
 add lib src/uucd.cmx
 add lib src/uucd.cma
