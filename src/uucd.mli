@@ -95,48 +95,59 @@ val block :
 [ `Aegean_Numbers | `Alchemical | `Alphabetic_PF | `Ancient_Greek_Music 
 | `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A 
 | `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian 
-| `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Batak 
-| `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext | `Box_Drawing 
-| `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music | `Carian 
-| `Chakma | `Cham | `Cherokee | `CJK | `CJK_Compat | `CJK_Compat_Forms 
-| `CJK_Compat_Ideographs | `CJK_Compat_Ideographs_Sup | `CJK_Ext_A 
-| `CJK_Ext_B | `CJK_Ext_C | `CJK_Ext_D | `CJK_Radicals_Sup | `CJK_Strokes 
-| `CJK_Symbols | `Compat_Jamo | `Control_Pictures | `Coptic | `Counting_Rod 
+| `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah 
+| `Batak | `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext 
+| `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music 
+| `Carian | `Caucasian_Albanian | `Chakma | `Cham | `Cherokee | `CJK 
+| `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs 
+| `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C 
+| `CJK_Ext_D | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols 
+| `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers 
+| `Counting_Rod 
 | `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary 
 | `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Sup | `Deseret 
 | `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols 
-| `Diacriticals_Sup | `Dingbats | `Domino | `Egyptian_Hieroglyphs | `Emoticons 
+| `Diacriticals_Sup | `Diacriticals_Ext | `Dingbats | `Domino | `Duployan
+| `Egyptian_Hieroglyphs | `Emoticons 
 | `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK 
 | `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A 
-| `Ethiopic_Sup | `Geometric_Shapes | `Georgian | `Georgian_Sup | `Glagolitic 
-| `Gothic | `Greek | `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms 
-| `Half_Marks | `Hangul | `Hanunoo | `Hebrew | `High_PU_Surrogates 
+| `Ethiopic_Sup | `Elbasan | `Geometric_Shapes | `Geometric_Shapes_Ext
+| `Georgian | `Georgian_Sup | `Glagolitic | `Gothic | `Grantha | `Greek 
+| `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks 
+| `Hangul | `Hanunoo | `Hebrew | `High_PU_Surrogates 
 | `High_Surrogates | `Hiragana | `IDC | `Imperial_Aramaic 
 | `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian 
 | `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi 
 | `Kana_Sup | `Kanbun | `Kangxi | `Kannada | `Katakana | `Katakana_Ext 
-| `Kayah_Li | `Kharoshthi | `Khmer | `Khmer_Symbols | `Lao | `Latin_1_Sup 
-| `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B | `Latin_Ext_C 
-| `Latin_Ext_D | `Lepcha | `Letterlike_Symbols | `Limbu | `Linear_B_Ideograms 
-| `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian | `Mahjong 
-| `Malayalam | `Mandaic | `Math_Alphanum | `Math_Operators | `Meetei_Mayek 
-| `Meetei_Mayek_Ext | `Meroitic_Cursive | `Meroitic_Hieroglyphs | `Miao 
-| `Misc_Arrows | `Misc_Math_Symbols_A | `Misc_Math_Symbols_B 
-| `Misc_Pictographs | `Misc_Symbols | `Misc_Technical | `Modifier_Letters 
-| `Modifier_Tone_Letters | `Mongolian | `Music | `Myanmar | `Myanmar_Ext_A
-| `NB | `New_Tai_Lue | `NKo | `Number_Forms | `OCR | `Ogham | `Ol_Chiki 
-| `Old_Italic | `Old_Persian | `Old_South_Arabian | `Old_Turkic | `Oriya 
-| `Osmanya | `Phags_Pa | `Phaistos | `Phoenician
-| `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `PUA 
+| `Kayah_Li | `Kharoshthi | `Khmer | `Khmer_Symbols | `Khojki | `Khudawadi
+| `Lao | `Latin_1_Sup | `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B 
+| `Latin_Ext_C | `Latin_Ext_D | `Latin_Ext_E | `Lepcha | `Letterlike_Symbols 
+| `Limbu | `Linear_A | `Linear_B_Ideograms 
+| `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian 
+| `Mahajani | `Mahjong 
+| `Malayalam | `Mandaic | `Manichaean | `Math_Alphanum | `Math_Operators 
+| `Meetei_Mayek | `Meetei_Mayek_Ext | `Mende_Kikakui | `Meroitic_Cursive 
+| `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A 
+| `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols 
+| `Misc_Technical | `Modi | `Modifier_Letters 
+| `Modifier_Tone_Letters | `Mongolian | `Mro | `Music | `Myanmar 
+| `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `NKo 
+| `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Italic | `Old_North_Arabian 
+| `Old_Permic | `Old_Persian | `Old_South_Arabian | `Old_Turkic | `Oriya 
+| `Ornamental_Dingbats | `Osmanya | `Pahawh_Hmong | `Palmyrene | `Pau_Cin_Hau 
+| `Phags_Pa | `Phaistos | `Phoenician
+| `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi | `PUA 
 | `Punctuation | `Rejang | `Rumi | `Runic | `Samaritan | `Saurashtra 
-| `Sharada | `Shavian | `Sinhala | `Small_Forms | `Sora_Sompeng 
+| `Sharada | `Shavian | `Shorthand_Format_Controls | `Siddham | `Sinhala 
+| `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng 
 | `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B 
-| `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B | `Sup_Punctuation 
-| `Super_And_Sub | `Syloti_Nagri | `Syriac | `Tagalog | `Tagbanwa | `Tags 
-| `Tai_Le | `Tai_Tham | `Tai_Viet | `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu 
-| `Thaana | `Thai | `Tibetan | `Tifinagh | `Transport_And_Map | `UCAS 
-| `UCAS_Ext | `Ugaritic | `Vai | `Vedic_Ext | `Vertical_Forms | `VS | `VS_Sup 
-| `Yi_Radicals | `Yi_Syllables | `Yijing ] prop
+| `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B 
+| `Sup_Punctuation  | `Super_And_Sub | `Syloti_Nagri | `Syriac 
+| `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet 
+| `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu | `Thaana | `Thai | `Tibetan 
+| `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS 
+| `UCAS_Ext | `Ugaritic | `Vai | `Vedic_Ext | `Vertical_Forms | `VS | `VS_Sup
+| `Warang_Citi | `Yi_Radicals | `Yi_Syllables | `Yijing ] prop
 
 
 val canonical_combining_class : int prop
@@ -188,7 +199,8 @@ val ideographic : bool prop
 val ids_binary_operator : bool prop
 val ids_trinary_operator : bool prop
 val indic_syllabic_category : 
-  [ `Bindu | `Visarga | `Avagraha | `Nukta | `Virama | `Vowel_Independent 
+  [ `Bindu | `Cantillation_Mark | `Gemination_Mark 
+  | `Visarga | `Avagraha | `Nukta | `Virama | `Vowel_Independent 
   | `Vowel_Dependent | `Vowel | `Consonant_Placeholder | `Consonant 
   | `Consonant_Dead | `Consonant_Repha | `Consonant_Subjoined 
   | `Consonant_Medial | `Consonant_Final | `Consonant_Head_Letter 
@@ -209,9 +221,20 @@ val joining_group :
   | `Burushaski_Yeh_Barree | `Dal | `Dalath_Rish | `E | `Farsi_Yeh | `Fe
   | `Feh | `Final_Semkath | `Gaf | `Gamal | `Hah | `Hamza_On_Heh_Goal
   | `He | `Heh | `Heh_Goal | `Heth | `Kaf | `Kaph | `Khaph 
-  | `Knotted_Heh | `Lam | `Lamadh | `Meem | `Mim | `No_Joining_Group 
+  | `Knotted_Heh | `Lam | `Lamadh 
+  | `Manichaean_Aleph | `Manichaean_Ayin | `Manichaean_Beth 
+  | `Manichaean_Daleth | `Manichaean_Dhamedh | `Manichaean_Five 
+  | `Manichaean_Gimel | `Manichaean_Heth | `Manichaean_Hundred 
+  | `Manichaean_Kaph | `Manichaean_Lamedh | `Manichaean_Mem 
+  | `Manichaean_Nun | `Manichaean_One | `Manichaean_Pe | `Manichaean_Qoph 
+  | `Manichaean_Resh | `Manichaean_Sadhe | `Manichaean_Samekh 
+  | `Manichaean_Taw | `Manichaean_Ten | `Manichaean_Teth 
+  | `Manichaean_Thamedh | `Manichaean_Twenty | `Manichaean_Waw 
+  | `Manichaean_Yodh | `Manichaean_Zayin 
+  | `Meem | `Mim | `No_Joining_Group 
   | `Noon | `Nun | `Nya | `Pe | `Qaf | `Qaph | `Reh | `Reversed_Pe 
-  | `Rohingya_Yeh | `Sad | `Sadhe | `Seen | `Semkath | `Shin | `Swash_Kaf 
+  | `Rohingya_Yeh | `Sad | `Sadhe | `Seen | `Semkath | `Shin 
+  | `Straight_Waw | `Swash_Kaf 
   | `Syriac_Waw | `Tah | `Taw | `Teh_Marbuta | `Teh_Marbuta_Goal | `Teth 
   | `Waw | `Yeh | `Yeh_Barree | `Yeh_With_Tail | `Yudh | `Yudh_He | `Zain 
   | `Zhain ] prop
@@ -260,18 +283,21 @@ val quotation_mark : bool prop
 val radical : bool prop
 
 type script = 
-[ `Arab | `Armi | `Armn | `Avst | `Bali | `Bamu | `Batk | `Beng | `Bopo 
-| `Brah | `Brai | `Bugi | `Buhd | `Cakm | `Cans | `Cari | `Cham | `Cher 
-| `Copt | `Cprt | `Cyrl | `Deva | `Dsrt | `Egyp | `Ethi | `Geor | `Glag 
-| `Goth | `Grek | `Gujr | `Guru | `Hang | `Hani | `Hano | `Hebr | `Hira 
-| `Hrkt | `Ital | `Java | `Kali | `Kana | `Khar | `Khmr | `Knda | `Kthi
-| `Lana | `Laoo | `Latn | `Lepc | `Limb | `Linb | `Lisu | `Lyci | `Lydi
-| `Mand | `Merc | `Mero | `Mlym | `Mong | `Mtei | `Mymr | `Nkoo | `Ogam 
-| `Olck | `Orkh | `Orya | `Osma | `Phag | `Phli | `Phnx | `Plrd | `Prti 
-| `Qaai | `Rjng | `Runr | `Samr | `Sarb | `Saur | `Shaw | `Shrd | `Sinh 
-| `Sora | `Sund | `Sylo | `Syrc | `Tagb | `Takr | `Tale | `Talu | `Taml 
-| `Tavt | `Telu | `Tfng | `Tglg | `Thaa | `Thai | `Tibt | `Ugar | `Vaii
-| `Xpeo | `Xsux | `Yiii | `Zinh | `Zyyy | `Zzzz ]
+[ `Aghb | `Arab | `Armi | `Armn | `Avst | `Bali | `Bamu | `Bass | `Batk 
+| `Beng | `Bopo | `Brah | `Brai | `Bugi | `Buhd | `Cakm | `Cans | `Cari 
+| `Cham | `Cher | `Copt | `Cprt | `Cyrl | `Deva | `Dsrt | `Dupl | `Elba 
+| `Egyp | `Ethi | `Geor | `Glag | `Goth | `Gran | `Grek | `Gujr | `Guru 
+| `Hang | `Hani | `Hano | `Hebr | `Hira | `Hmng | `Hrkt | `Ital | `Java 
+| `Kali | `Kana | `Khar | `Khmr | `Khoj | `Knda | `Kthi | `Lana | `Laoo 
+| `Latn | `Lepc | `Limb | `Lina | `Linb | `Lisu | `Lyci | `Lydi | `Mahj 
+| `Mand | `Mani | `Mend | `Merc | `Mero | `Mlym | `Modi | `Mong | `Mroo 
+| `Mtei | `Mymr | `Narb | `Nbat | `Nkoo | `Ogam | `Olck | `Orkh | `Orya 
+| `Osma | `Palm | `Pauc | `Perm | `Phag | `Phli | `Phlp | `Phnx | `Plrd 
+| `Prti | `Qaai | `Rjng | `Runr | `Samr | `Sarb | `Saur | `Shaw | `Shrd 
+| `Sidd | `Sind | `Sinh | `Sora | `Sund | `Sylo | `Syrc | `Tagb | `Takr 
+| `Tale | `Talu | `Taml | `Tavt | `Telu | `Tfng | `Tglg | `Thaa | `Thai 
+| `Tibt | `Tirh | `Ugar | `Vaii | `Wara | `Xpeo | `Xsux | `Yiii | `Zinh 
+| `Zyyy | `Zzzz ]
 
 val script : script prop
 val script_extensions : script list prop
