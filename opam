@@ -1,6 +1,7 @@
 opam-version: "1"
 maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
 homepage: "http://erratique.ch/software/uucd"
+dev-repo: "http://erratique.ch/repos/uucd.git"
 authors: ["Daniel Bünzli <daniel.buenzl i@erratique.ch>"]
 doc: "http://erratique.ch/software/uucd/doc/Uucd"
 tags: [ "unicode" "database" "decoder" ]
@@ -9,6 +10,7 @@ ocaml-version: [>= "4.00.0"]
 depends: [ "ocamlfind" "xmlm" ]
 build: 
 [
-  ["./pkg/pkg-git" ]
-  ["./pkg/build" "true" ]
+  [ "ocaml" "pkg/git.ml" ]
+  [ "ocaml" "pkg/build.ml" "native=%{ocaml-native}%" 
+                           "native-dynlink=%{ocaml-native}%" ] # TODO fixme 
 ]

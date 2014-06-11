@@ -13,7 +13,7 @@
     representations can be extracted.
 
     [Uucd] decodes the representation described in the Annex #42 of
-    Unicode %%UNICODEVERSION%%. Subsequent versions may be decoded as
+    Unicode %%UNICODE_VERSION%%. Subsequent versions may be decoded as
     long as no new cases are introduced in parsed enumerated
     properties.
 
@@ -21,7 +21,7 @@
     
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
-    {e Release %%VERSION%% — Unicode version %%UNICODEVERSION%% — 
+    {e Release %%VERSION%% — Unicode version %%UNICODE_VERSION%% — 
        %%MAINTAINER%% }
     {3 References}
     {ul
@@ -505,9 +505,9 @@ val decoded_range : decoder -> (int * int) * (int * int)
 
 (** {1:basics Basics} 
 
-    The database and subsets of it for Unicode %%UNICODEVERSION%% are
+    The database and subsets of it for Unicode %%UNICODE_VERSION%% are
     available
-    {{:http://www.unicode.org/Public/%%UNICODEVERSION%%/ucdxml/}here}.
+    {{:http://www.unicode.org/Public/%%UNICODE_VERSION%%/ucdxml/}here}.
     Databases with groups should be preferred, they maximize value
     sharing and improve parsing performance.
     
