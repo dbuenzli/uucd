@@ -1458,9 +1458,9 @@ let p_cp d rep atts g_props =
   | Some cp -> Cpmap.add cp props rep
   | None -> match !cp_first, !cp_last with
     | Some f, Some l -> 
-	let rep = ref rep in 
-	for cp = f to l do rep := Cpmap.add cp props !rep done;
-	!rep
+        let rep = ref rep in 
+        for cp = f to l do rep := Cpmap.add cp props !rep done;
+        !rep
     | _ -> err err_invalid_cp_spec
         
 let p_repertoire d =
@@ -1606,7 +1606,7 @@ let decoded_range d = Xmlm.pos d, Xmlm.pos d
 let decode d = try
   ignore (Xmlm.input d); (* `Dtd *)
   begin match Xmlm.input d with
-  | `El_start (n, _) when n = n_ucd -> `Ok (p_ucd d) 	
+  | `El_start (n, _) when n = n_ucd -> `Ok (p_ucd d)
   | `El_start (n, _) -> err (err_exp_ucd n)
   | _ -> assert false
   end;
