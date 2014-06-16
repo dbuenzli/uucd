@@ -375,12 +375,37 @@ type value =                                (* the type for property values. *)
 | Hangul_syllable_type_v of [ `L | `LV | `LVT | `T | `V | `NA ]
 | Int_v of int
 | Indic_syllabic_category_v of 
-    [ `Bindu | `Cantillation_Mark | `Gemination_Mark 
-    | `Visarga | `Avagraha | `Nukta | `Virama | `Vowel_Independent 
-    | `Vowel_Dependent | `Vowel | `Consonant_Placeholder | `Consonant 
-    | `Consonant_Dead | `Consonant_Repha | `Consonant_Subjoined 
-    | `Consonant_Medial | `Consonant_Final | `Consonant_Head_Letter 
-    | `Modifying_Letter | `Tone_Letter | `Tone_Mark | `Register_Shifter 
+    [ `Bindu
+    | `Visarga
+    | `Avagraha 
+    | `Nukta
+    | `Virama
+    | `Pure_Killer
+    | `Invisible_Stacker
+    | `Vowel_Independent
+    | `Vowel_Dependent
+    | `Vowel
+    | `Consonant_Placeholder 
+    | `Consonant
+    | `Consonant_Dead 
+    | `Consonant_Preceding_Repha
+    | `Consonant_Succeeding_Repha
+    | `Consonant_Repha 
+    | `Consonant_Subjoined
+    | `Consonant_Medial
+    | `Consonant_Final
+    | `Consonant_Head_Letter 
+    | `Modifying_Letter
+    | `Tone_Letter
+    | `Tone_Mark
+    | `Gemination_Mark
+    | `Cantillation_Mark
+    | `Register_Shifter 
+    | `Non_Joiner
+    | `Joiner
+    | `Number_Joiner
+    | `Number
+    | `Brahmi_Joining_Number
     | `Other ]
 | Indic_matra_category_v of 
     [ `Right | `Left | `Visual_Order_Left | `Left_And_Right | `Top | `Bottom 
@@ -716,24 +741,39 @@ end
 
 let i_int v = try Int_v (int_of_string v) with Failure _ -> err (err_att_val v)
 let i_indic_syllabic_category v = Indic_syllabic_category_v begin match v with
-| "Bindu" -> `Bindu 
-| "Cantillation_Mark" -> `Cantillation_Mark
-| "Gemination_Mark" -> `Gemination_Mark
-| "Visarga" -> `Visarga | "Avagraha" -> `Avagraha 
-| "Nukta" -> `Nukta | "Virama" -> `Virama 
-| "Vowel_Independent" -> `Vowel_Independent 
-| "Vowel_Dependent" -> `Vowel_Dependent
-| "Vowel" -> `Vowel | "Consonant_Placeholder" -> `Consonant_Placeholder 
-| "Consonant" -> `Consonant | "Consonant_Dead" -> `Consonant_Dead 
-| "Consonant_Repha" -> `Consonant_Repha 
-| "Consonant_Subjoined" -> `Consonant_Subjoined
-| "Consonant_Medial" -> `Consonant_Medial 
-| "Consonant_Final" -> `Consonant_Final
-| "Consonant_Head_Letter" -> `Consonant_Head_Letter 
-| "Modifying_Letter" -> `Modifying_Letter
-| "Tone_Letter" -> `Tone_Letter | "Tone_Mark" -> `Tone_Mark
-| "Register_Shifter" -> `Register_Shifter  | "Other" -> `Other
-| v -> err (err_att_val v)
+  | "Bindu" -> `Bindu
+  | "Visarga" -> `Visarga
+  | "Avagraha" -> `Avagraha 
+  | "Nukta" -> `Nukta
+  | "Virama" -> `Virama
+  | "Pure_Killer" -> `Pure_Killer
+  | "Invisible_Stacker" -> `Invisible_Stacker
+  | "Vowel_Independent" -> `Vowel_Independent
+  | "Vowel_Dependent" -> `Vowel_Dependent
+  | "Vowel" -> `Vowel
+  | "Consonant_Placeholder" -> `Consonant_Placeholder 
+  | "Consonant" -> `Consonant
+  | "Consonant_Dead" -> `Consonant_Dead 
+  | "Consonant_Preceding_Repha" -> `Consonant_Preceding_Repha
+  | "Consonant_Succeeding_Repha" -> `Consonant_Succeeding_Repha
+  | "Consonant_Repha" -> `Consonant_Repha 
+  | "Consonant_Subjoined" -> `Consonant_Subjoined
+  | "Consonant_Medial" -> `Consonant_Medial
+  | "Consonant_Final" -> `Consonant_Final
+  | "Consonant_Head_Letter" -> `Consonant_Head_Letter 
+  | "Modifying_Letter" -> `Modifying_Letter
+  | "Tone_Letter" -> `Tone_Letter
+  | "Tone_Mark" -> `Tone_Mark
+  | "Gemination_Mark" -> `Gemination_Mark
+  | "Cantillation_Mark" -> `Cantillation_Mark
+  | "Register_Shifter" -> `Register_Shifter 
+  | "Non_Joiner" -> `Non_Joiner
+  | "Joiner" -> `Joiner
+  | "Number_Joiner" -> `Number_Joiner
+  | "Number" -> `Number
+  | "Brahmi_Joining_Number" -> `Brahmi_Joining_Number
+  | "Other" -> `Other
+  | v -> err (err_att_val v)
 end
 
 let i_indic_matra_category v = Indic_matra_category_v begin match v with 
