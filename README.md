@@ -1,6 +1,6 @@
 Uucd — Unicode character database decoder for OCaml
 -------------------------------------------------------------------------------
-Release %%VERSION%%
+Release %%VERSION%% — Unicode version %%UNICODE_VERSION%%
 
 Uucd is an OCaml module to decode the data of the [Unicode character 
 database][1] from its XML [representation][2]. It provides high-level 
