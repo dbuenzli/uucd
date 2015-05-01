@@ -92,29 +92,30 @@ val bidi_mirroring_glyph : cp option prop
 val bidi_paired_bracket : [ `Self | `Cp of cp ] prop
 val bidi_paired_bracket_type : [ `O | `C | `N ] prop
 val block :
-[ `Aegean_Numbers | `Alchemical | `Alphabetic_PF | `Ancient_Greek_Music 
+[ `Aegean_Numbers | `Ahom | `Alchemical | `Alphabetic_PF
+| `Anatolian_Hieroglyphs | `Ancient_Greek_Music
 | `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A
 | `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian
 | `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah
 | `Batak | `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext
 | `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music
-| `Carian | `Caucasian_Albanian | `Chakma | `Cham | `Cherokee | `CJK 
-| `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs 
+| `Carian | `Caucasian_Albanian | `Chakma | `Cham | `Cherokee | `Cherokee_Sup
+| `CJK | `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs
 | `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C
-| `CJK_Ext_D | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols 
+| `CJK_Ext_D | `CJK_Ext_E | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols
 | `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers
 | `Counting_Rod
 | `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary
 | `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Sup | `Deseret
 | `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols
 | `Diacriticals_Sup | `Diacriticals_Ext | `Dingbats | `Domino | `Duployan
-| `Egyptian_Hieroglyphs | `Emoticons 
+| `Early_Dynastic_Cuneiform | `Egyptian_Hieroglyphs | `Emoticons
 | `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK
 | `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A
 | `Ethiopic_Sup | `Elbasan | `Geometric_Shapes | `Geometric_Shapes_Ext
 | `Georgian | `Georgian_Sup | `Glagolitic | `Gothic | `Grantha | `Greek
 | `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks
-| `Hangul | `Hanunoo | `Hebrew | `High_PU_Surrogates 
+| `Hangul | `Hanunoo | `Hatran | `Hebrew | `High_PU_Surrogates
 | `High_Surrogates | `Hiragana | `IDC | `Imperial_Aramaic
 | `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian
 | `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi
@@ -130,10 +131,11 @@ val block :
 | `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A
 | `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols
 | `Misc_Technical | `Modi | `Modifier_Letters
-| `Modifier_Tone_Letters | `Mongolian | `Mro | `Music | `Myanmar 
+| `Modifier_Tone_Letters | `Mongolian | `Mro | `Music | `Multani | `Myanmar
 | `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `NKo
-| `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Italic | `Old_North_Arabian 
-| `Old_Permic | `Old_Persian | `Old_South_Arabian | `Old_Turkic | `Oriya 
+| `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Hungarian | `Old_Italic
+| `Old_North_Arabian | `Old_Permic | `Old_Persian | `Old_South_Arabian
+| `Old_Turkic | `Oriya
 | `Ornamental_Dingbats | `Osmanya | `Pahawh_Hmong | `Palmyrene | `Pau_Cin_Hau
 | `Phags_Pa | `Phaistos | `Phoenician
 | `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi | `PUA
@@ -142,7 +144,8 @@ val block :
 | `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng
 | `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B
 | `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B
-| `Sup_Punctuation  | `Super_And_Sub | `Syloti_Nagri | `Syriac 
+| `Sup_Punctuation | `Sup_Symbols_And_Pictographs | `Super_And_Sub
+| `Sutton_SignWriting | `Syloti_Nagri | `Syriac
 | `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet
 | `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu | `Thaana | `Thai | `Tibetan
 | `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS
@@ -219,12 +222,14 @@ val indic_syllabic_category :
   | `Consonant_Medial
   | `Consonant_Final
   | `Consonant_Head_Letter
+  | `Consonant_Killer
   | `Modifying_Letter
   | `Tone_Letter
   | `Tone_Mark
   | `Gemination_Mark
   | `Cantillation_Mark
   | `Register_Shifter
+  | `Syllable_Modifier
   | `Non_Joiner
   | `Joiner
   | `Number_Joiner
@@ -237,6 +242,22 @@ val indic_matra_category :
   | `Top_And_Bottom | `Top_And_Right | `Top_And_Left | `Top_And_Left_And_Right
   | `Bottom_And_Right | `Top_And_Bottom_And_Right | `Overstruck | `Invisible
   | `NA ] prop
+
+val indic_positional_category :
+ [ `Bottom
+ | `Bottom_And_Right
+ | `Left
+ | `Left_And_Right
+ | `NA
+ | `Overstruck
+ | `Right
+ | `Top
+ | `Top_And_Bottom
+ | `Top_And_Bottom_And_Right
+ | `Top_And_Left
+ | `Top_And_Left_And_Right
+ | `Top_And_Right
+ | `Visual_Order_Left ] prop
 
 val iso_comment : string prop
 val jamo_short_name : string prop
@@ -308,21 +329,37 @@ val quotation_mark : bool prop
 val radical : bool prop
 
 type script =
-[ `Aghb | `Arab | `Armi | `Armn | `Avst | `Bali | `Bamu | `Bass | `Batk 
-| `Beng | `Bopo | `Brah | `Brai | `Bugi | `Buhd | `Cakm | `Cans | `Cari 
-| `Cham | `Cher | `Copt | `Cprt | `Cyrl | `Deva | `Dsrt | `Dupl | `Elba 
-| `Egyp | `Ethi | `Geor | `Glag | `Goth | `Gran | `Grek | `Gujr | `Guru 
-| `Hang | `Hani | `Hano | `Hebr | `Hira | `Hmng | `Hrkt | `Ital | `Java 
-| `Kali | `Kana | `Khar | `Khmr | `Khoj | `Knda | `Kthi | `Lana | `Laoo 
-| `Latn | `Lepc | `Limb | `Lina | `Linb | `Lisu | `Lyci | `Lydi | `Mahj 
+[ `Aghb | `Ahom | `Arab | `Armi | `Armn | `Avst
+| `Bali | `Bamu | `Bass | `Batk | `Beng | `Bopo | `Brah | `Brai | `Bugi
+| `Buhd
+| `Cakm | `Cans | `Cari | `Cham | `Cher | `Copt | `Cprt | `Cyrl
+| `Deva | `Dsrt | `Dupl
+| `Elba | `Egyp | `Ethi
+| `Geor | `Glag | `Goth | `Gran | `Grek | `Gujr | `Guru
+| `Hang | `Hani | `Hano | `Hatr | `Hebr | `Hira | `Hluw | `Hmng | `Hrkt
+| `Hung
+| `Ital
+| `Java
+| `Kali | `Kana | `Khar | `Khmr | `Khoj | `Knda | `Kthi
+| `Lana | `Laoo | `Latn | `Lepc | `Limb | `Lina | `Linb | `Lisu | `Lyci
+| `Lydi | `Mahj
 | `Mand | `Mani | `Mend | `Merc | `Mero | `Mlym | `Modi | `Mong | `Mroo
-| `Mtei | `Mymr | `Narb | `Nbat | `Nkoo | `Ogam | `Olck | `Orkh | `Orya 
-| `Osma | `Palm | `Pauc | `Perm | `Phag | `Phli | `Phlp | `Phnx | `Plrd 
-| `Prti | `Qaai | `Rjng | `Runr | `Samr | `Sarb | `Saur | `Shaw | `Shrd 
-| `Sidd | `Sind | `Sinh | `Sora | `Sund | `Sylo | `Syrc | `Tagb | `Takr 
-| `Tale | `Talu | `Taml | `Tavt | `Telu | `Tfng | `Tglg | `Thaa | `Thai 
-| `Tibt | `Tirh | `Ugar | `Vaii | `Wara | `Xpeo | `Xsux | `Yiii | `Zinh 
-| `Zyyy | `Zzzz ]
+| `Mtei | `Mult | `Mymr
+| `Narb | `Nbat | `Nkoo
+| `Ogam | `Olck | `Orkh | `Orya | `Osma
+| `Palm | `Pauc | `Perm | `Phag | `Phli | `Phlp | `Phnx | `Plrd | `Prti
+| `Qaai
+| `Rjng | `Runr
+| `Samr | `Sarb | `Saur | `Sgnw | `Shaw | `Shrd | `Sidd | `Sind | `Sinh
+| `Sora | `Sund | `Sylo | `Syrc
+| `Tagb | `Takr | `Tale | `Talu | `Taml | `Tavt | `Telu | `Tfng | `Tglg
+| `Thaa | `Thai | `Tibt | `Tirh
+| `Ugar
+| `Vaii
+| `Wara
+| `Xpeo | `Xsux
+| `Yiii
+| `Zinh | `Zyyy | `Zzzz ]
 
 val script : script prop
 val script_extensions : script list prop
@@ -415,6 +452,7 @@ val kIRG_MSource : string prop
 val kIRG_TSource : string prop
 val kIRG_USource : string prop
 val kIRG_VSource : string prop
+val kJa : string prop
 val kJHJ : string prop
 val kJIS0213 : string prop
 val kJapaneseKun : string prop
