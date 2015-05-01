@@ -18,42 +18,42 @@
     properties.
 
     Consult the {{!basics}basics}.
-    
+
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
-    {e Release %%VERSION%% — Unicode version %%UNICODE_VERSION%% — 
+    {e Release %%VERSION%% — Unicode version %%UNICODE_VERSION%% —
        %%MAINTAINER%% }
     {3 References}
     {ul
-    {- The Unicode Consortium. 
+    {- The Unicode Consortium.
     {e {{:http://www.unicode.org/versions/latest}The Unicode Standard}}.
     (latest version)}
-    {- Mark Davis, Ken Whistler. 
+    {- Mark Davis, Ken Whistler.
     {e {{:http://www.unicode.org/reports/tr44/}UAX #44 Unicode Character
     Database}}. (latest version)}
     {- Eric Muller.
-    {e {{:http://www.unicode.org/reports/tr42/}UAX #42 Unicode Character 
+    {e {{:http://www.unicode.org/reports/tr42/}UAX #42 Unicode Character
     Database in XML}}. (latest version)}} *)
 
 (** {1:chars Code points} *)
 
 type cp = int
-(** The type for Unicode {{:http://unicode.org/glossary/#code_point}code 
+(** The type for Unicode {{:http://unicode.org/glossary/#code_point}code
     points}, ranges from [0x0000] to [0x10_FFFF]. *)
 
-val is_cp : int -> bool 
+val is_cp : int -> bool
 (** [is_cp n] is [true] iff [n] a Unicode
-    {{:http://unicode.org/glossary/#code_point}code 
+    {{:http://unicode.org/glossary/#code_point}code
     point}. *)
 
 val is_scalar_value : int -> bool
-(** [is_scalar_value n] is [true] iff [n] is a Unicode 
+(** [is_scalar_value n] is [true] iff [n] is a Unicode
     {{:http://unicode.org/glossary/#Unicode_scalar_value}scalar value}. *)
 
 (** Code point maps. *)
 module Cpmap : Map.S with type key = cp
 
-(** {1:props Properties} 
+(** {1:props Properties}
 
     Properties are referenced by their name and property values by
     their
@@ -61,7 +61,7 @@ module Cpmap : Map.S with type key = cp
     abbreviated name}. To understand their semantics refer to the
     {{:http://www.unicode.org/versions/latest/}standard}. *)
 
-type props 
+type props
 (** The type for sets of properties. *)
 
 type 'a prop
@@ -75,7 +75,7 @@ val unknown_prop : string * string -> string prop
     whose expanded name is [(ns, n)]. This can be used to access a
     property unknown to the module. *)
 
-(** {2:nonunihan Non Unihan properties} 
+(** {2:nonunihan Non Unihan properties}
 
     In alphabetical order. *)
 
@@ -83,7 +83,7 @@ val age : [ `Version of int * int | `Unassigned ] prop
 val alphabetic : bool prop
 val ascii_hex_digit : bool prop
 val bidi_class :
-  [ `AL | `AN | `B | `BN | `CS | `EN | `ES | `ET | `L | `LRE | `LRO | `NSM 
+  [ `AL | `AN | `B | `BN | `CS | `EN | `ES | `ET | `L | `LRE | `LRO | `NSM
   | `ON | `PDF | `R | `RLE | `RLO | `S | `WS | `LRI | `RLI | `FSI | `PDI ] prop
 
 val bidi_control : bool prop
@@ -91,61 +91,61 @@ val bidi_mirrored : bool prop
 val bidi_mirroring_glyph : cp option prop
 val bidi_paired_bracket : [ `Self | `Cp of cp ] prop
 val bidi_paired_bracket_type : [ `O | `C | `N ] prop
-val block : 
+val block :
 [ `Aegean_Numbers | `Alchemical | `Alphabetic_PF | `Ancient_Greek_Music 
-| `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A 
-| `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian 
-| `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah 
-| `Batak | `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext 
-| `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music 
+| `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A
+| `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian
+| `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah
+| `Batak | `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext
+| `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music
 | `Carian | `Caucasian_Albanian | `Chakma | `Cham | `Cherokee | `CJK 
 | `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs 
-| `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C 
+| `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C
 | `CJK_Ext_D | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols 
-| `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers 
-| `Counting_Rod 
-| `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary 
-| `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Sup | `Deseret 
-| `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols 
+| `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers
+| `Counting_Rod
+| `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary
+| `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Sup | `Deseret
+| `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols
 | `Diacriticals_Sup | `Diacriticals_Ext | `Dingbats | `Domino | `Duployan
 | `Egyptian_Hieroglyphs | `Emoticons 
-| `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK 
-| `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A 
+| `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK
+| `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A
 | `Ethiopic_Sup | `Elbasan | `Geometric_Shapes | `Geometric_Shapes_Ext
-| `Georgian | `Georgian_Sup | `Glagolitic | `Gothic | `Grantha | `Greek 
-| `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks 
+| `Georgian | `Georgian_Sup | `Glagolitic | `Gothic | `Grantha | `Greek
+| `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks
 | `Hangul | `Hanunoo | `Hebrew | `High_PU_Surrogates 
-| `High_Surrogates | `Hiragana | `IDC | `Imperial_Aramaic 
-| `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian 
-| `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi 
-| `Kana_Sup | `Kanbun | `Kangxi | `Kannada | `Katakana | `Katakana_Ext 
+| `High_Surrogates | `Hiragana | `IDC | `Imperial_Aramaic
+| `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian
+| `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi
+| `Kana_Sup | `Kanbun | `Kangxi | `Kannada | `Katakana | `Katakana_Ext
 | `Kayah_Li | `Kharoshthi | `Khmer | `Khmer_Symbols | `Khojki | `Khudawadi
-| `Lao | `Latin_1_Sup | `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B 
-| `Latin_Ext_C | `Latin_Ext_D | `Latin_Ext_E | `Lepcha | `Letterlike_Symbols 
-| `Limbu | `Linear_A | `Linear_B_Ideograms 
-| `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian 
-| `Mahajani | `Mahjong 
-| `Malayalam | `Mandaic | `Manichaean | `Math_Alphanum | `Math_Operators 
-| `Meetei_Mayek | `Meetei_Mayek_Ext | `Mende_Kikakui | `Meroitic_Cursive 
-| `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A 
-| `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols 
-| `Misc_Technical | `Modi | `Modifier_Letters 
+| `Lao | `Latin_1_Sup | `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B
+| `Latin_Ext_C | `Latin_Ext_D | `Latin_Ext_E | `Lepcha | `Letterlike_Symbols
+| `Limbu | `Linear_A | `Linear_B_Ideograms
+| `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian
+| `Mahajani | `Mahjong
+| `Malayalam | `Mandaic | `Manichaean | `Math_Alphanum | `Math_Operators
+| `Meetei_Mayek | `Meetei_Mayek_Ext | `Mende_Kikakui | `Meroitic_Cursive
+| `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A
+| `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols
+| `Misc_Technical | `Modi | `Modifier_Letters
 | `Modifier_Tone_Letters | `Mongolian | `Mro | `Music | `Myanmar 
-| `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `NKo 
+| `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `NKo
 | `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Italic | `Old_North_Arabian 
 | `Old_Permic | `Old_Persian | `Old_South_Arabian | `Old_Turkic | `Oriya 
-| `Ornamental_Dingbats | `Osmanya | `Pahawh_Hmong | `Palmyrene | `Pau_Cin_Hau 
+| `Ornamental_Dingbats | `Osmanya | `Pahawh_Hmong | `Palmyrene | `Pau_Cin_Hau
 | `Phags_Pa | `Phaistos | `Phoenician
-| `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi | `PUA 
-| `Punctuation | `Rejang | `Rumi | `Runic | `Samaritan | `Saurashtra 
-| `Sharada | `Shavian | `Shorthand_Format_Controls | `Siddham | `Sinhala 
-| `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng 
-| `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B 
-| `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B 
+| `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi | `PUA
+| `Punctuation | `Rejang | `Rumi | `Runic | `Samaritan | `Saurashtra
+| `Sharada | `Shavian | `Shorthand_Format_Controls | `Siddham | `Sinhala
+| `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng
+| `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B
+| `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B
 | `Sup_Punctuation  | `Super_And_Sub | `Syloti_Nagri | `Syriac 
-| `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet 
-| `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu | `Thaana | `Thai | `Tibetan 
-| `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS 
+| `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet
+| `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu | `Thaana | `Thai | `Tibetan
+| `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS
 | `UCAS_Ext | `Ugaritic | `Vai | `Vedic_Ext | `Vertical_Forms | `VS | `VS_Sup
 | `Warang_Citi | `Yi_Radicals | `Yi_Syllables | `Yijing ] prop
 
@@ -164,7 +164,7 @@ val composition_exclusion : bool prop
 val dash : bool prop
 val decomposition_mapping : [`Self | `Cps of cp list ] prop
 val decomposition_type :
-  [ `Can  | `Com | `Enc | `Fin  | `Font | `Fra | `Init | `Iso | `Med | `Nar  
+  [ `Can  | `Com | `Enc | `Fin  | `Font | `Fra | `Init | `Iso | `Med | `Nar
   | `Nb   | `Sml | `Sqr  | `Sub | `Sup | `Vert | `Wide | `None ] prop
 
 val default_ignorable_code_point : bool prop
@@ -180,12 +180,12 @@ val fc_nfkc_closure : [ `Self | `Cps of cp list ] prop
 val full_composition_exclusion : bool prop
 val general_category :
   [ `Lu | `Ll | `Lt | `Lm | `Lo | `Mn | `Mc | `Me | `Nd | `Nl | `No
-  | `Pc | `Pd | `Ps | `Pe | `Pi | `Pf | `Po | `Sm | `Sc | `Sk | `So 
+  | `Pc | `Pd | `Ps | `Pe | `Pi | `Pf | `Po | `Sm | `Sc | `Sk | `So
   | `Zs | `Zl | `Zp | `Cc | `Cf | `Cs | `Co | `Cn ] prop
 
 val grapheme_base : bool prop
-val grapheme_cluster_break : 
-  [ `CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `RI | `SM | `T  | `V  
+val grapheme_cluster_break :
+  [ `CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `RI | `SM | `T  | `V
   | `XX ] prop
 
 val grapheme_extend : bool prop
@@ -198,10 +198,10 @@ val id_start : bool prop
 val ideographic : bool prop
 val ids_binary_operator : bool prop
 val ids_trinary_operator : bool prop
-val indic_syllabic_category : 
+val indic_syllabic_category :
   [ `Bindu
   | `Visarga
-  | `Avagraha 
+  | `Avagraha
   | `Nukta
   | `Virama
   | `Pure_Killer
@@ -209,22 +209,22 @@ val indic_syllabic_category :
   | `Vowel_Independent
   | `Vowel_Dependent
   | `Vowel
-  | `Consonant_Placeholder 
+  | `Consonant_Placeholder
   | `Consonant
-  | `Consonant_Dead 
+  | `Consonant_Dead
   | `Consonant_Preceding_Repha
   | `Consonant_Succeeding_Repha
-  | `Consonant_Repha 
+  | `Consonant_Repha
   | `Consonant_Subjoined
   | `Consonant_Medial
   | `Consonant_Final
-  | `Consonant_Head_Letter 
+  | `Consonant_Head_Letter
   | `Modifying_Letter
   | `Tone_Letter
   | `Tone_Mark
   | `Gemination_Mark
   | `Cantillation_Mark
-  | `Register_Shifter 
+  | `Register_Shifter
   | `Non_Joiner
   | `Joiner
   | `Number_Joiner
@@ -232,40 +232,40 @@ val indic_syllabic_category :
   | `Brahmi_Joining_Number
   | `Other ] prop
 
-val indic_matra_category : 
-  [ `Right | `Left | `Visual_Order_Left | `Left_And_Right | `Top | `Bottom 
-  | `Top_And_Bottom | `Top_And_Right | `Top_And_Left | `Top_And_Left_And_Right 
-  | `Bottom_And_Right | `Top_And_Bottom_And_Right | `Overstruck | `Invisible 
+val indic_matra_category :
+  [ `Right | `Left | `Visual_Order_Left | `Left_And_Right | `Top | `Bottom
+  | `Top_And_Bottom | `Top_And_Right | `Top_And_Left | `Top_And_Left_And_Right
+  | `Bottom_And_Right | `Top_And_Bottom_And_Right | `Overstruck | `Invisible
   | `NA ] prop
 
 val iso_comment : string prop
 val jamo_short_name : string prop
 val join_control : bool prop
-val joining_group : 
-  [ `Ain | `Alaph | `Alef | `Alef_Maqsurah | `Beh | `Beth 
+val joining_group :
+  [ `Ain | `Alaph | `Alef | `Alef_Maqsurah | `Beh | `Beth
   | `Burushaski_Yeh_Barree | `Dal | `Dalath_Rish | `E | `Farsi_Yeh | `Fe
   | `Feh | `Final_Semkath | `Gaf | `Gamal | `Hah | `Hamza_On_Heh_Goal
-  | `He | `Heh | `Heh_Goal | `Heth | `Kaf | `Kaph | `Khaph 
-  | `Knotted_Heh | `Lam | `Lamadh 
-  | `Manichaean_Aleph | `Manichaean_Ayin | `Manichaean_Beth 
-  | `Manichaean_Daleth | `Manichaean_Dhamedh | `Manichaean_Five 
-  | `Manichaean_Gimel | `Manichaean_Heth | `Manichaean_Hundred 
-  | `Manichaean_Kaph | `Manichaean_Lamedh | `Manichaean_Mem 
-  | `Manichaean_Nun | `Manichaean_One | `Manichaean_Pe | `Manichaean_Qoph 
-  | `Manichaean_Resh | `Manichaean_Sadhe | `Manichaean_Samekh 
-  | `Manichaean_Taw | `Manichaean_Ten | `Manichaean_Teth 
-  | `Manichaean_Thamedh | `Manichaean_Twenty | `Manichaean_Waw 
-  | `Manichaean_Yodh | `Manichaean_Zayin 
-  | `Meem | `Mim | `No_Joining_Group 
-  | `Noon | `Nun | `Nya | `Pe | `Qaf | `Qaph | `Reh | `Reversed_Pe 
-  | `Rohingya_Yeh | `Sad | `Sadhe | `Seen | `Semkath | `Shin 
-  | `Straight_Waw | `Swash_Kaf 
-  | `Syriac_Waw | `Tah | `Taw | `Teh_Marbuta | `Teh_Marbuta_Goal | `Teth 
-  | `Waw | `Yeh | `Yeh_Barree | `Yeh_With_Tail | `Yudh | `Yudh_He | `Zain 
+  | `He | `Heh | `Heh_Goal | `Heth | `Kaf | `Kaph | `Khaph
+  | `Knotted_Heh | `Lam | `Lamadh
+  | `Manichaean_Aleph | `Manichaean_Ayin | `Manichaean_Beth
+  | `Manichaean_Daleth | `Manichaean_Dhamedh | `Manichaean_Five
+  | `Manichaean_Gimel | `Manichaean_Heth | `Manichaean_Hundred
+  | `Manichaean_Kaph | `Manichaean_Lamedh | `Manichaean_Mem
+  | `Manichaean_Nun | `Manichaean_One | `Manichaean_Pe | `Manichaean_Qoph
+  | `Manichaean_Resh | `Manichaean_Sadhe | `Manichaean_Samekh
+  | `Manichaean_Taw | `Manichaean_Ten | `Manichaean_Teth
+  | `Manichaean_Thamedh | `Manichaean_Twenty | `Manichaean_Waw
+  | `Manichaean_Yodh | `Manichaean_Zayin
+  | `Meem | `Mim | `No_Joining_Group
+  | `Noon | `Nun | `Nya | `Pe | `Qaf | `Qaph | `Reh | `Reversed_Pe
+  | `Rohingya_Yeh | `Sad | `Sadhe | `Seen | `Semkath | `Shin
+  | `Straight_Waw | `Swash_Kaf
+  | `Syriac_Waw | `Tah | `Taw | `Teh_Marbuta | `Teh_Marbuta_Goal | `Teth
+  | `Waw | `Yeh | `Yeh_Barree | `Yeh_With_Tail | `Yudh | `Yudh_He | `Zain
   | `Zhain ] prop
 
 val joining_type : [ `U | `C | `T | `D | `L | `R ] prop
-val line_break : 
+val line_break :
   [ `AI | `AL | `B2 | `BA | `BB | `BK | `CB | `CJ | `CL | `CM | `CP | `CR | `EX
   | `GL | `H2 | `H3 | `HL | `HY | `ID | `IN | `IS | `JL | `JT | `JV | `LF | `NL
   | `NS | `NU | `OP | `PO | `PR | `QU | `RI | `SA | `SG | `SP | `SY | `WJ | `XX
@@ -282,8 +282,8 @@ val name : [`Pattern of string | `Name of string ] prop
     needed). E.g. the pattern ["CJK UNIFIED IDEOGRAPH-#"] associated
     to code point [U+3400] gives the name ["CJK UNIFIED IDEOGRAPH-3400"].  *)
 
-val name_alias : 
-  (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment]) 
+val name_alias :
+  (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment])
 list prop
 
 val nfc_quick_check : [ `True | `False | `Maybe ] prop
@@ -307,7 +307,7 @@ val pattern_white_space : bool prop
 val quotation_mark : bool prop
 val radical : bool prop
 
-type script = 
+type script =
 [ `Aghb | `Arab | `Armi | `Armn | `Avst | `Bali | `Bamu | `Bass | `Batk 
 | `Beng | `Bopo | `Brah | `Brai | `Bugi | `Buhd | `Cakm | `Cans | `Cari 
 | `Cham | `Cher | `Copt | `Cprt | `Cyrl | `Deva | `Dsrt | `Dupl | `Elba 
@@ -315,7 +315,7 @@ type script =
 | `Hang | `Hani | `Hano | `Hebr | `Hira | `Hmng | `Hrkt | `Ital | `Java 
 | `Kali | `Kana | `Khar | `Khmr | `Khoj | `Knda | `Kthi | `Lana | `Laoo 
 | `Latn | `Lepc | `Limb | `Lina | `Linb | `Lisu | `Lyci | `Lydi | `Mahj 
-| `Mand | `Mani | `Mend | `Merc | `Mero | `Mlym | `Modi | `Mong | `Mroo 
+| `Mand | `Mani | `Mend | `Merc | `Mero | `Mlym | `Modi | `Mong | `Mroo
 | `Mtei | `Mymr | `Narb | `Nbat | `Nkoo | `Ogam | `Olck | `Orkh | `Orya 
 | `Osma | `Palm | `Pauc | `Perm | `Phag | `Phli | `Phlp | `Phnx | `Plrd 
 | `Prti | `Qaai | `Rjng | `Runr | `Samr | `Sarb | `Saur | `Shaw | `Shrd 
@@ -327,7 +327,7 @@ type script =
 val script : script prop
 val script_extensions : script list prop
 
-val sentence_break : 
+val sentence_break :
   [ `AT | `CL | `CR | `EX | `FO | `LE | `LF | `LO | `NU | `SC | `SE | `SP
   | `ST | `UP | `XX ] prop
 
@@ -340,7 +340,7 @@ val sterm : bool prop
 val terminal_punctuation : bool prop
 val titlecase_mapping : [`Self | `Cps of cp list ] prop
 val uax_42_element : [ `Reserved | `Noncharacter | `Surrogate | `Char ] prop
-(** Not normative, artefact of [Uucd]. Corresponds to the 
+(** Not normative, artefact of [Uucd]. Corresponds to the
     {{:http://www.unicode.org/reports/tr42/#w1aac13b9b1}XML element name}
     that describes the code point. *)
 
@@ -465,48 +465,48 @@ val kZVariant : string prop
 type block = (cp * cp) * string
 (** The type for blocks. Code point range, name of the block. *)
 
-type named_sequence = string * cp list 
+type named_sequence = string * cp list
 (** The type for named sequences. Sequence name, code point sequence. *)
 
-type normalization_correction = 
+type normalization_correction =
     cp * cp list * cp list * (int * int * int)
-(** The type for normalization corrections. 
+(** The type for normalization corrections.
     Code point, old normalization, new normalization, version *)
 
-type standardized_variant = 
+type standardized_variant =
     cp list * string * [ `Isolate | `Initial | `Medial | `Final ] list
 (** The type for standarized variants. Code point sequence,
     description, when. *)
 
-type cjk_radical = string * cp * cp 
-(** The type for CJK radicals. Radical number, CJK radical character, 
+type cjk_radical = string * cp * cp
+(** The type for CJK radicals. Radical number, CJK radical character,
     CJK unified ideograph. *)
 
 type emoji_source = cp list * int option * int option * int option
 (** The type for emoji sources. Unicode, docomo, kddi, softbank. *)
 
-type t = 
-  { description : string; 
-    repertoire : props Cpmap.t; 
+type t =
+  { description : string;
+    repertoire : props Cpmap.t;
     blocks : block list;
     named_sequences : named_sequence list;
     provisional_named_sequences : named_sequence list;
     normalization_corrections : normalization_correction list;
-    standardized_variants : standardized_variant list; 
-    cjk_radicals : cjk_radical list; 
-    emoji_sources : emoji_source list; 
+    standardized_variants : standardized_variant list;
+    cjk_radicals : cjk_radical list;
+    emoji_sources : emoji_source list;
 }
-(** The type for Unicode character databases. 
-    
+(** The type for Unicode character databases.
+
     {b Note.} Absence of an optional top-level field in the database
     is denoted by the neutral element of its type (empty string, empty
     list, {!Cpmap.empty}).  This means that the module doesn't
     distinguish between absence of a field and presence of the field
     with empty data (but incurs no problems in this context). *)
-    
+
 val cp_prop : t -> cp -> 'a prop -> 'a option
 (** [cp_prop ucd cp p] is the property [p] of the code point [cp]
-    in [db]'s repertoire, if [p] is in the repertoire and the property 
+    in [db]'s repertoire, if [p] is in the repertoire and the property
     exists for [p]. *)
 
 (** {1:decoder Decode} *)
@@ -514,7 +514,7 @@ val cp_prop : t -> cp -> 'a prop -> 'a option
 type src = [ `Channel of in_channel | `String of string ]
 (** The type for input sources. *)
 
-type decoder 
+type decoder
 (** The type for Unicode character database decoders. *)
 
 val decoder : [< src] -> decoder
@@ -522,44 +522,44 @@ val decoder : [< src] -> decoder
 
 val decode : decoder -> [`Ok of t | `Error of string ]
 (** [decode d] decodes a database from [d] or returns an error. *)
-    
-val decoded_range : decoder -> (int * int) * (int * int) 
+
+val decoded_range : decoder -> (int * int) * (int * int)
 (** [decoded_range d] is the range of characters spanning the [`Error]
-    decoded by [d]. A pair of line and column numbers respectively one and 
+    decoded by [d]. A pair of line and column numbers respectively one and
     zero based. *)
 
-(** {1:basics Basics} 
+(** {1:basics Basics}
 
     The database and subsets of it for Unicode %%UNICODE_VERSION%% are
     available
     {{:http://www.unicode.org/Public/%%UNICODE_VERSION%%/ucdxml/}here}.
     Databases with groups should be preferred, they maximize value
     sharing and improve parsing performance.
-    
+
     A database is decoded as follows:
 {[
-let ucd_or_die inf = try 
+let ucd_or_die inf = try
   let ic = if inf = "-" then stdin else open_in inf in
-  let d = Uucd.decoder (`Channel ic) in 
-  match Uucd.decode d with 
-  | `Ok db -> db 
-  | `Error e -> 
+  let d = Uucd.decoder (`Channel ic) in
+  match Uucd.decode d with
+  | `Ok db -> db
+  | `Error e ->
     let (l0, c0), (l1, c1) = Uucd.decoded_range d in
-    Printf.eprintf "%s:%d.%d-%d.%d: %s\n%!" inf l0 c0 l1 c1 e; 
+    Printf.eprintf "%s:%d.%d-%d.%d: %s\n%!" inf l0 c0 l1 c1 e;
     exit 1
 with Sys_error e -> Printf.eprintf "%s\n%!" e; exit 1
 
 let ucd = ucd_or_die "/tmp/ucd.all.grouped.xml"
 ]}
-    The convenience function {!cp_prop} can be used to query 
-    the property of a given code point. For example the 
-    {{!general_category}general category} of [U+1F42B] 
+    The convenience function {!cp_prop} can be used to query
+    the property of a given code point. For example the
+    {{!general_category}general category} of [U+1F42B]
     is given by:
 {[
-let u_1F42B_gc = Uucd.cp_prop ucd 0x1F42B Uucd.general_category 
+let u_1F42B_gc = Uucd.cp_prop ucd 0x1F42B Uucd.general_category
 ]}
 *)
-    
+
 (*---------------------------------------------------------------------------
    Copyright 2012 Daniel C. Bünzli.
    All rights reserved.
@@ -567,7 +567,7 @@ let u_1F42B_gc = Uucd.cp_prop ucd 0x1F42B Uucd.general_category
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
-     
+
    1. Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
 
