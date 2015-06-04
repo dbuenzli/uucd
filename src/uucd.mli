@@ -202,40 +202,42 @@ val ideographic : bool prop
 val ids_binary_operator : bool prop
 val ids_trinary_operator : bool prop
 val indic_syllabic_category :
-  [ `Bindu
-  | `Visarga
-  | `Avagraha
-  | `Nukta
-  | `Virama
-  | `Pure_Killer
-  | `Invisible_Stacker
-  | `Vowel_Independent
-  | `Vowel_Dependent
-  | `Vowel
-  | `Consonant_Placeholder
+  [ `Avagraha
+  | `Bindu
+  | `Brahmi_Joining_Number
+  | `Cantillation_Mark
   | `Consonant
   | `Consonant_Dead
-  | `Consonant_Preceding_Repha
-  | `Consonant_Succeeding_Repha
-  | `Consonant_Repha
-  | `Consonant_Subjoined
-  | `Consonant_Medial
   | `Consonant_Final
   | `Consonant_Head_Letter
   | `Consonant_Killer
-  | `Modifying_Letter
-  | `Tone_Letter
-  | `Tone_Mark
+  | `Consonant_Medial
+  | `Consonant_Placeholder
+  | `Consonant_Preceding_Repha
+  | `Consonant_Prefixed
+  | `Consonant_Repha
+  | `Consonant_Subjoined
+  | `Consonant_Succeeding_Repha
+  | `Consonant_With_Stacker
   | `Gemination_Mark
-  | `Cantillation_Mark
+  | `Invisible_Stacker
+  | `Joiner
+  | `Modifying_Letter
+  | `Non_Joiner
+  | `Nukta
+  | `Number
+  | `Number_Joiner
+  | `Other
+  | `Pure_Killer
   | `Register_Shifter
   | `Syllable_Modifier
-  | `Non_Joiner
-  | `Joiner
-  | `Number_Joiner
-  | `Number
-  | `Brahmi_Joining_Number
-  | `Other ] prop
+  | `Tone_Letter
+  | `Tone_Mark
+  | `Virama
+  | `Visarga
+  | `Vowel
+  | `Vowel_Dependent
+  | `Vowel_Independent ] prop
 
 val indic_matra_category :
   [ `Right | `Left | `Visual_Order_Left | `Left_And_Right | `Top | `Bottom

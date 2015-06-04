@@ -391,40 +391,42 @@ type value =                                (* the type for property values. *)
 | Hangul_syllable_type_v of [ `L | `LV | `LVT | `T | `V | `NA ]
 | Int_v of int
 | Indic_syllabic_category_v of
-    [ `Bindu
-    | `Visarga
-    | `Avagraha
-    | `Nukta
-    | `Virama
-    | `Pure_Killer
-    | `Invisible_Stacker
-    | `Vowel_Independent
-    | `Vowel_Dependent
-    | `Vowel
-    | `Consonant_Placeholder
+    [ `Avagraha
+    | `Bindu
+    | `Brahmi_Joining_Number
+    | `Cantillation_Mark
     | `Consonant
     | `Consonant_Dead
-    | `Consonant_Preceding_Repha
-    | `Consonant_Succeeding_Repha
-    | `Consonant_Repha
-    | `Consonant_Subjoined
-    | `Consonant_Medial
     | `Consonant_Final
     | `Consonant_Head_Letter
     | `Consonant_Killer
-    | `Modifying_Letter
-    | `Tone_Letter
-    | `Tone_Mark
+    | `Consonant_Medial
+    | `Consonant_Placeholder
+    | `Consonant_Preceding_Repha
+    | `Consonant_Prefixed
+    | `Consonant_Repha
+    | `Consonant_Subjoined
+    | `Consonant_Succeeding_Repha
+    | `Consonant_With_Stacker
     | `Gemination_Mark
-    | `Cantillation_Mark
+    | `Invisible_Stacker
+    | `Joiner
+    | `Modifying_Letter
+    | `Non_Joiner
+    | `Nukta
+    | `Number
+    | `Number_Joiner
+    | `Other
+    | `Pure_Killer
     | `Register_Shifter
     | `Syllable_Modifier
-    | `Non_Joiner
-    | `Joiner
-    | `Number_Joiner
-    | `Number
-    | `Brahmi_Joining_Number
-    | `Other ]
+    | `Tone_Letter
+    | `Tone_Mark
+    | `Virama
+    | `Visarga
+    | `Vowel
+    | `Vowel_Dependent
+    | `Vowel_Independent ]
 | Indic_matra_category_v of
     [ `Right | `Left | `Visual_Order_Left | `Left_And_Right | `Top | `Bottom
     | `Top_And_Bottom | `Top_And_Right | `Top_And_Left
@@ -789,40 +791,42 @@ end
 
 let i_int v = try Int_v (int_of_string v) with Failure _ -> err (err_att_val v)
 let i_indic_syllabic_category v = Indic_syllabic_category_v begin match v with
-  | "Bindu" -> `Bindu
-  | "Visarga" -> `Visarga
   | "Avagraha" -> `Avagraha
-  | "Nukta" -> `Nukta
-  | "Virama" -> `Virama
-  | "Pure_Killer" -> `Pure_Killer
-  | "Invisible_Stacker" -> `Invisible_Stacker
-  | "Vowel_Independent" -> `Vowel_Independent
-  | "Vowel_Dependent" -> `Vowel_Dependent
-  | "Vowel" -> `Vowel
-  | "Consonant_Placeholder" -> `Consonant_Placeholder
+  | "Bindu" -> `Bindu
+  | "Brahmi_Joining_Number" -> `Brahmi_Joining_Number
+  | "Cantillation_Mark" -> `Cantillation_Mark
   | "Consonant" -> `Consonant
   | "Consonant_Dead" -> `Consonant_Dead
-  | "Consonant_Preceding_Repha" -> `Consonant_Preceding_Repha
-  | "Consonant_Succeeding_Repha" -> `Consonant_Succeeding_Repha
-  | "Consonant_Repha" -> `Consonant_Repha
-  | "Consonant_Subjoined" -> `Consonant_Subjoined
-  | "Consonant_Medial" -> `Consonant_Medial
   | "Consonant_Final" -> `Consonant_Final
   | "Consonant_Head_Letter" -> `Consonant_Head_Letter
   | "Consonant_Killer" -> `Consonant_Killer
-  | "Modifying_Letter" -> `Modifying_Letter
-  | "Tone_Letter" -> `Tone_Letter
-  | "Tone_Mark" -> `Tone_Mark
+  | "Consonant_Medial" -> `Consonant_Medial
+  | "Consonant_Placeholder" -> `Consonant_Placeholder
+  | "Consonant_Preceding_Repha" -> `Consonant_Preceding_Repha
+  | "Consonant_Prefixed" -> `Consonant_Prefixed
+  | "Consonant_Repha" -> `Consonant_Repha
+  | "Consonant_Subjoined" -> `Consonant_Subjoined
+  | "Consonant_Succeeding_Repha" -> `Consonant_Succeeding_Repha
+  | "Consonant_With_Stacker" -> `Consonant_With_Stacker
   | "Gemination_Mark" -> `Gemination_Mark
-  | "Cantillation_Mark" -> `Cantillation_Mark
+  | "Invisible_Stacker" -> `Invisible_Stacker
+  | "Joiner" -> `Joiner
+  | "Modifying_Letter" -> `Modifying_Letter
+  | "Non_Joiner" -> `Non_Joiner
+  | "Nukta" -> `Nukta
+  | "Number" -> `Number
+  | "Number_Joiner" -> `Number_Joiner
+  | "Other" -> `Other
+  | "Pure_Killer" -> `Pure_Killer
   | "Register_Shifter" -> `Register_Shifter
   | "Syllable_Modifier" -> `Syllable_Modifier
-  | "Non_Joiner" -> `Non_Joiner
-  | "Joiner" -> `Joiner
-  | "Number_Joiner" -> `Number_Joiner
-  | "Number" -> `Number
-  | "Brahmi_Joining_Number" -> `Brahmi_Joining_Number
-  | "Other" -> `Other
+  | "Tone_Letter" -> `Tone_Letter
+  | "Tone_Mark" -> `Tone_Mark
+  | "Virama" -> `Virama
+  | "Visarga" -> `Visarga
+  | "Vowel" -> `Vowel
+  | "Vowel_Dependent" -> `Vowel_Dependent
+  | "Vowel_Independent" -> `Vowel_Independent
   | v -> err (err_att_val v)
 end
 
