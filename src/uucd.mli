@@ -22,7 +22,7 @@
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
     {e Release %%VERSION%% — Unicode version %%UNICODE_VERSION%% —
-       %%MAINTAINER%% }
+       {{:%%PKG_HOMEPAGE%% }homepage}}
     {3 References}
     {ul
     {- The Unicode Consortium.
