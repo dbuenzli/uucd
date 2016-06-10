@@ -148,6 +148,7 @@ type key =                            (* the type for property keys (names). *)
 | Other_uppercase
 | Pattern_syntax
 | Pattern_white_space
+| Prepended_concatenation_mark
 | Quotation_mark
 | Radical
 | Script
@@ -257,12 +258,14 @@ type key =                            (* the type for property keys (names). *)
 | KRSKorean
 | KRSMerged
 | KRSUnicode
+| KRSTUnicode
 | KSBGY
 | KSemanticVariant
 | KSimplifiedVariant
 | KSpecializedSemanticVariant
 | KTaiwanTelegraph
 | KTang
+| KTGT_MergedSrc
 | KTotalStrokes
 | KTraditionalVariant
 | KVietnamese
@@ -273,8 +276,8 @@ type key =                            (* the type for property keys (names). *)
 | Other of (string * string)                           (* expanded XML name. *)
 
 type script =
-[ `Aghb | `Ahom | `Arab | `Armi | `Armn | `Avst
-| `Bali | `Bamu | `Bass | `Batk | `Beng | `Bopo | `Brah | `Brai | `Bugi
+[ `Adlm | `Aghb | `Ahom | `Arab | `Armi | `Armn | `Avst
+| `Bali | `Bamu | `Bass | `Batk | `Beng | `Bhks | `Bopo | `Brah | `Brai | `Bugi
 | `Buhd
 | `Cakm | `Cans | `Cari | `Cham | `Cher | `Copt | `Cprt | `Cyrl
 | `Deva | `Dsrt | `Dupl
@@ -286,17 +289,17 @@ type script =
 | `Java
 | `Kali | `Kana | `Khar | `Khmr | `Khoj | `Knda | `Kthi
 | `Lana | `Laoo | `Latn | `Lepc | `Limb | `Lina | `Linb | `Lisu | `Lyci
-| `Lydi | `Mahj
+| `Lydi | `Marc | `Mahj
 | `Mand | `Mani | `Mend | `Merc | `Mero | `Mlym | `Modi | `Mong | `Mroo
 | `Mtei | `Mult | `Mymr
-| `Narb | `Nbat | `Nkoo
-| `Ogam | `Olck | `Orkh | `Orya | `Osma
+| `Narb | `Nbat | `Newa | `Nkoo
+| `Ogam | `Olck | `Orkh | `Osge | `Orya | `Osma
 | `Palm | `Pauc | `Perm | `Phag | `Phli | `Phlp | `Phnx | `Plrd | `Prti
 | `Qaai
 | `Rjng | `Runr
 | `Samr | `Sarb | `Saur | `Sgnw | `Shaw | `Shrd | `Sidd | `Sind | `Sinh
 | `Sora | `Sund | `Sylo | `Syrc
-| `Tagb | `Takr | `Tale | `Talu | `Taml | `Tavt | `Telu | `Tfng | `Tglg
+| `Tagb | `Takr | `Tale | `Talu | `Tang | `Taml | `Tavt | `Telu | `Tfng | `Tglg
 | `Thaa | `Thai | `Tibt | `Tirh
 | `Ugar
 | `Vaii
@@ -305,69 +308,77 @@ type script =
 | `Yiii
 | `Zinh | `Zyyy | `Zzzz ]
 
+type block_prop =
+[ `Adlam | `Aegean_Numbers | `Ahom | `Alchemical | `Alphabetic_PF
+| `Anatolian_Hieroglyphs | `Ancient_Greek_Music
+| `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A
+| `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian
+| `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah
+| `Batak | `Bengali | `Bhaiksuki | `Block_Elements | `Bopomofo | `Bopomofo_Ext
+| `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music
+| `Carian | `Caucasian_Albanian | `Chakma | `Cham | `Cherokee | `Cherokee_Sup
+| `CJK | `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs
+| `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C
+| `CJK_Ext_D | `CJK_Ext_E | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols
+| `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers
+| `Counting_Rod
+| `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary
+| `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Ext_C
+| `Cyrillic_Sup | `Deseret
+| `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols
+| `Diacriticals_Sup | `Diacriticals_Ext | `Dingbats | `Domino | `Duployan
+| `Early_Dynastic_Cuneiform | `Egyptian_Hieroglyphs | `Emoticons
+| `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK
+| `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A
+| `Ethiopic_Sup | `Elbasan | `Geometric_Shapes | `Geometric_Shapes_Ext
+| `Georgian | `Georgian_Sup | `Glagolitic | `Glagolitic_Sup
+| `Gothic | `Grantha | `Greek
+| `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks
+| `Hangul | `Hanunoo | `Hatran | `Hebrew | `High_PU_Surrogates
+| `High_Surrogates | `Hiragana | `IDC | `Ideographic_Symbols | `Imperial_Aramaic
+| `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian
+| `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi
+| `Kana_Sup | `Kanbun | `Kangxi | `Kannada | `Katakana | `Katakana_Ext
+| `Kayah_Li | `Kharoshthi | `Khmer | `Khmer_Symbols | `Khojki | `Khudawadi
+| `Lao | `Latin_1_Sup | `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B
+| `Latin_Ext_C | `Latin_Ext_D | `Latin_Ext_E | `Lepcha | `Letterlike_Symbols
+| `Limbu | `Linear_A | `Linear_B_Ideograms
+| `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian
+| `Mahajani | `Mahjong
+| `Malayalam | `Mandaic | `Manichaean | `Marchen | `Math_Alphanum
+| `Math_Operators
+| `Meetei_Mayek | `Meetei_Mayek_Ext | `Mende_Kikakui | `Meroitic_Cursive
+| `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A
+| `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols
+| `Misc_Technical | `Modi | `Modifier_Letters
+| `Modifier_Tone_Letters | `Mongolian | `Mongolian_Sup | `Mro | `Music
+| `Multani | `Myanmar
+| `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `Newa
+| `NKo
+| `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Hungarian | `Old_Italic
+| `Old_North_Arabian | `Old_Permic | `Old_Persian | `Old_South_Arabian
+| `Old_Turkic | `Oriya
+| `Ornamental_Dingbats | `Osage | `Osmanya | `Pahawh_Hmong | `Palmyrene
+| `Pau_Cin_Hau
+| `Phags_Pa | `Phaistos | `Phoenician
+| `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi | `PUA
+| `Punctuation | `Rejang | `Rumi | `Runic | `Samaritan | `Saurashtra
+| `Sharada | `Shavian | `Shorthand_Format_Controls | `Siddham | `Sinhala
+| `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng
+| `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B
+| `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B
+| `Sup_Punctuation | `Sup_Symbols_And_Pictographs | `Super_And_Sub
+| `Sutton_SignWriting | `Syloti_Nagri | `Syriac
+| `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet
+| `Tai_Xuan_Jing | `Takri | `Tamil | `Tangut | `Tangut_Components
+| `Telugu | `Thaana | `Thai | `Tibetan
+| `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS
+| `UCAS_Ext | `Ugaritic | `Vai | `Vedic_Ext | `Vertical_Forms | `VS | `VS_Sup
+| `Warang_Citi | `Yi_Radicals | `Yi_Syllables | `Yijing ]
+
 type value =                                (* the type for property values. *)
 | Age_v of [ `Version of int * int | `Unassigned ]
-| Block_v of
-    [ `Aegean_Numbers | `Ahom | `Alchemical | `Alphabetic_PF
-    | `Anatolian_Hieroglyphs | `Ancient_Greek_Music
-    | `Ancient_Greek_Numbers | `Ancient_Symbols | `Arabic | `Arabic_Ext_A
-    | `Arabic_Math | `Arabic_PF_A | `Arabic_PF_B | `Arabic_Sup | `Armenian
-    | `Arrows | `ASCII | `Avestan | `Balinese | `Bamum | `Bamum_Sup | `Bassa_Vah
-    | `Batak | `Bengali | `Block_Elements | `Bopomofo | `Bopomofo_Ext
-    | `Box_Drawing | `Brahmi | `Braille | `Buginese | `Buhid | `Byzantine_Music
-    | `Carian | `Caucasian_Albanian | `Chakma | `Cham
-    | `Cherokee | `Cherokee_Sup
-    | `CJK | `CJK_Compat | `CJK_Compat_Forms | `CJK_Compat_Ideographs
-    | `CJK_Compat_Ideographs_Sup | `CJK_Ext_A | `CJK_Ext_B | `CJK_Ext_C
-    | `CJK_Ext_D | `CJK_Ext_E | `CJK_Radicals_Sup | `CJK_Strokes | `CJK_Symbols
-    | `Compat_Jamo | `Control_Pictures | `Coptic | `Coptic_Epact_Numbers
-    | `Counting_Rod
-    | `Cuneiform | `Cuneiform_Numbers | `Currency_Symbols | `Cypriot_Syllabary
-    | `Cyrillic | `Cyrillic_Ext_A | `Cyrillic_Ext_B | `Cyrillic_Sup | `Deseret
-    | `Devanagari | `Devanagari_Ext | `Diacriticals | `Diacriticals_For_Symbols
-    | `Diacriticals_Sup | `Diacriticals_Ext | `Dingbats | `Domino | `Duployan
-    | `Early_Dynastic_Cuneiform | `Egyptian_Hieroglyphs | `Emoticons
-    | `Enclosed_Alphanum | `Enclosed_Alphanum_Sup | `Enclosed_CJK
-    | `Enclosed_Ideographic_Sup | `Ethiopic | `Ethiopic_Ext | `Ethiopic_Ext_A
-    | `Ethiopic_Sup | `Elbasan | `Geometric_Shapes | `Geometric_Shapes_Ext
-    | `Georgian | `Georgian_Sup | `Glagolitic | `Gothic | `Grantha | `Greek
-    | `Greek_Ext | `Gujarati | `Gurmukhi | `Half_And_Full_Forms | `Half_Marks
-    | `Hangul | `Hanunoo | `Hatran | `Hebrew | `High_PU_Surrogates
-    | `High_Surrogates | `Hiragana | `IDC | `Imperial_Aramaic
-    | `Indic_Number_Forms | `Inscriptional_Pahlavi | `Inscriptional_Parthian
-    | `IPA_Ext | `Jamo | `Jamo_Ext_A | `Jamo_Ext_B | `Javanese | `Kaithi
-    | `Kana_Sup | `Kanbun | `Kangxi | `Kannada | `Katakana | `Katakana_Ext
-    | `Kayah_Li | `Kharoshthi | `Khmer | `Khmer_Symbols | `Khojki | `Khudawadi
-    | `Lao | `Latin_1_Sup | `Latin_Ext_A | `Latin_Ext_Additional | `Latin_Ext_B
-    | `Latin_Ext_C | `Latin_Ext_D | `Latin_Ext_E | `Lepcha | `Letterlike_Symbols
-    | `Limbu | `Linear_A | `Linear_B_Ideograms
-    | `Linear_B_Syllabary | `Lisu | `Low_Surrogates | `Lycian | `Lydian
-    | `Mahajani | `Mahjong
-    | `Malayalam | `Mandaic | `Manichaean | `Math_Alphanum | `Math_Operators
-    | `Meetei_Mayek | `Meetei_Mayek_Ext | `Mende_Kikakui | `Meroitic_Cursive
-    | `Meroitic_Hieroglyphs | `Miao | `Misc_Arrows | `Misc_Math_Symbols_A
-    | `Misc_Math_Symbols_B | `Misc_Pictographs | `Misc_Symbols
-    | `Misc_Technical | `Modi | `Modifier_Letters
-    | `Modifier_Tone_Letters | `Mongolian | `Mro | `Music | `Multani | `Myanmar
-    | `Myanmar_Ext_A | `Myanmar_Ext_B | `Nabataean | `NB | `New_Tai_Lue | `NKo
-    | `Number_Forms | `OCR | `Ogham | `Ol_Chiki | `Old_Hungarian | `Old_Italic
-    | `Old_North_Arabian | `Old_Permic | `Old_Persian | `Old_South_Arabian
-    | `Old_Turkic | `Oriya | `Ornamental_Dingbats | `Osmanya | `Pahawh_Hmong
-    | `Palmyrene | `Pau_Cin_Hau | `Phags_Pa | `Phaistos | `Phoenician
-    | `Phonetic_Ext | `Phonetic_Ext_Sup | `Playing_Cards | `Psalter_Pahlavi
-    | `PUA
-    | `Punctuation | `Rejang | `Rumi | `Runic | `Samaritan | `Saurashtra
-    | `Sharada | `Shavian | `Shorthand_Format_Controls | `Siddham | `Sinhala
-    | `Sinhala_Archaic_Numbers | `Small_Forms | `Sora_Sompeng
-    | `Specials | `Sundanese | `Sundanese_Sup | `Sup_Arrows_A | `Sup_Arrows_B
-    | `Sup_Arrows_C | `Sup_Math_Operators | `Sup_PUA_A | `Sup_PUA_B
-    | `Sup_Punctuation | `Sup_Symbols_And_Pictographs | `Super_And_Sub
-    | `Sutton_SignWriting | `Syloti_Nagri | `Syriac
-    | `Tagalog | `Tagbanwa | `Tags | `Tai_Le | `Tai_Tham | `Tai_Viet
-    | `Tai_Xuan_Jing | `Takri | `Tamil | `Telugu | `Thaana | `Thai | `Tibetan
-    | `Tifinagh | `Tirhuta | `Transport_And_Map | `UCAS
-    | `UCAS_Ext | `Ugaritic | `Vai | `Vedic_Ext | `Vertical_Forms | `VS
-    | `VS_Sup | `Warang_Citi | `Yi_Radicals | `Yi_Syllables | `Yijing ]
+| Block_v of block_prop
 | Bidi_class_v of
     [ `AL | `AN | `B | `BN | `CS | `EN | `ES | `ET | `L | `LRE | `LRO | `NSM
     | `ON | `PDF | `R | `RLE | `RLO | `S | `WS | `LRI | `RLI | `FSI | `PDI ]
@@ -385,9 +396,25 @@ type value =                                (* the type for property values. *)
     [ `Lu | `Ll | `Lt | `Lm | `Lo | `Mn | `Mc | `Me | `Nd | `Nl | `No | `Pc
     | `Pd | `Ps | `Pe | `Pi | `Pf | `Po | `Sm | `Sc | `Sk | `So | `Zs | `Zl
     | `Zp | `Cc | `Cf | `Cs | `Co | `Cn ]
-| Grapheme_cluster_break_v of
-    [`CN | `CR | `EX | `L  | `LF |  `LV | `LVT | `PP | `RI | `SM | `T  | `V
-    | `XX ]
+| Grapheme_cluster_break_v of [
+  | `CN
+  | `CR
+  | `EB
+  | `EBG
+  | `EM
+  | `EX
+  | `GAZ
+  | `L
+  | `LF
+  | `LV
+  | `LVT
+  | `PP
+  | `RI
+  | `SM
+  | `T
+  | `V
+  | `XX
+  | `ZWJ ]
 | Hangul_syllable_type_v of [ `L | `LV | `LVT | `T | `V | `NA ]
 | Int_v of int
 | Indic_syllabic_category_v of
@@ -447,34 +474,144 @@ type value =                                (* the type for property values. *)
     | `Top_And_Left_And_Right
     | `Top_And_Right
     | `Visual_Order_Left ]
-| Joining_group_v of
-    [ `Ain | `Alaph | `Alef | `Alef_Maqsurah | `Beh | `Beth
-    | `Burushaski_Yeh_Barree | `Dal | `Dalath_Rish | `E | `Farsi_Yeh | `Fe
-    | `Feh | `Final_Semkath | `Gaf | `Gamal | `Hah | `Hamza_On_Heh_Goal
-    | `He | `Heh | `Heh_Goal | `Heth | `Kaf | `Kaph | `Khaph
-    | `Knotted_Heh | `Lam | `Lamadh
-    | `Manichaean_Aleph | `Manichaean_Ayin | `Manichaean_Beth
-    | `Manichaean_Daleth | `Manichaean_Dhamedh | `Manichaean_Five
-    | `Manichaean_Gimel | `Manichaean_Heth | `Manichaean_Hundred
-    | `Manichaean_Kaph | `Manichaean_Lamedh | `Manichaean_Mem
-    | `Manichaean_Nun | `Manichaean_One | `Manichaean_Pe | `Manichaean_Qoph
-    | `Manichaean_Resh | `Manichaean_Sadhe | `Manichaean_Samekh
-    | `Manichaean_Taw | `Manichaean_Ten | `Manichaean_Teth
-    | `Manichaean_Thamedh | `Manichaean_Twenty | `Manichaean_Waw
-    | `Manichaean_Yodh | `Manichaean_Zayin
-    | `Meem | `Mim | `No_Joining_Group
-    | `Noon | `Nun | `Nya | `Pe | `Qaf | `Qaph | `Reh | `Reversed_Pe
-    | `Rohingya_Yeh | `Sad | `Sadhe | `Seen | `Semkath | `Shin
-    | `Straight_Waw | `Swash_Kaf
-    | `Syriac_Waw | `Tah | `Taw | `Teh_Marbuta | `Teh_Marbuta_Goal | `Teth
-    | `Waw | `Yeh | `Yeh_Barree | `Yeh_With_Tail | `Yudh | `Yudh_He | `Zain
+| Joining_group_v of [
+    | `African_Feh
+    | `African_Noon
+    | `African_Qaf
+    | `Ain
+    | `Alaph
+    | `Alef
+    | `Alef_Maqsurah
+    | `Beh
+    | `Beth
+    | `Burushaski_Yeh_Barree
+    | `Dal
+    | `Dalath_Rish
+    | `E
+    | `Farsi_Yeh
+    | `Fe
+    | `Feh
+    | `Final_Semkath
+    | `Gaf
+    | `Gamal
+    | `Hah
+    | `Hamza_On_Heh_Goal
+    | `He
+    | `Heh
+    | `Heh_Goal
+    | `Heth
+    | `Kaf
+    | `Kaph
+    | `Khaph
+    | `Knotted_Heh
+    | `Lam
+    | `Lamadh
+    | `Manichaean_Aleph
+    | `Manichaean_Ayin
+    | `Manichaean_Beth
+    | `Manichaean_Daleth
+    | `Manichaean_Dhamedh
+    | `Manichaean_Five
+    | `Manichaean_Gimel
+    | `Manichaean_Heth
+    | `Manichaean_Hundred
+    | `Manichaean_Kaph
+    | `Manichaean_Lamedh
+    | `Manichaean_Mem
+    | `Manichaean_Nun
+    | `Manichaean_One
+    | `Manichaean_Pe
+    | `Manichaean_Qoph
+    | `Manichaean_Resh
+    | `Manichaean_Sadhe
+    | `Manichaean_Samekh
+    | `Manichaean_Taw
+    | `Manichaean_Ten
+    | `Manichaean_Teth
+    | `Manichaean_Thamedh
+    | `Manichaean_Twenty
+    | `Manichaean_Waw
+    | `Manichaean_Yodh
+    | `Manichaean_Zayin
+    | `Meem
+    | `Mim
+    | `No_Joining_Group
+    | `Noon
+    | `Nun
+    | `Nya
+    | `Pe
+    | `Qaf
+    | `Qaph
+    | `Reh
+    | `Reversed_Pe
+    | `Rohingya_Yeh
+    | `Sad
+    | `Sadhe
+    | `Seen
+    | `Semkath
+    | `Shin
+    | `Straight_Waw
+    | `Swash_Kaf
+    | `Syriac_Waw
+    | `Tah
+    | `Taw
+    | `Teh_Marbuta
+    | `Teh_Marbuta_Goal
+    | `Teth
+    | `Waw
+    | `Yeh
+    | `Yeh_Barree
+    | `Yeh_With_Tail
+    | `Yudh
+    | `Yudh_He
+    | `Zain
     | `Zhain ]
 | Joining_type_v of [ `U | `C | `T | `D | `L | `R ]
-| Line_break_v of
-    [ `AI | `AL | `B2 | `BA | `BB | `BK | `CB | `CJ | `CL | `CM | `CP | `CR
-    | `EX | `GL | `H2 | `H3 | `HL | `HY | `ID | `IN | `IS | `JL | `JT | `JV
-    | `LF | `NL | `NS | `NU | `OP | `PO | `PR | `QU | `RI | `SA | `SG | `SP
-    | `SY | `WJ | `XX | `ZW ]
+| Line_break_v of [
+    | `AI
+    | `AL
+    | `B2
+    | `BA
+    | `BB
+    | `BK
+    | `CB
+    | `CJ
+    | `CL
+    | `CM
+    | `CP
+    | `CR
+    | `EX
+    | `GL
+    | `H2
+    | `H3
+    | `HL
+    | `HY
+    | `ID
+    | `IN
+    | `IS
+    | `JL
+    | `JT
+    | `JV
+    | `LF
+    | `NL
+    | `NS
+    | `NU
+    | `OP
+    | `PO
+    | `PR
+    | `QU
+    | `RI
+    | `SA
+    | `SG
+    | `SP
+    | `SY
+    | `WJ
+    | `XX
+    | `ZW
+    | `EB
+    | `EM
+    | `ZWJ
+  ]
 | Name_v of [`Pattern of string | `Name of string ]
 | Name_alias_v of
     (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment])
@@ -490,9 +627,30 @@ type value =                                (* the type for property values. *)
 | Cps_map_v of [ `Self | `Cps of cp list ]
 | String_v of string
 | UAX_42_element_v of [ `Reserved | `Noncharacter | `Surrogate | `Char ]
-| Word_break_v of
-    [ `CR | `EX | `Extend | `FO | `KA | `LE | `LF | `MB | `ML | `MN | `NL
-    | `NU | `RI | `XX | `DQ | `HL | `SQ ]
+| Word_break_v of [
+  | `CR
+  | `DQ
+  | `EB
+  | `EBG
+  | `EM
+  | `EX
+  | `Extend
+  | `FO
+  | `GAZ
+  | `HL
+  | `KA
+  | `LE
+  | `LF
+  | `MB
+  | `ML
+  | `MN
+  | `NL
+  | `NU
+  | `RI
+  | `SQ
+  | `XX
+  | `ZWJ
+  ]
 
 (* property value projection *)
 
@@ -572,6 +730,8 @@ let i_bidi_paired_bracket_type v = Bidi_paired_bracket_type_v begin match v with
 end
 
 let i_block v = Block_v begin match v with
+| "ASCII" -> `ASCII
+| "Adlam" -> `Adlam
 | "Aegean_Numbers" -> `Aegean_Numbers
 | "Ahom" -> `Ahom
 | "Alchemical" -> `Alchemical
@@ -588,7 +748,6 @@ let i_block v = Block_v begin match v with
 | "Arabic_Sup" -> `Arabic_Sup
 | "Armenian" -> `Armenian
 | "Arrows" -> `Arrows
-| "ASCII" -> `ASCII
 | "Avestan" -> `Avestan
 | "Balinese" -> `Balinese
 | "Bamum" -> `Bamum
@@ -596,6 +755,7 @@ let i_block v = Block_v begin match v with
 | "Bassa_Vah" -> `Bassa_Vah
 | "Batak" -> `Batak
 | "Bengali" -> `Bengali
+| "Bhaiksuki" -> `Bhaiksuki
 | "Block_Elements" -> `Block_Elements
 | "Bopomofo" -> `Bopomofo
 | "Bopomofo_Ext" -> `Bopomofo_Ext
@@ -605,12 +765,6 @@ let i_block v = Block_v begin match v with
 | "Buginese" -> `Buginese
 | "Buhid" -> `Buhid
 | "Byzantine_Music" -> `Byzantine_Music
-| "Carian" -> `Carian
-| "Caucasian_Albanian" -> `Caucasian_Albanian
-| "Chakma" -> `Chakma
-| "Cham" -> `Cham
-| "Cherokee" -> `Cherokee
-| "Cherokee_Sup" -> `Cherokee_Sup
 | "CJK" -> `CJK
 | "CJK_Compat" -> `CJK_Compat
 | "CJK_Compat_Forms" -> `CJK_Compat_Forms
@@ -624,6 +778,12 @@ let i_block v = Block_v begin match v with
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
+| "Carian" -> `Carian
+| "Caucasian_Albanian" -> `Caucasian_Albanian
+| "Chakma" -> `Chakma
+| "Cham" -> `Cham
+| "Cherokee" -> `Cherokee
+| "Cherokee_Sup" -> `Cherokee_Sup
 | "Compat_Jamo" -> `Compat_Jamo
 | "Control_Pictures" -> `Control_Pictures
 | "Coptic" -> `Coptic
@@ -636,14 +796,15 @@ let i_block v = Block_v begin match v with
 | "Cyrillic" -> `Cyrillic
 | "Cyrillic_Ext_A" -> `Cyrillic_Ext_A
 | "Cyrillic_Ext_B" -> `Cyrillic_Ext_B
+| "Cyrillic_Ext_C" -> `Cyrillic_Ext_C
 | "Cyrillic_Sup" -> `Cyrillic_Sup
 | "Deseret" -> `Deseret
 | "Devanagari" -> `Devanagari
 | "Devanagari_Ext" -> `Devanagari_Ext
 | "Diacriticals" -> `Diacriticals
+| "Diacriticals_Ext" -> `Diacriticals_Ext
 | "Diacriticals_For_Symbols" -> `Diacriticals_For_Symbols
 | "Diacriticals_Sup" -> `Diacriticals_Sup
-| "Diacriticals_Ext" -> `Diacriticals_Ext
 | "Dingbats" -> `Dingbats
 | "Domino" -> `Domino
 | "Duployan" -> `Duployan
@@ -664,6 +825,7 @@ let i_block v = Block_v begin match v with
 | "Georgian" -> `Georgian
 | "Georgian_Sup" -> `Georgian_Sup
 | "Glagolitic" -> `Glagolitic
+| "Glagolitic_Sup" -> `Glagolitic_Sup
 | "Gothic" -> `Gothic
 | "Grantha" -> `Grantha
 | "Greek" -> `Greek
@@ -680,11 +842,12 @@ let i_block v = Block_v begin match v with
 | "High_Surrogates" -> `High_Surrogates
 | "Hiragana" -> `Hiragana
 | "IDC" -> `IDC
+| "IPA_Ext" -> `IPA_Ext
+| "Ideographic_Symbols" -> `Ideographic_Symbols
 | "Imperial_Aramaic" -> `Imperial_Aramaic
 | "Indic_Number_Forms" -> `Indic_Number_Forms
 | "Inscriptional_Pahlavi" -> `Inscriptional_Pahlavi
 | "Inscriptional_Parthian" -> `Inscriptional_Parthian
-| "IPA_Ext" -> `IPA_Ext
 | "Jamo" -> `Jamo
 | "Jamo_Ext_A" -> `Jamo_Ext_A
 | "Jamo_Ext_B" -> `Jamo_Ext_B
@@ -725,6 +888,7 @@ let i_block v = Block_v begin match v with
 | "Malayalam" -> `Malayalam
 | "Mandaic" -> `Mandaic
 | "Manichaean" -> `Manichaean
+| "Marchen" -> `Marchen
 | "Math_Alphanum" -> `Math_Alphanum
 | "Math_Operators" -> `Math_Operators
 | "Meetei_Mayek" -> `Meetei_Mayek
@@ -743,16 +907,18 @@ let i_block v = Block_v begin match v with
 | "Modifier_Letters" -> `Modifier_Letters
 | "Modifier_Tone_Letters" -> `Modifier_Tone_Letters
 | "Mongolian" -> `Mongolian
+| "Mongolian_Sup" -> `Mongolian_Sup
 | "Mro" -> `Mro
-| "Music" -> `Music
 | "Multani" -> `Multani
+| "Music" -> `Music
 | "Myanmar" -> `Myanmar
 | "Myanmar_Ext_A" -> `Myanmar_Ext_A
 | "Myanmar_Ext_B" -> `Myanmar_Ext_B
-| "Nabataean" -> `Nabataean
 | "NB" -> `NB
-| "New_Tai_Lue" -> `New_Tai_Lue
 | "NKo" -> `NKo
+| "Nabataean" -> `Nabataean
+| "New_Tai_Lue" -> `New_Tai_Lue
+| "Newa" -> `Newa
 | "Number_Forms" -> `Number_Forms
 | "OCR" -> `OCR
 | "Ogham" -> `Ogham
@@ -766,7 +932,9 @@ let i_block v = Block_v begin match v with
 | "Old_Turkic" -> `Old_Turkic
 | "Oriya" -> `Oriya
 | "Ornamental_Dingbats" -> `Ornamental_Dingbats
+| "Osage" -> `Osage
 | "Osmanya" -> `Osmanya
+| "PUA" -> `PUA
 | "Pahawh_Hmong" -> `Pahawh_Hmong
 | "Palmyrene" -> `Palmyrene
 | "Pau_Cin_Hau" -> `Pau_Cin_Hau
@@ -777,7 +945,6 @@ let i_block v = Block_v begin match v with
 | "Phonetic_Ext_Sup" -> `Phonetic_Ext_Sup
 | "Playing_Cards" -> `Playing_Cards
 | "Psalter_Pahlavi" -> `Psalter_Pahlavi
-| "PUA" -> `PUA
 | "Punctuation" -> `Punctuation
 | "Rejang" -> `Rejang
 | "Rumi" -> `Rumi
@@ -815,6 +982,8 @@ let i_block v = Block_v begin match v with
 | "Tai_Xuan_Jing" -> `Tai_Xuan_Jing
 | "Takri" -> `Takri
 | "Tamil" -> `Tamil
+| "Tangut" -> `Tangut
+| "Tangut_Components" -> `Tangut_Components
 | "Telugu" -> `Telugu
 | "Thaana" -> `Thaana
 | "Thai" -> `Thai
@@ -825,11 +994,11 @@ let i_block v = Block_v begin match v with
 | "UCAS" -> `UCAS
 | "UCAS_Ext" -> `UCAS_Ext
 | "Ugaritic" -> `Ugaritic
+| "VS" -> `VS
+| "VS_Sup" -> `VS_Sup
 | "Vai" -> `Vai
 | "Vedic_Ext" -> `Vedic_Ext
 | "Vertical_Forms" -> `Vertical_Forms
-| "VS" -> `VS
-| "VS_Sup" -> `VS_Sup
 | "Warang_Citi" -> `Warang_Citi
 | "Yi_Radicals" -> `Yi_Radicals
 | "Yi_Syllables" -> `Yi_Syllables
@@ -883,9 +1052,24 @@ let i_general_category v = General_category_v begin match v with
 end
 
 let i_grapheme_cluster_break v = Grapheme_cluster_break_v begin match v with
-| "CN" -> `CN | "CR" -> `CR | "EX" -> `EX | "L" -> `L  | "LF" -> `LF
-| "LV" -> `LV | "LVT" -> `LVT | "PP" -> `PP | "RI" -> `RI | "SM" -> `SM
-| "T" -> `T  | "V" -> `V  | "XX" -> `XX
+| "CN" -> `CN
+| "CR" -> `CR
+| "EB" -> `EB
+| "EBG" -> `EBG
+| "EM" -> `EM
+| "EX" -> `EX
+| "GAZ" -> `GAZ
+| "L" -> `L
+| "LF" -> `LF
+| "LV" -> `LV
+| "LVT" -> `LVT
+| "PP" -> `PP
+| "RI" -> `RI
+| "SM" -> `SM
+| "T" -> `T
+| "V" -> `V
+| "XX" -> `XX
+| "ZWJ" -> `ZWJ
 | v -> err (err_att_val v)
 end
 
@@ -968,16 +1152,37 @@ begin match v with
 end
 
 let i_joining_group v = Joining_group_v begin match v with
-| "Ain" -> `Ain | "Alaph" -> `Alaph | "Alef" -> `Alef
-| "Alef_Maqsurah" -> `Alef_Maqsurah | "Beh" -> `Beh | "Beth" -> `Beth
-| "Burushaski_Yeh_Barree" -> `Burushaski_Yeh_Barree | "Dal" -> `Dal
-| "Dalath_Rish" -> `Dalath_Rish | "E" -> `E | "Farsi_Yeh" -> `Farsi_Yeh
-| "Fe" -> `Fe | "Feh" -> `Feh | "Final_Semkath" -> `Final_Semkath
-| "Gaf" -> `Gaf | "Gamal" -> `Gamal | "Hah" -> `Hah
-| "Hamza_On_Heh_Goal" -> `Hamza_On_Heh_Goal | "He" -> `He | "Heh" -> `Heh
-| "Heh_Goal" -> `Heh_Goal | "Heth" -> `Heth  | "Kaf" -> `Kaf
-| "Kaph" -> `Kaph | "Khaph" -> `Khaph | "Knotted_Heh" -> `Knotted_Heh
-| "Lam" -> `Lam | "Lamadh" -> `Lamadh
+| "African_Feh" -> `African_Feh
+| "African_Noon" -> `African_Noon
+| "African_Qaf" -> `African_Qaf
+| "Ain" -> `Ain
+| "Alaph" -> `Alaph
+| "Alef" -> `Alef
+| "Alef_Maqsurah" -> `Alef_Maqsurah
+| "Beh" -> `Beh
+| "Beth" -> `Beth
+| "Burushaski_Yeh_Barree" -> `Burushaski_Yeh_Barree
+| "Dal" -> `Dal
+| "Dalath_Rish" -> `Dalath_Rish
+| "E" -> `E
+| "Farsi_Yeh" -> `Farsi_Yeh
+| "Fe" -> `Fe
+| "Feh" -> `Feh
+| "Final_Semkath" -> `Final_Semkath
+| "Gaf" -> `Gaf
+| "Gamal" -> `Gamal
+| "Hah" -> `Hah
+| "Hamza_On_Heh_Goal" -> `Hamza_On_Heh_Goal
+| "He" -> `He
+| "Heh" -> `Heh
+| "Heh_Goal" -> `Heh_Goal
+| "Heth" -> `Heth
+| "Kaf" -> `Kaf
+| "Kaph" -> `Kaph
+| "Khaph" -> `Khaph
+| "Knotted_Heh" -> `Knotted_Heh
+| "Lam" -> `Lam
+| "Lamadh" -> `Lamadh
 | "Manichaean_Aleph" -> `Manichaean_Aleph
 | "Manichaean_Ayin" -> `Manichaean_Ayin
 | "Manichaean_Beth" -> `Manichaean_Beth
@@ -991,28 +1196,53 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Manichaean_Lamedh" -> `Manichaean_Lamedh
 | "Manichaean_Mem" -> `Manichaean_Mem
 | "Manichaean_Nun" -> `Manichaean_Nun
-| "Manichaean_One" -> `Manichaean_One | "Manichaean_Pe" -> `Manichaean_Pe
-| "Manichaean_Qoph" -> `Manichaean_Qoph | "Manichaean_Resh" -> `Manichaean_Resh
+| "Manichaean_One" -> `Manichaean_One
+| "Manichaean_Pe" -> `Manichaean_Pe
+| "Manichaean_Qoph" -> `Manichaean_Qoph
+| "Manichaean_Resh" -> `Manichaean_Resh
 | "Manichaean_Sadhe" -> `Manichaean_Sadhe
 | "Manichaean_Samekh" -> `Manichaean_Samekh
-| "Manichaean_Taw" -> `Manichaean_Taw | "Manichaean_Ten" -> `Manichaean_Ten
+| "Manichaean_Taw" -> `Manichaean_Taw
+| "Manichaean_Ten" -> `Manichaean_Ten
 | "Manichaean_Teth" -> `Manichaean_Teth
 | "Manichaean_Thamedh" -> `Manichaean_Thamedh
 | "Manichaean_Twenty" -> `Manichaean_Twenty
-| "Manichaean_Waw" -> `Manichaean_Waw | "Manichaean_Yodh" -> `Manichaean_Yodh
+| "Manichaean_Waw" -> `Manichaean_Waw
+| "Manichaean_Yodh" -> `Manichaean_Yodh
 | "Manichaean_Zayin" -> `Manichaean_Zayin
-| "Meem" -> `Meem | "Mim" -> `Mim
-| "No_Joining_Group" -> `No_Joining_Group | "Noon" -> `Noon | "Nun" -> `Nun
-| "Nya" -> `Nya | "Pe" -> `Pe | "Qaf" -> `Qaf | "Qaph" -> `Qaph | "Reh" -> `Reh
-| "Reversed_Pe" -> `Reversed_Pe | "Rohingya_Yeh" -> `Rohingya_Yeh
-| "Sad" -> `Sad | "Sadhe" -> `Sadhe | "Seen" -> `Seen | "Semkath" -> `Semkath
-| "Shin" -> `Shin | "Straight_Waw" -> `Straight_Waw
-| "Swash_Kaf" -> `Swash_Kaf | "Syriac_Waw" -> `Syriac_Waw
-| "Tah" -> `Tah | "Taw" -> `Taw | "Teh_Marbuta" -> `Teh_Marbuta
-| "Teh_Marbuta_Goal" -> `Teh_Marbuta_Goal | "Teth" -> `Teth | "Waw" -> `Waw
-| "Yeh" -> `Yeh | "Yeh_Barree" -> `Yeh_Barree
-| "Yeh_With_Tail" -> `Yeh_With_Tail | "Yudh" -> `Yudh | "Yudh_He" -> `Yudh_He
-| "Zain" -> `Zain | "Zhain" -> `Zhain
+| "Meem" -> `Meem
+| "Mim" -> `Mim
+| "No_Joining_Group" -> `No_Joining_Group
+| "Noon" -> `Noon
+| "Nun" -> `Nun
+| "Nya" -> `Nya
+| "Pe" -> `Pe
+| "Qaf" -> `Qaf
+| "Qaph" -> `Qaph
+| "Reh" -> `Reh
+| "Reversed_Pe" -> `Reversed_Pe
+| "Rohingya_Yeh" -> `Rohingya_Yeh
+| "Sad" -> `Sad
+| "Sadhe" -> `Sadhe
+| "Seen" -> `Seen
+| "Semkath" -> `Semkath
+| "Shin" -> `Shin
+| "Straight_Waw" -> `Straight_Waw
+| "Swash_Kaf" -> `Swash_Kaf
+| "Syriac_Waw" -> `Syriac_Waw
+| "Tah" -> `Tah
+| "Taw" -> `Taw
+| "Teh_Marbuta" -> `Teh_Marbuta
+| "Teh_Marbuta_Goal" -> `Teh_Marbuta_Goal
+| "Teth" -> `Teth
+| "Waw" -> `Waw
+| "Yeh" -> `Yeh
+| "Yeh_Barree" -> `Yeh_Barree
+| "Yeh_With_Tail" -> `Yeh_With_Tail
+| "Yudh" -> `Yudh
+| "Yudh_He" -> `Yudh_He
+| "Zain" -> `Zain
+| "Zhain" -> `Zhain
 | v -> err (err_att_val v)
 end
 
@@ -1022,14 +1252,49 @@ let i_joining_type v = Joining_type_v begin match v with
 end
 
 let i_line_break v = Line_break_v begin match v with
-| "AI" -> `AI | "AL" -> `AL | "B2" -> `B2 | "BA" -> `BA | "BB" -> `BB
-| "BK" -> `BK | "CB" -> `CB | "CJ" -> `CJ | "CL" -> `CL | "CM" -> `CM
-| "CP" -> `CP | "CR" -> `CR | "EX" -> `EX | "GL" -> `GL | "H2" -> `H2
-| "H3" -> `H3 | "HL" -> `HL | "HY" -> `HY | "ID" -> `ID | "IN" -> `IN
-| "IS" -> `IS | "JL" -> `JL | "JT" -> `JT | "JV" -> `JV | "LF" -> `LF
-| "NL" -> `NL | "NS" -> `NS | "NU" -> `NU | "OP" -> `OP | "PO" -> `PO
-| "PR" -> `PR | "QU" -> `QU | "RI" -> `RI | "SA" -> `SA | "SG" -> `SG
-| "SP" -> `SP | "SY" -> `SY | "WJ" -> `WJ | "XX" -> `XX | "ZW" -> `ZW
+| "AI" -> `AI
+| "AL" -> `AL
+| "B2" -> `B2
+| "BA" -> `BA
+| "BB" -> `BB
+| "BK" -> `BK
+| "CB" -> `CB
+| "CJ" -> `CJ
+| "CL" -> `CL
+| "CM" -> `CM
+| "CP" -> `CP
+| "CR" -> `CR
+| "EB" -> `EB
+| "EM" -> `EM
+| "EX" -> `EX
+| "GL" -> `GL
+| "H2" -> `H2
+| "H3" -> `H3
+| "HL" -> `HL
+| "HY" -> `HY
+| "ID" -> `ID
+| "IN" -> `IN
+| "IS" -> `IS
+| "JL" -> `JL
+| "JT" -> `JT
+| "JV" -> `JV
+| "LF" -> `LF
+| "NL" -> `NL
+| "NS" -> `NS
+| "NU" -> `NU
+| "OP" -> `OP
+| "PO" -> `PO
+| "PR" -> `PR
+| "QU" -> `QU
+| "RI" -> `RI
+| "SA" -> `SA
+| "SG" -> `SG
+| "SP" -> `SP
+| "SY" -> `SY
+| "WJ" -> `WJ
+| "XX" -> `XX
+| "ZW" -> `ZW
+| "ZWJ" -> `ZWJ
 | v -> err (err_att_val v)
 end
 
@@ -1055,11 +1320,12 @@ let i_numeric_value v = Numeric_value_v begin
 end
 
 let i_script v = Script_v begin match v with
+| "Adlm" -> `Adlm
 | "Aghb" -> `Aghb | "Ahom" -> `Ahom | "Arab" -> `Arab | "Armi" -> `Armi
 | "Armn" -> `Armn | "Avst" -> `Avst
 | "Bali" -> `Bali | "Bamu" -> `Bamu | "Bass" -> `Bass | "Batk" -> `Batk
-| "Beng" -> `Beng | "Bopo" -> `Bopo | "Brah" -> `Brah | "Brai" -> `Brai
-| "Bugi" -> `Bugi | "Buhd" -> `Buhd
+| "Beng" -> `Beng | "Bhks" -> `Bhks | "Bopo" -> `Bopo | "Brah" -> `Brah
+| "Brai" -> `Brai | "Bugi" -> `Bugi | "Buhd" -> `Buhd
 | "Cakm" -> `Cakm | "Cans" -> `Cans | "Cari" -> `Cari | "Cham" -> `Cham
 | "Cher" -> `Cher | "Copt" -> `Copt | "Cprt" -> `Cprt | "Cyrl" -> `Cyrl
 | "Deva" -> `Deva | "Dsrt" -> `Dsrt | "Dupl" -> `Dupl
@@ -1076,11 +1342,13 @@ let i_script v = Script_v begin match v with
 | "Lana" -> `Lana | "Laoo" -> `Laoo | "Latn" -> `Latn | "Lepc" -> `Lepc
 | "Limb" -> `Limb | "Lina" -> `Lina | "Linb" -> `Linb | "Lisu" -> `Lisu
 | "Lyci" -> `Lyci | "Lydi" -> `Lydi
-| "Mahj" -> `Mahj | "Mand" -> `Mand | "Mani" -> `Mani | "Mend" -> `Mend
+| "Mahj" -> `Mahj | "Mand" -> `Mand | "Mani" -> `Mani | "Marc" -> `Marc
+| "Mend" -> `Mend
 | "Merc" -> `Merc | "Mero" -> `Mero | "Mlym" -> `Mlym | "Modi" -> `Modi
 | "Mong" -> `Mong | "Mroo" -> `Mroo | "Mtei" -> `Mtei | "Mult" -> `Mult
 | "Mymr" -> `Mymr
-| "Narb" -> `Narb | "Nbat" -> `Nbat | "Nkoo" -> `Nkoo
+| "Narb" -> `Narb | "Nbat" -> `Nbat | "Newa" -> `Newa | "Nkoo" -> `Nkoo
+| "Osge" -> `Osge
 | "Ogam" -> `Ogam | "Olck" -> `Olck | "Orkh" -> `Orkh | "Orya" -> `Orya
 | "Osma" -> `Osma
 | "Palm" -> `Palm | "Pauc" -> `Pauc | "Perm" -> `Perm | "Phag" -> `Phag
@@ -1093,7 +1361,8 @@ let i_script v = Script_v begin match v with
 | "Sinh" -> `Sinh | "Sora" -> `Sora | "Sund" -> `Sund | "Sylo" -> `Sylo
 | "Syrc" -> `Syrc
 | "Tagb" -> `Tagb | "Takr" -> `Takr | "Tale" -> `Tale | "Talu" -> `Talu
-| "Taml" -> `Taml | "Tavt" -> `Tavt | "Telu" -> `Telu | "Tfng" -> `Tfng
+| "Taml" -> `Taml | "Tang" -> `Tang | "Tavt" -> `Tavt | "Telu" -> `Telu
+| "Tfng" -> `Tfng
 | "Tglg" -> `Tglg | "Thaa" -> `Thaa | "Thai" -> `Thai | "Tibt" -> `Tibt
 | "Tirh" -> `Tirh
 | "Ugar" -> `Ugar
@@ -1126,10 +1395,28 @@ let i_uax_42_element v = UAX_42_element_v begin match v with
 end
 
 let i_word_break v = Word_break_v begin match v with
-| "CR" -> `CR | "EX" -> `EX | "Extend" -> `Extend | "FO" -> `FO
-| "KA" -> `KA | "LE" -> `LE | "LF" -> `LF | "MB" -> `MB | "ML" -> `ML
-| "MN" -> `MN | "NL" -> `NL | "NU" -> `NU
-| "RI" -> `RI | "XX" -> `XX | "DQ" -> `DQ | "HL" -> `HL | "SQ" -> `SQ
+| "CR" -> `CR
+| "DQ" -> `DQ
+| "EB" -> `EB
+| "EBG" -> `EBG
+| "EM" -> `EM
+| "EX" -> `EX
+| "Extend" -> `Extend
+| "FO" -> `FO
+| "GAZ" -> `GAZ
+| "HL" -> `HL
+| "KA" -> `KA
+| "LE" -> `LE
+| "LF" -> `LF
+| "MB" -> `MB
+| "ML" -> `ML
+| "MN" -> `MN
+| "NL" -> `NL
+| "NU" -> `NU
+| "RI" -> `RI
+| "SQ" -> `SQ
+| "XX" -> `XX
+| "ZWJ" -> `ZWJ
 | v -> err (err_att_val v)
 end
 
@@ -1232,6 +1519,7 @@ let other_math = Other_math, o_bool
 let other_uppercase = Other_uppercase, o_bool
 let pattern_syntax = Pattern_syntax, o_bool
 let pattern_white_space = Pattern_white_space, o_bool
+let prepended_concatenation_mark = Prepended_concatenation_mark, o_bool
 let quotation_mark = Quotation_mark, o_bool
 let radical = Radical, o_bool
 let script = Script, o_script
@@ -1342,12 +1630,14 @@ let kRSKangXi = KRSKangXi, o_string
 let kRSKorean = KRSKorean, o_string
 let kRSMerged = KRSMerged, o_string
 let kRSUnicode = KRSUnicode, o_string
+let kRSTUnicode = KRSTUnicode, o_string
 let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
+let kTGT_MergedSrc = KTGT_MergedSrc, o_string
 let kTotalStrokes = KTotalStrokes, o_string
 let kTraditionalVariant = KTraditionalVariant, o_string
 let kVietnamese = KVietnamese, o_string
@@ -1471,6 +1761,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "OUpper" (Other_uppercase, i_bool);
   map "Pat_Syn" (Pattern_syntax, i_bool);
   map "Pat_WS" (Pattern_white_space, i_bool);
+  map "PCM" (Prepended_concatenation_mark, i_bool);
   map "QMark" (Quotation_mark, i_bool);
   map "Radical" (Radical, i_bool);
   map "SB" (Sentence_break, i_sentence_break);
@@ -1604,12 +1895,14 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kRSKorean" (KRSKorean, i_string);
   map "kRSMerged" (KRSMerged, i_string);
   map "kRSUnicode" (KRSUnicode, i_string);
+  map "kRSTUnicode" (KRSTUnicode, i_string);
   map "kSBGY" (KSBGY, i_string);
   map "kSemanticVariant" (KSemanticVariant, i_string);
   map "kSimplifiedVariant" (KSimplifiedVariant, i_string);
   map "kSpecializedSemanticVariant" (KSpecializedSemanticVariant, i_string);
   map "kTaiwanTelegraph" (KTaiwanTelegraph, i_string);
   map "kTang" (KTang, i_string);
+  map "kTGT_MergedSrc" (KTGT_MergedSrc, i_string);
   map "kTotalStrokes" (KTotalStrokes, i_string);
   map "kTraditionalVariant" (KTraditionalVariant, i_string);
   map "kVietnamese" (KVietnamese, i_string);
