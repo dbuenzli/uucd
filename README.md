@@ -8,7 +8,7 @@ database][1] from its XML [representation][2]. It provides high-level
 representations can be extracted.
 
 Uucd is made of a single module, depends on [Xmlm][3] and is distributed
-under the BSD3 license.
+under the ISC license.
 
 [1]: http://www.unicode.org/reports/tr44/
 [2]: http://www.unicode.org/reports/tr42/
