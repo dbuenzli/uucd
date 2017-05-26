@@ -113,8 +113,8 @@ val bidi_mirrored : bool prop
 val bidi_mirroring_glyph : cp option prop
 val bidi_paired_bracket : [ `Self | `Cp of cp ] prop
 val bidi_paired_bracket_type : [ `O | `C | `N ] prop
-val block : [
-| `Adlam
+val block :
+[ `Adlam
 | `Aegean_Numbers
 | `Ahom
 | `Alchemical
@@ -165,6 +165,7 @@ val block : [
 | `CJK_Ext_C
 | `CJK_Ext_D
 | `CJK_Ext_E
+| `CJK_Ext_F
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -243,6 +244,7 @@ val block : [
 | `Kannada
 | `Katakana
 | `Katakana_Ext
+| `Kana_Ext_A
 | `Kayah_Li
 | `Kharoshthi
 | `Khmer
@@ -273,6 +275,7 @@ val block : [
 | `Mandaic
 | `Manichaean
 | `Marchen
+| `Masaram_Gondi
 | `Math_Alphanum
 | `Math_Operators
 | `Meetei_Mayek
@@ -304,6 +307,7 @@ val block : [
 | `Newa
 | `NKo
 | `Number_Forms
+| `Nushu
 | `OCR
 | `Ogham
 | `Ol_Chiki
@@ -343,6 +347,7 @@ val block : [
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
 | `Sora_Sompeng
+| `Soyombo
 | `Specials
 | `Sundanese
 | `Sundanese_Sup
@@ -358,6 +363,7 @@ val block : [
 | `Sutton_SignWriting
 | `Syloti_Nagri
 | `Syriac
+| `Syriac_Sup
 | `Tagalog
 | `Tagbanwa
 | `Tags
@@ -388,6 +394,7 @@ val block : [
 | `Yi_Radicals
 | `Yi_Syllables
 | `Yijing
+| `Zanabazar_Square
 ] prop
 
 val canonical_combining_class : int prop
@@ -609,6 +616,17 @@ val joining_group : [
 | `Knotted_Heh
 | `Lam
 | `Lamadh
+| `Malayalam_Bha
+| `Malayalam_Ja
+| `Malayalam_Lla
+| `Malayalam_Llla
+| `Malayalam_Nga
+| `Malayalam_Nna
+| `Malayalam_Nnna
+| `Malayalam_Nya
+| `Malayalam_Ra
+| `Malayalam_Ssa
+| `Malayalam_Tta
 | `Manichaean_Aleph
 | `Manichaean_Ayin
 | `Manichaean_Beth
@@ -754,6 +772,7 @@ val pattern_white_space : bool prop
 val prepended_concatenation_mark : bool prop
 val quotation_mark : bool prop
 val radical : bool prop
+val regional_indicator : bool prop
 
 type script = [
 | `Adlm
@@ -785,11 +804,12 @@ type script = [
 | `Deva
 | `Dsrt
 | `Dupl
-| `Elba
 | `Egyp
+| `Elba
 | `Ethi
 | `Geor
 | `Glag
+| `Gonm
 | `Goth
 | `Gran
 | `Grek
@@ -824,10 +844,10 @@ type script = [
 | `Lisu
 | `Lyci
 | `Lydi
-| `Marc
 | `Mahj
 | `Mand
 | `Mani
+| `Marc
 | `Mend
 | `Merc
 | `Mero
@@ -842,11 +862,12 @@ type script = [
 | `Nbat
 | `Newa
 | `Nkoo
+| `Nshu
 | `Ogam
 | `Olck
 | `Orkh
-| `Osge
 | `Orya
+| `Osge
 | `Osma
 | `Palm
 | `Pauc
@@ -870,6 +891,7 @@ type script = [
 | `Sind
 | `Sinh
 | `Sora
+| `Soyo
 | `Sund
 | `Sylo
 | `Syrc
@@ -877,8 +899,8 @@ type script = [
 | `Takr
 | `Tale
 | `Talu
-| `Tang
 | `Taml
+| `Tang
 | `Tavt
 | `Telu
 | `Tfng
@@ -893,6 +915,7 @@ type script = [
 | `Xpeo
 | `Xsux
 | `Yiii
+| `Zanb
 | `Zinh
 | `Zyyy
 | `Zzzz
@@ -937,6 +960,7 @@ val unified_ideograph : bool prop
 val uppercase : bool prop
 val uppercase_mapping : [`Self | `Cps of cp list ] prop
 val variation_selector : bool prop
+val vertical_orientation : [ `U | `R | `Tu | `Tr ] prop
 val white_space : bool prop
 val word_break : [
 | `CR
@@ -1000,15 +1024,15 @@ val kGB3 : string prop
 val kGB5 : string prop
 val kGB7 : string prop
 val kGB8 : string prop
-val kGradeLevel : string prop
 val kGSR : string prop
-val kHangul : string prop
-val kHanYu : string prop
-val kHanyuPinlu : string prop
-val kHanyuPinyin : string prop
+val kGradeLevel : string prop
 val kHDZRadBreak : string prop
 val kHKGlyph : string prop
 val kHKSCS : string prop
+val kHanYu : string prop
+val kHangul : string prop
+val kHanyuPinlu : string prop
+val kHanyuPinyin : string prop
 val kIBMJapan : string prop
 val kIICore : string prop
 val kIRGDaeJaweon : string prop
@@ -1024,9 +1048,9 @@ val kIRG_MSource : string prop
 val kIRG_TSource : string prop
 val kIRG_USource : string prop
 val kIRG_VSource : string prop
-val kJa : string prop
 val kJHJ : string prop
 val kJIS0213 : string prop
+val kJa : string prop
 val kJapaneseKun : string prop
 val kJapaneseOn : string prop
 val kJis0 : string prop
@@ -1055,20 +1079,22 @@ val kRSKanWa : string prop
 val kRSKangXi : string prop
 val kRSKorean : string prop
 val kRSMerged : string prop
-val kRSUnicode : string prop
 val kRSTUnicode : string prop
+val kRSUnicode : string prop
+val kReading : string prop
 val kSBGY : string prop
 val kSemanticVariant : string prop
 val kSimplifiedVariant : string prop
 val kSpecializedSemanticVariant : string prop
+val kSrc_NushuDuben : string prop
+val kTGT_MergedSrc : string prop
 val kTaiwanTelegraph : string prop
 val kTang : string prop
-val kTGT_MergedSrc : string prop
 val kTotalStrokes : string prop
 val kTraditionalVariant : string prop
 val kVietnamese : string prop
-val kXHC1983 : string prop
 val kWubi : string prop
+val kXHC1983 : string prop
 val kXerox : string prop
 val kZVariant : string prop
 

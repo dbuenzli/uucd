@@ -151,6 +151,7 @@ type key =                            (* the type for property keys (names). *)
 | Prepended_concatenation_mark
 | Quotation_mark
 | Radical
+| Regional_indicator
 | Script
 | Script_extensions
 | Sentence_break
@@ -168,6 +169,7 @@ type key =                            (* the type for property keys (names). *)
 | Uppercase
 | Uppercase_mapping
 | Variation_selector
+| Vertical_orientation
 | White_space
 | Word_break
 | Xid_continue
@@ -202,15 +204,15 @@ type key =                            (* the type for property keys (names). *)
 | KGB5
 | KGB7
 | KGB8
-| KGradeLevel
 | KGSR
-| KHangul
-| KHanYu
-| KHanyuPinlu
-| KHanyuPinyin
+| KGradeLevel
 | KHDZRadBreak
 | KHKGlyph
 | KHKSCS
+| KHanYu
+| KHangul
+| KHanyuPinlu
+| KHanyuPinyin
 | KIBMJapan
 | KIICore
 | KIRGDaeJaweon
@@ -226,9 +228,9 @@ type key =                            (* the type for property keys (names). *)
 | KIRG_TSource
 | KIRG_USource
 | KIRG_VSource
-| KJa
 | KJHJ
 | KJIS0213
+| KJa
 | KJapaneseKun
 | KJapaneseOn
 | KJis0
@@ -257,20 +259,22 @@ type key =                            (* the type for property keys (names). *)
 | KRSKangXi
 | KRSKorean
 | KRSMerged
-| KRSUnicode
 | KRSTUnicode
+| KRSUnicode
+| KReading
 | KSBGY
 | KSemanticVariant
 | KSimplifiedVariant
 | KSpecializedSemanticVariant
+| KSrc_NushuDuben
+| KTGT_MergedSrc
 | KTaiwanTelegraph
 | KTang
-| KTGT_MergedSrc
 | KTotalStrokes
 | KTraditionalVariant
 | KVietnamese
-| KXHC1983
 | KWubi
+| KXHC1983
 | KXerox
 | KZVariant
 | Other of (string * string)                           (* expanded XML name. *)
@@ -305,11 +309,12 @@ type script =
 | `Deva
 | `Dsrt
 | `Dupl
-| `Elba
 | `Egyp
+| `Elba
 | `Ethi
 | `Geor
 | `Glag
+| `Gonm
 | `Goth
 | `Gran
 | `Grek
@@ -344,10 +349,10 @@ type script =
 | `Lisu
 | `Lyci
 | `Lydi
-| `Marc
 | `Mahj
 | `Mand
 | `Mani
+| `Marc
 | `Mend
 | `Merc
 | `Mero
@@ -362,11 +367,12 @@ type script =
 | `Nbat
 | `Newa
 | `Nkoo
+| `Nshu
 | `Ogam
 | `Olck
 | `Orkh
-| `Osge
 | `Orya
+| `Osge
 | `Osma
 | `Palm
 | `Pauc
@@ -390,6 +396,7 @@ type script =
 | `Sind
 | `Sinh
 | `Sora
+| `Soyo
 | `Sund
 | `Sylo
 | `Syrc
@@ -397,8 +404,8 @@ type script =
 | `Takr
 | `Tale
 | `Talu
-| `Tang
 | `Taml
+| `Tang
 | `Tavt
 | `Telu
 | `Tfng
@@ -413,9 +420,11 @@ type script =
 | `Xpeo
 | `Xsux
 | `Yiii
+| `Zanb
 | `Zinh
 | `Zyyy
-| `Zzzz ]
+| `Zzzz
+]
 
 type block_prop =
 [ `Adlam
@@ -469,6 +478,7 @@ type block_prop =
 | `CJK_Ext_C
 | `CJK_Ext_D
 | `CJK_Ext_E
+| `CJK_Ext_F
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -547,6 +557,7 @@ type block_prop =
 | `Kannada
 | `Katakana
 | `Katakana_Ext
+| `Kana_Ext_A
 | `Kayah_Li
 | `Kharoshthi
 | `Khmer
@@ -577,6 +588,7 @@ type block_prop =
 | `Mandaic
 | `Manichaean
 | `Marchen
+| `Masaram_Gondi
 | `Math_Alphanum
 | `Math_Operators
 | `Meetei_Mayek
@@ -608,6 +620,7 @@ type block_prop =
 | `Newa
 | `NKo
 | `Number_Forms
+| `Nushu
 | `OCR
 | `Ogham
 | `Ol_Chiki
@@ -647,6 +660,7 @@ type block_prop =
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
 | `Sora_Sompeng
+| `Soyombo
 | `Specials
 | `Sundanese
 | `Sundanese_Sup
@@ -662,6 +676,7 @@ type block_prop =
 | `Sutton_SignWriting
 | `Syloti_Nagri
 | `Syriac
+| `Syriac_Sup
 | `Tagalog
 | `Tagbanwa
 | `Tags
@@ -691,7 +706,8 @@ type block_prop =
 | `Warang_Citi
 | `Yi_Radicals
 | `Yi_Syllables
-| `Yijing ]
+| `Yijing
+| `Zanabazar_Square ]
 
 type value =                                (* the type for property values. *)
 | Age_v of [ `Version of int * int | `Unassigned ]
@@ -903,6 +919,17 @@ type value =                                (* the type for property values. *)
     | `Knotted_Heh
     | `Lam
     | `Lamadh
+    | `Malayalam_Bha
+    | `Malayalam_Ja
+    | `Malayalam_Lla
+    | `Malayalam_Llla
+    | `Malayalam_Nga
+    | `Malayalam_Nna
+    | `Malayalam_Nnna
+    | `Malayalam_Nya
+    | `Malayalam_Ra
+    | `Malayalam_Ssa
+    | `Malayalam_Tta
     | `Manichaean_Aleph
     | `Manichaean_Ayin
     | `Manichaean_Beth
@@ -1039,6 +1066,7 @@ type value =                                (* the type for property values. *)
 | Cps_map_v of [ `Self | `Cps of cp list ]
 | String_v of string
 | UAX_42_element_v of [ `Reserved | `Noncharacter | `Surrogate | `Char ]
+| Vertical_orientation_v of [ `U | `R | `Tu | `Tr ]
 | Word_break_v of [
     | `CR
     | `DQ
@@ -1114,6 +1142,8 @@ let o_cps = function Cps_v v -> v | _ -> assert false
 let o_cps_map = function Cps_map_v v -> v | _ -> assert false
 let o_string = function String_v v -> v | _ -> assert false
 let o_uax_42_element = function UAX_42_element_v v -> v | _ -> assert false
+let o_vertical_orientation =
+  function Vertical_orientation_v v -> v | _ -> assert false
 let o_word_break = function Word_break_v v -> v | _ -> assert false
 
 (* property value injection *)
@@ -1207,6 +1237,7 @@ let i_block v = Block_v begin match v with
 | "CJK_Ext_C" -> `CJK_Ext_C
 | "CJK_Ext_D" -> `CJK_Ext_D
 | "CJK_Ext_E" -> `CJK_Ext_E
+| "CJK_Ext_F" -> `CJK_Ext_F
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
@@ -1285,6 +1316,7 @@ let i_block v = Block_v begin match v with
 | "Jamo_Ext_B" -> `Jamo_Ext_B
 | "Javanese" -> `Javanese
 | "Kaithi" -> `Kaithi
+| "Kana_Ext_A" -> `Kana_Ext_A
 | "Kana_Sup" -> `Kana_Sup
 | "Kanbun" -> `Kanbun
 | "Kangxi" -> `Kangxi
@@ -1321,6 +1353,7 @@ let i_block v = Block_v begin match v with
 | "Mandaic" -> `Mandaic
 | "Manichaean" -> `Manichaean
 | "Marchen" -> `Marchen
+| "Masaram_Gondi" -> `Masaram_Gondi
 | "Math_Alphanum" -> `Math_Alphanum
 | "Math_Operators" -> `Math_Operators
 | "Meetei_Mayek" -> `Meetei_Mayek
@@ -1352,6 +1385,7 @@ let i_block v = Block_v begin match v with
 | "New_Tai_Lue" -> `New_Tai_Lue
 | "Newa" -> `Newa
 | "Number_Forms" -> `Number_Forms
+| "Nushu" -> `Nushu
 | "OCR" -> `OCR
 | "Ogham" -> `Ogham
 | "Ol_Chiki" -> `Ol_Chiki
@@ -1391,6 +1425,7 @@ let i_block v = Block_v begin match v with
 | "Sinhala_Archaic_Numbers" -> `Sinhala_Archaic_Numbers
 | "Small_Forms" -> `Small_Forms
 | "Sora_Sompeng" -> `Sora_Sompeng
+| "Soyombo" -> `Soyombo
 | "Specials" -> `Specials
 | "Sundanese" -> `Sundanese
 | "Sundanese_Sup" -> `Sundanese_Sup
@@ -1406,6 +1441,7 @@ let i_block v = Block_v begin match v with
 | "Sutton_SignWriting" -> `Sutton_SignWriting
 | "Syloti_Nagri" -> `Syloti_Nagri
 | "Syriac" -> `Syriac
+| "Syriac_Sup" -> `Syriac_Sup
 | "Tagalog" -> `Tagalog
 | "Tagbanwa" -> `Tagbanwa
 | "Tags" -> `Tags
@@ -1436,6 +1472,7 @@ let i_block v = Block_v begin match v with
 | "Yi_Radicals" -> `Yi_Radicals
 | "Yi_Syllables" -> `Yi_Syllables
 | "Yijing" -> `Yijing
+| "Zanabazar_Square" -> `Zanabazar_Square
 | v -> err (err_att_val v)
 end
 
@@ -1669,6 +1706,17 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Knotted_Heh" -> `Knotted_Heh
 | "Lam" -> `Lam
 | "Lamadh" -> `Lamadh
+| "Malayalam_Bha" -> `Malayalam_Bha
+| "Malayalam_Ja" -> `Malayalam_Ja
+| "Malayalam_Lla" -> `Malayalam_Lla
+| "Malayalam_Llla" -> `Malayalam_Llla
+| "Malayalam_Nna" -> `Malayalam_Nna
+| "Malayalam_Nnna" -> `Malayalam_Nnna
+| "Malayalam_Nya" -> `Malayalam_Nya
+| "Malayalam_Ra" -> `Malayalam_Ra
+| "Malayalam_Ssa" -> `Malayalam_Ssa
+| "Malayalam_Tta" -> `Malayalam_Tta
+| "Malayalam_Nga" -> `Malayalam_Nga
 | "Manichaean_Aleph" -> `Manichaean_Aleph
 | "Manichaean_Ayin" -> `Manichaean_Ayin
 | "Manichaean_Beth" -> `Manichaean_Beth
@@ -1846,11 +1894,12 @@ let i_script v = Script_v begin match v with
 | "Deva" -> `Deva
 | "Dsrt" -> `Dsrt
 | "Dupl" -> `Dupl
-| "Elba" -> `Elba
 | "Egyp" -> `Egyp
+| "Elba" -> `Elba
 | "Ethi" -> `Ethi
 | "Geor" -> `Geor
 | "Glag" -> `Glag
+| "Gonm" -> `Gonm
 | "Goth" -> `Goth
 | "Gran" -> `Gran
 | "Grek" -> `Grek
@@ -1903,11 +1952,12 @@ let i_script v = Script_v begin match v with
 | "Nbat" -> `Nbat
 | "Newa" -> `Newa
 | "Nkoo" -> `Nkoo
-| "Osge" -> `Osge
+| "Nshu" -> `Nshu
 | "Ogam" -> `Ogam
 | "Olck" -> `Olck
 | "Orkh" -> `Orkh
 | "Orya" -> `Orya
+| "Osge" -> `Osge
 | "Osma" -> `Osma
 | "Palm" -> `Palm
 | "Pauc" -> `Pauc
@@ -1931,6 +1981,7 @@ let i_script v = Script_v begin match v with
 | "Sind" -> `Sind
 | "Sinh" -> `Sinh
 | "Sora" -> `Sora
+| "Soyo" -> `Soyo
 | "Sund" -> `Sund
 | "Sylo" -> `Sylo
 | "Syrc" -> `Syrc
@@ -1954,6 +2005,7 @@ let i_script v = Script_v begin match v with
 | "Xpeo" -> `Xpeo
 | "Xsux" -> `Xsux
 | "Yiii" -> `Yiii
+| "Zanb" -> `Zanb
 | "Zinh" -> `Zinh
 | "Zyyy" -> `Zyyy
 | "Zzzz" -> `Zzzz
@@ -1989,6 +2041,14 @@ let i_uax_42_element v = UAX_42_element_v begin match v with
 | "noncharacter" -> `Noncharacter
 | "surrogate" -> `Surrogate
 | "char" -> `Char
+| s -> err (err_att_val s)
+end
+
+let i_vertical_orientation v = Vertical_orientation_v begin match v with
+| "U" -> `U
+| "R" -> `R
+| "Tu" -> `Tu
+| "Tr" -> `Tr
 | s -> err (err_att_val s)
 end
 
@@ -2120,6 +2180,7 @@ let pattern_white_space = Pattern_white_space, o_bool
 let prepended_concatenation_mark = Prepended_concatenation_mark, o_bool
 let quotation_mark = Quotation_mark, o_bool
 let radical = Radical, o_bool
+let regional_indicator = Regional_indicator, o_bool
 let script = Script, o_script
 let script_extensions = Script_extensions, o_script_extensions
 let sentence_break = Sentence_break, o_sentence_break
@@ -2136,6 +2197,7 @@ let unified_ideograph = Unified_ideograph, o_bool
 let uppercase = Uppercase, o_bool
 let uppercase_mapping = Uppercase_mapping, o_cps_map
 let variation_selector = Variation_selector, o_bool
+let vertical_orientation = Vertical_orientation, o_vertical_orientation
 let white_space = White_space, o_bool
 let word_break = Word_break, o_word_break
 let xid_continue = Xid_continue, o_bool
@@ -2172,15 +2234,15 @@ let kGB3 = KGB3, o_string
 let kGB5 = KGB5, o_string
 let kGB7 = KGB7, o_string
 let kGB8 = KGB8, o_string
-let kGradeLevel = KGradeLevel, o_string
 let kGSR = KGSR, o_string
-let kHangul = KHangul, o_string
-let kHanYu = KHanYu, o_string
-let kHanyuPinlu = KHanyuPinlu, o_string
-let kHanyuPinyin = KHanyuPinyin, o_string
+let kGradeLevel = KGradeLevel, o_string
 let kHDZRadBreak = KHDZRadBreak, o_string
 let kHKGlyph = KHKGlyph, o_string
 let kHKSCS = KHKSCS, o_string
+let kHanYu = KHanYu, o_string
+let kHangul = KHangul, o_string
+let kHanyuPinlu = KHanyuPinlu, o_string
+let kHanyuPinyin = KHanyuPinyin, o_string
 let kIBMJapan = KIBMJapan, o_string
 let kIICore = KIICore, o_string
 let kIRGDaeJaweon = KIRGDaeJaweon, o_string
@@ -2196,9 +2258,9 @@ let kIRG_MSource = KIRG_MSource, o_string
 let kIRG_TSource = KIRG_TSource, o_string
 let kIRG_USource = KIRG_USource, o_string
 let kIRG_VSource = KIRG_VSource, o_string
-let kJa = KJa, o_string
 let kJHJ = KJHJ, o_string
 let kJIS0213 = KJIS0213, o_string
+let kJa = KJa, o_string
 let kJapaneseKun = KJapaneseKun, o_string
 let kJapaneseOn = KJapaneseOn, o_string
 let kJis0 = KJis0, o_string
@@ -2227,20 +2289,22 @@ let kRSKanWa = KRSKanWa, o_string
 let kRSKangXi = KRSKangXi, o_string
 let kRSKorean = KRSKorean, o_string
 let kRSMerged = KRSMerged, o_string
-let kRSUnicode = KRSUnicode, o_string
 let kRSTUnicode = KRSTUnicode, o_string
+let kRSUnicode = KRSUnicode, o_string
+let kReading = KReading, o_string
 let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
+let kSrc_NushuDuben = KSrc_NushuDuben, o_string
+let kTGT_MergedSrc = KTGT_MergedSrc, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
-let kTGT_MergedSrc = KTGT_MergedSrc, o_string
 let kTotalStrokes = KTotalStrokes, o_string
 let kTraditionalVariant = KTraditionalVariant, o_string
 let kVietnamese = KVietnamese, o_string
-let kXHC1983 = KXHC1983, o_string
 let kWubi = KWubi, o_string
+let kXHC1983 = KXHC1983, o_string
 let kXerox = KXerox, o_string
 let kZVariant = KZVariant, o_string
 
@@ -2362,6 +2426,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "PCM" (Prepended_concatenation_mark, i_bool);
   map "QMark" (Quotation_mark, i_bool);
   map "Radical" (Radical, i_bool);
+  map "RI" (Regional_indicator, i_bool);
   map "SB" (Sentence_break, i_sentence_break);
   map "SD" (Soft_dotted, i_bool);
   map "STerm" (Sterm, i_bool);
@@ -2369,6 +2434,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "UIdeo" (Unified_ideograph, i_bool);
   map "Upper" (Uppercase, i_bool);
   map "VS" (Variation_selector, i_bool);
+  map "vo" (Vertical_orientation, i_vertical_orientation);
   map "WB" (Word_break, i_word_break);
   map "WSpace" (White_space, i_bool);
   map "XIDC" (Xid_continue, i_bool);
@@ -2508,6 +2574,8 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kWubi" (KWubi, i_string);
   map "kXerox" (KXerox, i_string);
   map "kZVariant" (KZVariant, i_string);
+  map "kReading" (KReading, i_string);
+  map "kSrc_NushuDuben" (KSrc_NushuDuben, i_string);
   fun m (n, v) ->
     try match n with
     | ("", p) ->
