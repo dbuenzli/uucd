@@ -113,8 +113,9 @@ val bidi_mirrored : bool prop
 val bidi_mirroring_glyph : cp option prop
 val bidi_paired_bracket : [ `Self | `Cp of cp ] prop
 val bidi_paired_bracket_type : [ `O | `C | `N ] prop
-val block :
-[ `Adlam
+val block : [
+| `ASCII
+| `Adlam
 | `Aegean_Numbers
 | `Ahom
 | `Alchemical
@@ -131,7 +132,6 @@ val block :
 | `Arabic_Sup
 | `Armenian
 | `Arrows
-| `ASCII
 | `Avestan
 | `Balinese
 | `Bamum
@@ -149,12 +149,6 @@ val block :
 | `Buginese
 | `Buhid
 | `Byzantine_Music
-| `Carian
-| `Caucasian_Albanian
-| `Chakma
-| `Cham
-| `Cherokee
-| `Cherokee_Sup
 | `CJK
 | `CJK_Compat
 | `CJK_Compat_Forms
@@ -169,6 +163,13 @@ val block :
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
+| `Carian
+| `Caucasian_Albanian
+| `Chakma
+| `Cham
+| `Cherokee
+| `Cherokee_Sup
+| `Chess_Symbols
 | `Compat_Jamo
 | `Control_Pictures
 | `Coptic
@@ -187,14 +188,16 @@ val block :
 | `Devanagari
 | `Devanagari_Ext
 | `Diacriticals
+| `Diacriticals_Ext
 | `Diacriticals_For_Symbols
 | `Diacriticals_Sup
-| `Diacriticals_Ext
 | `Dingbats
+| `Dogra
 | `Domino
 | `Duployan
 | `Early_Dynastic_Cuneiform
 | `Egyptian_Hieroglyphs
+| `Elbasan
 | `Emoticons
 | `Enclosed_Alphanum
 | `Enclosed_Alphanum_Sup
@@ -204,10 +207,10 @@ val block :
 | `Ethiopic_Ext
 | `Ethiopic_Ext_A
 | `Ethiopic_Sup
-| `Elbasan
 | `Geometric_Shapes
 | `Geometric_Shapes_Ext
 | `Georgian
+| `Georgian_Ext
 | `Georgian_Sup
 | `Glagolitic
 | `Glagolitic_Sup
@@ -216,10 +219,12 @@ val block :
 | `Greek
 | `Greek_Ext
 | `Gujarati
+| `Gunjala_Gondi
 | `Gurmukhi
 | `Half_And_Full_Forms
 | `Half_Marks
 | `Hangul
+| `Hanifi_Rohingya
 | `Hanunoo
 | `Hatran
 | `Hebrew
@@ -227,24 +232,25 @@ val block :
 | `High_Surrogates
 | `Hiragana
 | `IDC
+| `IPA_Ext
 | `Ideographic_Symbols
 | `Imperial_Aramaic
 | `Indic_Number_Forms
+| `Indic_Siyaq_Numbers
 | `Inscriptional_Pahlavi
 | `Inscriptional_Parthian
-| `IPA_Ext
 | `Jamo
 | `Jamo_Ext_A
 | `Jamo_Ext_B
 | `Javanese
 | `Kaithi
+| `Kana_Ext_A
 | `Kana_Sup
 | `Kanbun
 | `Kangxi
 | `Kannada
 | `Katakana
 | `Katakana_Ext
-| `Kana_Ext_A
 | `Kayah_Li
 | `Kharoshthi
 | `Khmer
@@ -271,6 +277,7 @@ val block :
 | `Lydian
 | `Mahajani
 | `Mahjong
+| `Makasar
 | `Malayalam
 | `Mandaic
 | `Manichaean
@@ -278,6 +285,8 @@ val block :
 | `Masaram_Gondi
 | `Math_Alphanum
 | `Math_Operators
+| `Mayan_Numerals
+| `Medefaidrin
 | `Meetei_Mayek
 | `Meetei_Mayek_Ext
 | `Mende_Kikakui
@@ -296,16 +305,16 @@ val block :
 | `Mongolian
 | `Mongolian_Sup
 | `Mro
-| `Music
 | `Multani
+| `Music
 | `Myanmar
 | `Myanmar_Ext_A
 | `Myanmar_Ext_B
-| `Nabataean
 | `NB
+| `NKo
+| `Nabataean
 | `New_Tai_Lue
 | `Newa
-| `NKo
 | `Number_Forms
 | `Nushu
 | `OCR
@@ -316,12 +325,14 @@ val block :
 | `Old_North_Arabian
 | `Old_Permic
 | `Old_Persian
+| `Old_Sogdian
 | `Old_South_Arabian
 | `Old_Turkic
 | `Oriya
 | `Ornamental_Dingbats
 | `Osage
 | `Osmanya
+| `PUA
 | `Pahawh_Hmong
 | `Palmyrene
 | `Pau_Cin_Hau
@@ -332,7 +343,6 @@ val block :
 | `Phonetic_Ext_Sup
 | `Playing_Cards
 | `Psalter_Pahlavi
-| `PUA
 | `Punctuation
 | `Rejang
 | `Rumi
@@ -346,6 +356,7 @@ val block :
 | `Sinhala
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
+| `Sogdian
 | `Sora_Sompeng
 | `Soyombo
 | `Specials
@@ -385,11 +396,11 @@ val block :
 | `UCAS
 | `UCAS_Ext
 | `Ugaritic
+| `VS
+| `VS_Sup
 | `Vai
 | `Vedic_Ext
 | `Vertical_Forms
-| `VS
-| `VS_Sup
 | `Warang_Citi
 | `Yi_Radicals
 | `Yi_Syllables
@@ -435,6 +446,7 @@ val default_ignorable_code_point : bool prop
 val deprecated : bool prop
 val diacritic : bool prop
 val east_asian_width : [ `A | `F | `H | `N | `Na | `W ] prop
+val equivalent_unified_ideograph : cp option prop
 val expands_on_nfc : bool prop
 val expands_on_nfd : bool prop
 val expands_on_nfkc : bool prop
@@ -516,6 +528,7 @@ val indic_syllabic_category : [
 | `Consonant_Dead
 | `Consonant_Final
 | `Consonant_Head_Letter
+| `Consonant_Initial_Postfixed
 | `Consonant_Killer
 | `Consonant_Medial
 | `Consonant_Placeholder
@@ -605,6 +618,8 @@ val joining_group : [
 | `Gaf
 | `Gamal
 | `Hah
+| `Hanifi_Rohingya_Kinna_Ya
+| `Hanifi_Rohingya_Pa
 | `Hamza_On_Heh_Goal
 | `He
 | `Heh
@@ -802,6 +817,7 @@ type script = [
 | `Cprt
 | `Cyrl
 | `Deva
+| `Dogr
 | `Dsrt
 | `Dupl
 | `Egyp
@@ -809,6 +825,7 @@ type script = [
 | `Ethi
 | `Geor
 | `Glag
+| `Gong
 | `Gonm
 | `Goth
 | `Gran
@@ -845,9 +862,11 @@ type script = [
 | `Lyci
 | `Lydi
 | `Mahj
+| `Maka
 | `Mand
 | `Mani
 | `Marc
+| `Medf
 | `Mend
 | `Merc
 | `Mero
@@ -880,6 +899,7 @@ type script = [
 | `Prti
 | `Qaai
 | `Rjng
+| `Rohg
 | `Runr
 | `Samr
 | `Sarb
@@ -890,6 +910,8 @@ type script = [
 | `Sidd
 | `Sind
 | `Sinh
+| `Sogd
+| `Sogo
 | `Sora
 | `Soyo
 | `Sund
@@ -983,6 +1005,7 @@ val word_break : [
 | `NU
 | `RI
 | `SQ
+| `WSegSpace
 | `XX
 | `ZWJ
 ] prop
@@ -1053,8 +1076,10 @@ val kJIS0213 : string prop
 val kJa : string prop
 val kJapaneseKun : string prop
 val kJapaneseOn : string prop
+val kJinmeiyoKanji : string prop
 val kJis0 : string prop
 val kJis1 : string prop
+val kJoyoKanji : string prop
 val kKPS0 : string prop
 val kKPS1 : string prop
 val kKSC0 : string prop
@@ -1062,6 +1087,8 @@ val kKSC1 : string prop
 val kKangXi : string prop
 val kKarlgren : string prop
 val kKorean : string prop
+val kKoreanEducationHanja : string prop
+val kKoreanName : string prop
 val kLau : string prop
 val kMainlandTelegraph : string prop
 val kMandarin : string prop
@@ -1087,6 +1114,7 @@ val kSemanticVariant : string prop
 val kSimplifiedVariant : string prop
 val kSpecializedSemanticVariant : string prop
 val kSrc_NushuDuben : string prop
+val kTGH : string prop
 val kTGT_MergedSrc : string prop
 val kTaiwanTelegraph : string prop
 val kTang : string prop
