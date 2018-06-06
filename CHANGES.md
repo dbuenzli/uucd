@@ -1,4 +1,4 @@
-v11.0.0 2017-06-06 Lausanne
+v11.0.0 2018-06-06 Lausanne
 ---------------------------
 
 - Support for Unicode 11.0.0
