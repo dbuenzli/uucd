@@ -1173,7 +1173,7 @@ type t =
 val cp_prop : t -> cp -> 'a prop -> 'a option
 (** [cp_prop ucd cp p] is the property [p] of the code point [cp]
     in [db]'s repertoire, if [p] is in the repertoire and the property
-    exists for [p]. *)
+    exists for [cp]. *)
 
 (** {1:decoder Decode} *)
 
