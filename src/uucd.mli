@@ -196,8 +196,10 @@ val block : [
 | `Domino
 | `Duployan
 | `Early_Dynastic_Cuneiform
+| `Egyptian_Hieroglyph_Format_Controls
 | `Egyptian_Hieroglyphs
 | `Elbasan
+| `Elymaic
 | `Emoticons
 | `Enclosed_Alphanum
 | `Enclosed_Alphanum_Sup
@@ -313,10 +315,12 @@ val block : [
 | `NB
 | `NKo
 | `Nabataean
+| `Nandinagari
 | `New_Tai_Lue
 | `Newa
 | `Number_Forms
 | `Nushu
+| `Nyiakeng_Puachue_Hmong
 | `OCR
 | `Ogham
 | `Ol_Chiki
@@ -332,6 +336,7 @@ val block : [
 | `Ornamental_Dingbats
 | `Osage
 | `Osmanya
+| `Ottoman_Siyaq_Numbers
 | `PUA
 | `Pahawh_Hmong
 | `Palmyrene
@@ -356,6 +361,7 @@ val block : [
 | `Sinhala
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
+| `Small_Kana_Ext
 | `Sogdian
 | `Sora_Sompeng
 | `Soyombo
@@ -373,6 +379,7 @@ val block : [
 | `Super_And_Sub
 | `Sutton_SignWriting
 | `Syloti_Nagri
+| `Symbols_And_Pictographs_Ext_A
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -384,6 +391,7 @@ val block : [
 | `Tai_Xuan_Jing
 | `Takri
 | `Tamil
+| `Tamil_Sup
 | `Tangut
 | `Tangut_Components
 | `Telugu
@@ -401,6 +409,7 @@ val block : [
 | `Vai
 | `Vedic_Ext
 | `Vertical_Forms
+| `Wancho
 | `Warang_Citi
 | `Yi_Radicals
 | `Yi_Syllables
@@ -822,6 +831,7 @@ type script = [
 | `Dupl
 | `Egyp
 | `Elba
+| `Elym
 | `Ethi
 | `Geor
 | `Glag
@@ -840,6 +850,7 @@ type script = [
 | `Hira
 | `Hluw
 | `Hmng
+| `Hmnp
 | `Hrkt
 | `Hung
 | `Ital
@@ -877,6 +888,7 @@ type script = [
 | `Mtei
 | `Mult
 | `Mymr
+| `Nand
 | `Narb
 | `Nbat
 | `Newa
@@ -934,6 +946,7 @@ type script = [
 | `Ugar
 | `Vaii
 | `Wara
+| `Wcho
 | `Xpeo
 | `Xsux
 | `Yiii
@@ -1173,7 +1186,7 @@ type t =
 val cp_prop : t -> cp -> 'a prop -> 'a option
 (** [cp_prop ucd cp p] is the property [p] of the code point [cp]
     in [db]'s repertoire, if [p] is in the repertoire and the property
-    exists for [p]. *)
+    exists for [cp]. *)
 
 (** {1:decoder Decode} *)
 

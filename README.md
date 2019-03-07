@@ -15,8 +15,6 @@ under the ISC license.
 [xmlm]: http://erratique.ch/software/xmlm 
 
 Home page: http://erratique.ch/software/uucd  
-Contact: Daniel Bünzli `<daniel.buenzli at erratique.ch>`
-
 
 ## Installation
 
@@ -30,8 +28,7 @@ instructions and a complete specification of the dependencies.
 
 ## Documentation
 
-The documentation and API reference is automatically generated from
-the interfaces. It can be consulted [online][doc] or via `odig doc
-uucd`.
+The documentation and API reference can be consulted [online][doc]
+or via `odig doc uucd`.
 
 [doc]: http://erratique.ch/software/uucd/doc/Uucd

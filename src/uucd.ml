@@ -318,6 +318,7 @@ type script = [
 | `Dupl
 | `Egyp
 | `Elba
+| `Elym
 | `Ethi
 | `Geor
 | `Glag
@@ -336,6 +337,7 @@ type script = [
 | `Hira
 | `Hluw
 | `Hmng
+| `Hmnp
 | `Hrkt
 | `Hung
 | `Ital
@@ -373,6 +375,7 @@ type script = [
 | `Mtei
 | `Mult
 | `Mymr
+| `Nand
 | `Narb
 | `Nbat
 | `Newa
@@ -430,6 +433,7 @@ type script = [
 | `Ugar
 | `Vaii
 | `Wara
+| `Wcho
 | `Xpeo
 | `Xsux
 | `Yiii
@@ -522,8 +526,10 @@ type block_prop = [
 | `Domino
 | `Duployan
 | `Early_Dynastic_Cuneiform
+| `Egyptian_Hieroglyph_Format_Controls
 | `Egyptian_Hieroglyphs
 | `Elbasan
+| `Elymaic
 | `Emoticons
 | `Enclosed_Alphanum
 | `Enclosed_Alphanum_Sup
@@ -639,10 +645,12 @@ type block_prop = [
 | `NB
 | `NKo
 | `Nabataean
+| `Nandinagari
 | `New_Tai_Lue
 | `Newa
 | `Number_Forms
 | `Nushu
+| `Nyiakeng_Puachue_Hmong
 | `OCR
 | `Ogham
 | `Ol_Chiki
@@ -658,6 +666,7 @@ type block_prop = [
 | `Ornamental_Dingbats
 | `Osage
 | `Osmanya
+| `Ottoman_Siyaq_Numbers
 | `PUA
 | `Pahawh_Hmong
 | `Palmyrene
@@ -682,6 +691,7 @@ type block_prop = [
 | `Sinhala
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
+| `Small_Kana_Ext
 | `Sogdian
 | `Sora_Sompeng
 | `Soyombo
@@ -699,6 +709,7 @@ type block_prop = [
 | `Super_And_Sub
 | `Sutton_SignWriting
 | `Syloti_Nagri
+| `Symbols_And_Pictographs_Ext_A
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -710,6 +721,7 @@ type block_prop = [
 | `Tai_Xuan_Jing
 | `Takri
 | `Tamil
+| `Tamil_Sup
 | `Tangut
 | `Tangut_Components
 | `Telugu
@@ -727,6 +739,7 @@ type block_prop = [
 | `Vai
 | `Vedic_Ext
 | `Vertical_Forms
+| `Wancho
 | `Warang_Citi
 | `Yi_Radicals
 | `Yi_Syllables
@@ -1303,8 +1316,10 @@ let i_block v = Block_v begin match v with
 | "Domino" -> `Domino
 | "Duployan" -> `Duployan
 | "Early_Dynastic_Cuneiform" -> `Early_Dynastic_Cuneiform
+| "Egyptian_Hieroglyph_Format_Controls" -> `Egyptian_Hieroglyph_Format_Controls
 | "Egyptian_Hieroglyphs" -> `Egyptian_Hieroglyphs
 | "Elbasan" -> `Elbasan
+| "Elymaic" -> `Elymaic
 | "Emoticons" -> `Emoticons
 | "Enclosed_Alphanum" -> `Enclosed_Alphanum
 | "Enclosed_Alphanum_Sup" -> `Enclosed_Alphanum_Sup
@@ -1420,10 +1435,12 @@ let i_block v = Block_v begin match v with
 | "NB" -> `NB
 | "NKo" -> `NKo
 | "Nabataean" -> `Nabataean
+| "Nandinagari" -> `Nandinagari
 | "New_Tai_Lue" -> `New_Tai_Lue
 | "Newa" -> `Newa
 | "Number_Forms" -> `Number_Forms
 | "Nushu" -> `Nushu
+| "Nyiakeng_Puachue_Hmong" -> `Nyiakeng_Puachue_Hmong
 | "OCR" -> `OCR
 | "Ogham" -> `Ogham
 | "Ol_Chiki" -> `Ol_Chiki
@@ -1439,6 +1456,7 @@ let i_block v = Block_v begin match v with
 | "Ornamental_Dingbats" -> `Ornamental_Dingbats
 | "Osage" -> `Osage
 | "Osmanya" -> `Osmanya
+| "Ottoman_Siyaq_Numbers" -> `Ottoman_Siyaq_Numbers
 | "PUA" -> `PUA
 | "Pahawh_Hmong" -> `Pahawh_Hmong
 | "Palmyrene" -> `Palmyrene
@@ -1463,6 +1481,7 @@ let i_block v = Block_v begin match v with
 | "Sinhala" -> `Sinhala
 | "Sinhala_Archaic_Numbers" -> `Sinhala_Archaic_Numbers
 | "Small_Forms" -> `Small_Forms
+| "Small_Kana_Ext" -> `Small_Kana_Ext
 | "Sogdian" -> `Sogdian
 | "Sora_Sompeng" -> `Sora_Sompeng
 | "Soyombo" -> `Soyombo
@@ -1480,6 +1499,7 @@ let i_block v = Block_v begin match v with
 | "Super_And_Sub" -> `Super_And_Sub
 | "Sutton_SignWriting" -> `Sutton_SignWriting
 | "Syloti_Nagri" -> `Syloti_Nagri
+| "Symbols_And_Pictographs_Ext_A" -> `Symbols_And_Pictographs_Ext_A
 | "Syriac" -> `Syriac
 | "Syriac_Sup" -> `Syriac_Sup
 | "Tagalog" -> `Tagalog
@@ -1491,6 +1511,7 @@ let i_block v = Block_v begin match v with
 | "Tai_Xuan_Jing" -> `Tai_Xuan_Jing
 | "Takri" -> `Takri
 | "Tamil" -> `Tamil
+| "Tamil_Sup" -> `Tamil_Sup
 | "Tangut" -> `Tangut
 | "Tangut_Components" -> `Tangut_Components
 | "Telugu" -> `Telugu
@@ -1508,6 +1529,7 @@ let i_block v = Block_v begin match v with
 | "Vai" -> `Vai
 | "Vedic_Ext" -> `Vedic_Ext
 | "Vertical_Forms" -> `Vertical_Forms
+| "Wancho" -> `Wancho
 | "Warang_Citi" -> `Warang_Citi
 | "Yi_Radicals" -> `Yi_Radicals
 | "Yi_Syllables" -> `Yi_Syllables
@@ -1940,6 +1962,7 @@ let i_script v = Script_v begin match v with
 | "Dupl" -> `Dupl
 | "Egyp" -> `Egyp
 | "Elba" -> `Elba
+| "Elym" -> `Elym
 | "Ethi" -> `Ethi
 | "Geor" -> `Geor
 | "Glag" -> `Glag
@@ -1958,6 +1981,7 @@ let i_script v = Script_v begin match v with
 | "Hira" -> `Hira
 | "Hluw" -> `Hluw
 | "Hmng" -> `Hmng
+| "Hmnp" -> `Hmnp
 | "Hrkt" -> `Hrkt
 | "Hung" -> `Hung
 | "Ital" -> `Ital
@@ -1995,6 +2019,7 @@ let i_script v = Script_v begin match v with
 | "Mtei" -> `Mtei
 | "Mult" -> `Mult
 | "Mymr" -> `Mymr
+| "Nand" -> `Nand
 | "Narb" -> `Narb
 | "Nbat" -> `Nbat
 | "Newa" -> `Newa
@@ -2052,6 +2077,7 @@ let i_script v = Script_v begin match v with
 | "Ugar" -> `Ugar
 | "Vaii" -> `Vaii
 | "Wara" -> `Wara
+| "Wcho" -> `Wcho
 | "Xpeo" -> `Xpeo
 | "Xsux" -> `Xsux
 | "Yiii" -> `Yiii
