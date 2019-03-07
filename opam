@@ -1,18 +1,18 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
 authors: ["Daniel Bünzli <daniel.buenzl i@erratique.ch>"]
-homepage: "http://erratique.ch/software/uucd"
-dev-repo: "http://erratique.ch/repos/uucd.git"
+homepage: "https://erratique.ch/software/uucd"
+dev-repo: "git+https://erratique.ch/repos/uucd.git"
 bug-reports: "https://github.com/dbuenzli/uucd/issues"
-doc: "http://erratique.ch/software/uucd/doc/Uucd"
+doc: "https://erratique.ch/software/uucd/doc/Uucd"
 tags: [ "unicode" "database" "decoder" "org:erratique" ]
 license: "ISC"
-available: [ ocaml-version >= "4.01.0"]
 depends: [
+  "ocaml" {>= "4.01.0"}
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build}
-  "xmlm" ]
+  "xmlm"
+]
 build: [[
-  "ocaml" "pkg/pkg.ml" "build"
-          "--pinned" "%{pinned}%" ]]
+  "ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" ]]
