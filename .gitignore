@@ -1,4 +1,6 @@
 _build
+.merlin
+_b0
 tmp
 \.\#*
 \#*#

@@ -3,3 +3,4 @@
 <test> : include
 <src/uucd.{mli,ml}> : package(xmlm)
 <test/test.{byte,native}> : package(xmlm)
+<_b0> : -traverse
