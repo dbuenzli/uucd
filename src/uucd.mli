@@ -765,7 +765,7 @@ val lowercase : bool prop
 val lowercase_mapping : [`Self | `Cps of cp list ] prop
 val math : bool prop
 val name : [`Pattern of string | `Name of string ] prop
-(** In the [`Pattern] case occurences of the character ['#']
+(** In the [`Pattern] case occurrences of the character ['#']
     ([U+0023]) in the string must be replaced by the value of the code
     point as four to six uppercase hexadecimal digits (the minimal
     needed). E.g. the pattern ["CJK UNIFIED IDEOGRAPH-#"] associated
