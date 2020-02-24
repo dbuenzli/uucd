@@ -95,12 +95,18 @@ type key =                            (* the type for property keys (names). *)
 | Deprecated
 | Diacritic
 | East_asian_width
+| Emoji
+| Emoji_presentation
+| Emoji_modifier
+| Emoji_modifier_base
+| Emoji_component
 | Equivalent_unified_ideograph
 | Expands_on_nfc
 | Expands_on_nfd
 | Expands_on_nfkc
 | Expands_on_nfkd
 | Extender
+| Extended_pictographic
 | Fc_nfkc_closure
 | Full_composition_exclusion
 | General_category
@@ -226,8 +232,10 @@ type key =                            (* the type for property keys (names). *)
 | KIRG_KPSource
 | KIRG_KSource
 | KIRG_MSource
+| KIRG_SSource
 | KIRG_TSource
 | KIRG_USource
+| KIRG_UKSource
 | KIRG_VSource
 | KJHJ
 | KJIS0213
@@ -271,13 +279,16 @@ type key =                            (* the type for property keys (names). *)
 | KSemanticVariant
 | KSimplifiedVariant
 | KSpecializedSemanticVariant
+| KSpoofingVariant
 | KSrc_NushuDuben
 | KTGH
+| KTGHZ2013
 | KTGT_MergedSrc
 | KTaiwanTelegraph
 | KTang
 | KTotalStrokes
 | KTraditionalVariant
+| KUnihanCore2020
 | KVietnamese
 | KWubi
 | KXHC1983
@@ -309,10 +320,12 @@ type script = [
 | `Cari
 | `Cham
 | `Cher
+| `Chrs
 | `Copt
 | `Cprt
 | `Cyrl
 | `Deva
+| `Diak
 | `Dogr
 | `Dsrt
 | `Dupl
@@ -349,6 +362,7 @@ type script = [
 | `Khoj
 | `Knda
 | `Kthi
+| `Kits
 | `Lana
 | `Laoo
 | `Latn
@@ -436,6 +450,7 @@ type script = [
 | `Wcho
 | `Xpeo
 | `Xsux
+| `Yezi
 | `Yiii
 | `Zanb
 | `Zinh
@@ -490,6 +505,7 @@ type block_prop = [
 | `CJK_Ext_D
 | `CJK_Ext_E
 | `CJK_Ext_F
+| `CJK_Ext_G
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -500,6 +516,7 @@ type block_prop = [
 | `Cherokee
 | `Cherokee_Sup
 | `Chess_Symbols
+| `Chorasmian
 | `Compat_Jamo
 | `Control_Pictures
 | `Coptic
@@ -522,6 +539,7 @@ type block_prop = [
 | `Diacriticals_For_Symbols
 | `Diacriticals_Sup
 | `Dingbats
+| `Dives_Akuru
 | `Dogra
 | `Domino
 | `Duployan
@@ -585,6 +603,7 @@ type block_prop = [
 | `Katakana_Ext
 | `Kayah_Li
 | `Kharoshthi
+| `Khitan_Small_Script
 | `Khmer
 | `Khmer_Symbols
 | `Khojki
@@ -604,6 +623,7 @@ type block_prop = [
 | `Linear_B_Ideograms
 | `Linear_B_Syllabary
 | `Lisu
+| `Lisu_Sup
 | `Low_Surrogates
 | `Lycian
 | `Lydian
@@ -710,6 +730,7 @@ type block_prop = [
 | `Sutton_SignWriting
 | `Syloti_Nagri
 | `Symbols_And_Pictographs_Ext_A
+| `Symbols_For_Legacy_Computing
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -724,6 +745,7 @@ type block_prop = [
 | `Tamil_Sup
 | `Tangut
 | `Tangut_Components
+| `Tangut_Sup
 | `Telugu
 | `Thaana
 | `Thai
@@ -741,6 +763,7 @@ type block_prop = [
 | `Vertical_Forms
 | `Wancho
 | `Warang_Citi
+| `Yezidi
 | `Yi_Radicals
 | `Yi_Syllables
 | `Yijing
@@ -912,6 +935,7 @@ type value =                                (* the type for property values. *)
   ]
 | Indic_positional_category_v of [
     | `Bottom
+    | `Bottom_And_Left
     | `Bottom_And_Right
     | `Left
     | `Left_And_Right
@@ -920,6 +944,7 @@ type value =                                (* the type for property values. *)
     | `Right
     | `Top
     | `Top_And_Bottom
+    | `Top_And_Bottom_And_Left
     | `Top_And_Bottom_And_Right
     | `Top_And_Left
     | `Top_And_Left_And_Right
@@ -1280,6 +1305,7 @@ let i_block v = Block_v begin match v with
 | "CJK_Ext_D" -> `CJK_Ext_D
 | "CJK_Ext_E" -> `CJK_Ext_E
 | "CJK_Ext_F" -> `CJK_Ext_F
+| "CJK_Ext_G" -> `CJK_Ext_G
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
@@ -1290,6 +1316,7 @@ let i_block v = Block_v begin match v with
 | "Cherokee" -> `Cherokee
 | "Cherokee_Sup" -> `Cherokee_Sup
 | "Chess_Symbols" -> `Chess_Symbols
+| "Chorasmian" -> `Chorasmian
 | "Compat_Jamo" -> `Compat_Jamo
 | "Control_Pictures" -> `Control_Pictures
 | "Coptic" -> `Coptic
@@ -1312,6 +1339,7 @@ let i_block v = Block_v begin match v with
 | "Diacriticals_For_Symbols" -> `Diacriticals_For_Symbols
 | "Diacriticals_Sup" -> `Diacriticals_Sup
 | "Dingbats" -> `Dingbats
+| "Dives_Akuru" -> `Dives_Akuru
 | "Dogra" -> `Dogra
 | "Domino" -> `Domino
 | "Duployan" -> `Duployan
@@ -1375,6 +1403,7 @@ let i_block v = Block_v begin match v with
 | "Katakana_Ext" -> `Katakana_Ext
 | "Kayah_Li" -> `Kayah_Li
 | "Kharoshthi" -> `Kharoshthi
+| "Khitan_Small_Script" -> `Khitan_Small_Script
 | "Khmer" -> `Khmer
 | "Khmer_Symbols" -> `Khmer_Symbols
 | "Khojki" -> `Khojki
@@ -1394,6 +1423,7 @@ let i_block v = Block_v begin match v with
 | "Linear_B_Ideograms" -> `Linear_B_Ideograms
 | "Linear_B_Syllabary" -> `Linear_B_Syllabary
 | "Lisu" -> `Lisu
+| "Lisu_Sup" -> `Lisu_Sup
 | "Low_Surrogates" -> `Low_Surrogates
 | "Lycian" -> `Lycian
 | "Lydian" -> `Lydian
@@ -1500,6 +1530,7 @@ let i_block v = Block_v begin match v with
 | "Sutton_SignWriting" -> `Sutton_SignWriting
 | "Syloti_Nagri" -> `Syloti_Nagri
 | "Symbols_And_Pictographs_Ext_A" -> `Symbols_And_Pictographs_Ext_A
+| "Symbols_For_Legacy_Computing" -> `Symbols_For_Legacy_Computing
 | "Syriac" -> `Syriac
 | "Syriac_Sup" -> `Syriac_Sup
 | "Tagalog" -> `Tagalog
@@ -1514,6 +1545,7 @@ let i_block v = Block_v begin match v with
 | "Tamil_Sup" -> `Tamil_Sup
 | "Tangut" -> `Tangut
 | "Tangut_Components" -> `Tangut_Components
+| "Tangut_Sup" -> `Tangut_Sup
 | "Telugu" -> `Telugu
 | "Thaana" -> `Thaana
 | "Thai" -> `Thai
@@ -1531,6 +1563,7 @@ let i_block v = Block_v begin match v with
 | "Vertical_Forms" -> `Vertical_Forms
 | "Wancho" -> `Wancho
 | "Warang_Citi" -> `Warang_Citi
+| "Yezidi" -> `Yezidi
 | "Yi_Radicals" -> `Yi_Radicals
 | "Yi_Syllables" -> `Yi_Syllables
 | "Yijing" -> `Yijing
@@ -1721,6 +1754,7 @@ end
 let i_indic_positional_category v = Indic_positional_category_v
 begin match v with
 | "Bottom" -> `Bottom
+| "Bottom_And_Left" -> `Bottom_And_Right
 | "Bottom_And_Right" -> `Bottom_And_Right
 | "Left" -> `Left
 | "Left_And_Right" -> `Left_And_Right
@@ -1729,6 +1763,7 @@ begin match v with
 | "Right" -> `Right
 | "Top" -> `Top
 | "Top_And_Bottom" -> `Top_And_Bottom
+| "Top_And_Bottom_And_Left" -> `Top_And_Bottom_And_Left
 | "Top_And_Bottom_And_Right" -> `Top_And_Bottom_And_Right
 | "Top_And_Left" -> `Top_And_Left
 | "Top_And_Left_And_Right" -> `Top_And_Left_And_Right
@@ -1953,10 +1988,12 @@ let i_script v = Script_v begin match v with
 | "Cari" -> `Cari
 | "Cham" -> `Cham
 | "Cher" -> `Cher
+| "Chrs" -> `Chrs
 | "Copt" -> `Copt
 | "Cprt" -> `Cprt
 | "Cyrl" -> `Cyrl
 | "Deva" -> `Deva
+| "Diak" -> `Diak
 | "Dogr" -> `Dogr
 | "Dsrt" -> `Dsrt
 | "Dupl" -> `Dupl
@@ -1993,6 +2030,7 @@ let i_script v = Script_v begin match v with
 | "Khoj" -> `Khoj
 | "Knda" -> `Knda
 | "Kthi" -> `Kthi
+| "Kits" -> `Kits
 | "Lana" -> `Lana
 | "Laoo" -> `Laoo
 | "Latn" -> `Latn
@@ -2080,6 +2118,7 @@ let i_script v = Script_v begin match v with
 | "Wcho" -> `Wcho
 | "Xpeo" -> `Xpeo
 | "Xsux" -> `Xsux
+| "Yezi" -> `Yezi
 | "Yiii" -> `Yiii
 | "Zanb" -> `Zanb
 | "Zinh" -> `Zinh
@@ -2198,7 +2237,13 @@ let default_ignorable_code_point = Default_ignorable_code_point, o_bool
 let deprecated = Deprecated, o_bool
 let diacritic = Diacritic, o_bool
 let east_asian_width = East_asian_width, o_east_asian_width
+let emoji = Emoji, o_bool
+let emoji_presentation = Emoji_presentation, o_bool
+let emoji_modifier = Emoji_modifier, o_bool
+let emoji_modifier_base = Emoji_modifier_base, o_bool
+let emoji_component = Emoji_component, o_bool
 let equivalent_unified_ideograph = Equivalent_unified_ideograph, o_cp_opt
+let extended_pictographic = Extended_pictographic, o_bool
 let expands_on_nfc = Expands_on_nfc, o_bool
 let expands_on_nfd = Expands_on_nfd, o_bool
 let expands_on_nfkc = Expands_on_nfkc, o_bool
@@ -2333,8 +2378,10 @@ let kIRG_JSource = KIRG_JSource, o_string
 let kIRG_KPSource = KIRG_KPSource, o_string
 let kIRG_KSource = KIRG_KSource, o_string
 let kIRG_MSource = KIRG_MSource, o_string
+let kIRG_SSource = KIRG_SSource, o_string
 let kIRG_TSource = KIRG_TSource, o_string
 let kIRG_USource = KIRG_USource, o_string
+let kIRG_UKSource = KIRG_UKSource, o_string
 let kIRG_VSource = KIRG_VSource, o_string
 let kJHJ = KJHJ, o_string
 let kJIS0213 = KJIS0213, o_string
@@ -2378,13 +2425,16 @@ let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
+let kSpoofingVariant = KSpoofingVariant, o_string
 let kSrc_NushuDuben = KSrc_NushuDuben, o_string
 let kTGH = KTGH, o_string
+let kTGHZ2013 = KTGHZ2013, o_string
 let kTGT_MergedSrc = KTGT_MergedSrc, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
 let kTotalStrokes = KTotalStrokes, o_string
 let kTraditionalVariant = KTraditionalVariant, o_string
+let kUnihanCore2020 = KUnihanCore2020, o_string
 let kVietnamese = KVietnamese, o_string
 let kWubi = KWubi, o_string
 let kXHC1983 = KXHC1983, o_string
@@ -2486,6 +2536,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "Ideo" (Ideographic, i_bool);
   map "InSC" (Indic_syllabic_category, i_indic_syllabic_category);
   map "InMC" (Indic_matra_category, i_indic_matra_category);
+  map "InPC" (Indic_positional_category, i_indic_positional_category);
   map "JSN" (Jamo_short_name, i_string);
   map "Join_C" (Join_control, i_bool);
   map "LOE" (Logical_order_exception, i_bool);
@@ -2538,6 +2589,12 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "dm" (Decomposition_mapping,  (i_cps_map ~empty:true));
   map "dt" (Decomposition_type, i_decomposition_type);
   map "ea" (East_asian_width, i_east_asian_width);
+  map "Emoji" (Emoji, i_bool);
+  map "EPres" (Emoji_presentation, i_bool);
+  map "EMod" (Emoji_modifier, i_bool);
+  map "EBase" (Emoji_modifier_base, i_bool);
+  map "EComp" (Emoji_component, i_bool);
+  map "ExtPict" (Extended_pictographic, i_bool);
   map "gc" (General_category, i_general_category);
   map "hst" (Hangul_syllable_type, i_hangul_syllable_type);
   map "isc" (Iso_comment, i_string);
@@ -2608,8 +2665,10 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kIRG_KPSource" (KIRG_KPSource, i_string);
   map "kIRG_KSource" (KIRG_KSource, i_string);
   map "kIRG_MSource" (KIRG_MSource, i_string);
+  map "kIRG_SSource" (KIRG_SSource, i_string);
   map "kIRG_TSource" (KIRG_TSource, i_string);
   map "kIRG_USource" (KIRG_USource, i_string);
+  map "kIRG_UKSource" (KIRG_UKSource, i_string);
   map "kIRG_VSource" (KIRG_VSource, i_string);
   map "kJHJ" (KJHJ, i_string);
   map "kJIS0213" (KJIS0213, i_string);
@@ -2653,8 +2712,10 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kSemanticVariant" (KSemanticVariant, i_string);
   map "kSimplifiedVariant" (KSimplifiedVariant, i_string);
   map "kSpecializedSemanticVariant" (KSpecializedSemanticVariant, i_string);
+  map "kSpoofingVariant" (KSpoofingVariant, i_string);
   map "kSrc_NushuDuben" (KSrc_NushuDuben, i_string);
   map "kTGH" (KTGH, i_string);
+  map "kTGHZ2013" (KTGHZ2013, i_string);
   map "kTGT_MergedSrc" (KTGT_MergedSrc, i_string);
   map "kTaiwanTelegraph" (KTaiwanTelegraph, i_string);
   map "kTang" (KTang, i_string);

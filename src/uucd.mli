@@ -160,6 +160,7 @@ val block : [
 | `CJK_Ext_D
 | `CJK_Ext_E
 | `CJK_Ext_F
+| `CJK_Ext_G
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -170,6 +171,7 @@ val block : [
 | `Cherokee
 | `Cherokee_Sup
 | `Chess_Symbols
+| `Chorasmian
 | `Compat_Jamo
 | `Control_Pictures
 | `Coptic
@@ -192,6 +194,7 @@ val block : [
 | `Diacriticals_For_Symbols
 | `Diacriticals_Sup
 | `Dingbats
+| `Dives_Akuru
 | `Dogra
 | `Domino
 | `Duployan
@@ -255,6 +258,7 @@ val block : [
 | `Katakana_Ext
 | `Kayah_Li
 | `Kharoshthi
+| `Khitan_Small_Script
 | `Khmer
 | `Khmer_Symbols
 | `Khojki
@@ -274,6 +278,7 @@ val block : [
 | `Linear_B_Ideograms
 | `Linear_B_Syllabary
 | `Lisu
+| `Lisu_Sup
 | `Low_Surrogates
 | `Lycian
 | `Lydian
@@ -380,6 +385,7 @@ val block : [
 | `Sutton_SignWriting
 | `Syloti_Nagri
 | `Symbols_And_Pictographs_Ext_A
+| `Symbols_For_Legacy_Computing
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -394,6 +400,7 @@ val block : [
 | `Tamil_Sup
 | `Tangut
 | `Tangut_Components
+| `Tangut_Sup
 | `Telugu
 | `Thaana
 | `Thai
@@ -411,6 +418,7 @@ val block : [
 | `Vertical_Forms
 | `Wancho
 | `Warang_Citi
+| `Yezidi
 | `Yi_Radicals
 | `Yi_Syllables
 | `Yijing
@@ -455,11 +463,17 @@ val default_ignorable_code_point : bool prop
 val deprecated : bool prop
 val diacritic : bool prop
 val east_asian_width : [ `A | `F | `H | `N | `Na | `W ] prop
+val emoji : bool prop
+val emoji_presentation : bool prop
+val emoji_modifier : bool prop
+val emoji_modifier_base : bool prop
+val emoji_component : bool prop
 val equivalent_unified_ideograph : cp option prop
 val expands_on_nfc : bool prop
 val expands_on_nfd : bool prop
 val expands_on_nfkc : bool prop
 val expands_on_nfkd : bool prop
+val extended_pictographic : bool prop
 val extender : bool prop
 val fc_nfkc_closure : [ `Self | `Cps of cp list ] prop
 val full_composition_exclusion : bool prop
@@ -588,6 +602,7 @@ val indic_matra_category : [
 
 val indic_positional_category : [
 | `Bottom
+| `Bottom_And_Left
 | `Bottom_And_Right
 | `Left
 | `Left_And_Right
@@ -596,6 +611,7 @@ val indic_positional_category : [
 | `Right
 | `Top
 | `Top_And_Bottom
+| `Top_And_Bottom_And_Left
 | `Top_And_Bottom_And_Right
 | `Top_And_Left
 | `Top_And_Left_And_Right
@@ -822,10 +838,12 @@ type script = [
 | `Cari
 | `Cham
 | `Cher
+| `Chrs
 | `Copt
 | `Cprt
 | `Cyrl
 | `Deva
+| `Diak
 | `Dogr
 | `Dsrt
 | `Dupl
@@ -862,6 +880,7 @@ type script = [
 | `Khoj
 | `Knda
 | `Kthi
+| `Kits
 | `Lana
 | `Laoo
 | `Latn
@@ -949,6 +968,7 @@ type script = [
 | `Wcho
 | `Xpeo
 | `Xsux
+| `Yezi
 | `Yiii
 | `Zanb
 | `Zinh
@@ -1081,8 +1101,10 @@ val kIRG_JSource : string prop
 val kIRG_KPSource : string prop
 val kIRG_KSource : string prop
 val kIRG_MSource : string prop
+val kIRG_SSource : string prop
 val kIRG_TSource : string prop
 val kIRG_USource : string prop
+val kIRG_UKSource : string prop
 val kIRG_VSource : string prop
 val kJHJ : string prop
 val kJIS0213 : string prop
@@ -1126,8 +1148,11 @@ val kSBGY : string prop
 val kSemanticVariant : string prop
 val kSimplifiedVariant : string prop
 val kSpecializedSemanticVariant : string prop
+val kSpoofingVariant : string prop
 val kSrc_NushuDuben : string prop
+val kUnihanCore2020 : string prop
 val kTGH : string prop
+val kTGHZ2013 : string prop
 val kTGT_MergedSrc : string prop
 val kTaiwanTelegraph : string prop
 val kTang : string prop
