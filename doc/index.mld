@@ -1,0 +1,10 @@
+{0 Uucd {%html: <span class="version">%%VERSION%%</span>%}}
+
+Uucd is an OCaml module to decode the data of the Unicode character
+database from its XML representation.
+
+{1:api API}
+
+{!modules:
+Uucd
+}

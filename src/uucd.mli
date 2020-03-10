@@ -1,7 +1,6 @@
 (*---------------------------------------------------------------------------
    Copyright (c) 2012 The uucd programmers. All rights reserved.
    Distributed under the ISC license, see terms at the end of the file.
-   %%NAME%% %%VERSION%%
   ---------------------------------------------------------------------------*)
 
 (** Unicode character database decoder.
@@ -21,8 +20,8 @@
 
     {b Note.} All strings returned by the module are UTF-8 encoded.
 
-    {e Release %%VERSION%% — Unicode version %%UNICODE_VERSION%% —
-       {{:%%PKG_HOMEPAGE%% }homepage}}
+    {e Unicode version %%UNICODE_VERSION%%}
+
     {3 References}
     {ul
     {- The Unicode Consortium.
