@@ -31,4 +31,4 @@ instructions and a complete specification of the dependencies.
 The documentation and API reference can be consulted [online][doc]
 or via `odig doc uucd`.
 
-[doc]: http://erratique.ch/software/uucd/doc/Uucd
+[doc]: http://erratique.ch/software/uucd/doc/
