@@ -280,6 +280,7 @@ type key =                            (* the type for property keys (names). *)
 | KSpecializedSemanticVariant
 | KSpoofingVariant
 | KSrc_NushuDuben
+| KStrange
 | KTGH
 | KTGHZ2013
 | KTGT_MergedSrc
@@ -321,6 +322,7 @@ type script = [
 | `Cher
 | `Chrs
 | `Copt
+| `Cpmn
 | `Cprt
 | `Cyrl
 | `Deva
@@ -400,6 +402,7 @@ type script = [
 | `Orya
 | `Osge
 | `Osma
+| `Ougr
 | `Palm
 | `Pauc
 | `Perm
@@ -443,8 +446,11 @@ type script = [
 | `Thai
 | `Tibt
 | `Tirh
+| `Tnsa
+| `Toto
 | `Ugar
 | `Vaii
+| `Vith
 | `Wara
 | `Wcho
 | `Xpeo
@@ -470,6 +476,7 @@ type block_prop = [
 | `Ancient_Symbols
 | `Arabic
 | `Arabic_Ext_A
+| `Arabic_Ext_B
 | `Arabic_Math
 | `Arabic_PF_A
 | `Arabic_PF_B
@@ -525,6 +532,7 @@ type block_prop = [
 | `Cuneiform_Numbers
 | `Currency_Symbols
 | `Cypriot_Syllabary
+| `Cypro_Minoan
 | `Cyrillic
 | `Cyrillic_Ext_A
 | `Cyrillic_Ext_B
@@ -555,6 +563,7 @@ type block_prop = [
 | `Ethiopic
 | `Ethiopic_Ext
 | `Ethiopic_Ext_A
+| `Ethiopic_Ext_B
 | `Ethiopic_Sup
 | `Geometric_Shapes
 | `Geometric_Shapes_Ext
@@ -594,6 +603,7 @@ type block_prop = [
 | `Javanese
 | `Kaithi
 | `Kana_Ext_A
+| `Kana_Ext_B
 | `Kana_Sup
 | `Kanbun
 | `Kangxi
@@ -615,6 +625,8 @@ type block_prop = [
 | `Latin_Ext_C
 | `Latin_Ext_D
 | `Latin_Ext_E
+| `Latin_Ext_F
+| `Latin_Ext_G
 | `Lepcha
 | `Letterlike_Symbols
 | `Limbu
@@ -681,6 +693,7 @@ type block_prop = [
 | `Old_Sogdian
 | `Old_South_Arabian
 | `Old_Turkic
+| `Old_Uyghur
 | `Oriya
 | `Ornamental_Dingbats
 | `Osage
@@ -742,6 +755,7 @@ type block_prop = [
 | `Takri
 | `Tamil
 | `Tamil_Sup
+| `Tangsa
 | `Tangut
 | `Tangut_Components
 | `Tangut_Sup
@@ -751,15 +765,18 @@ type block_prop = [
 | `Tibetan
 | `Tifinagh
 | `Tirhuta
+| `Toto
 | `Transport_And_Map
 | `UCAS
 | `UCAS_Ext
+| `UCAS_Ext_A
 | `Ugaritic
 | `VS
 | `VS_Sup
 | `Vai
 | `Vedic_Ext
 | `Vertical_Forms
+| `Vithkuqi
 | `Wancho
 | `Warang_Citi
 | `Yezidi
@@ -767,6 +784,7 @@ type block_prop = [
 | `Yi_Syllables
 | `Yijing
 | `Zanabazar_Square
+| `Znamenny_Music
 ]
 
 type value =                                (* the type for property values. *)
@@ -1047,6 +1065,8 @@ type value =                                (* the type for property values. *)
     | `Teh_Marbuta
     | `Teh_Marbuta_Goal
     | `Teth
+    | `Thin_Yeh
+    | `Vertical_Tail
     | `Waw
     | `Yeh
     | `Yeh_Barree
@@ -1270,6 +1290,7 @@ let i_block v = Block_v begin match v with
 | "Ancient_Symbols" -> `Ancient_Symbols
 | "Arabic" -> `Arabic
 | "Arabic_Ext_A" -> `Arabic_Ext_A
+| "Arabic_Ext_B" -> `Arabic_Ext_A
 | "Arabic_Math" -> `Arabic_Math
 | "Arabic_PF_A" -> `Arabic_PF_A
 | "Arabic_PF_B" -> `Arabic_PF_B
@@ -1325,6 +1346,7 @@ let i_block v = Block_v begin match v with
 | "Cuneiform_Numbers" -> `Cuneiform_Numbers
 | "Currency_Symbols" -> `Currency_Symbols
 | "Cypriot_Syllabary" -> `Cypriot_Syllabary
+| "Cypro_Minoan" -> `Cypro_Minoan
 | "Cyrillic" -> `Cyrillic
 | "Cyrillic_Ext_A" -> `Cyrillic_Ext_A
 | "Cyrillic_Ext_B" -> `Cyrillic_Ext_B
@@ -1355,6 +1377,7 @@ let i_block v = Block_v begin match v with
 | "Ethiopic" -> `Ethiopic
 | "Ethiopic_Ext" -> `Ethiopic_Ext
 | "Ethiopic_Ext_A" -> `Ethiopic_Ext_A
+| "Ethiopic_Ext_B" -> `Ethiopic_Ext_B
 | "Ethiopic_Sup" -> `Ethiopic_Sup
 | "Geometric_Shapes" -> `Geometric_Shapes
 | "Geometric_Shapes_Ext" -> `Geometric_Shapes_Ext
@@ -1394,6 +1417,7 @@ let i_block v = Block_v begin match v with
 | "Javanese" -> `Javanese
 | "Kaithi" -> `Kaithi
 | "Kana_Ext_A" -> `Kana_Ext_A
+| "Kana_Ext_B" -> `Kana_Ext_B
 | "Kana_Sup" -> `Kana_Sup
 | "Kanbun" -> `Kanbun
 | "Kangxi" -> `Kangxi
@@ -1415,6 +1439,8 @@ let i_block v = Block_v begin match v with
 | "Latin_Ext_C" -> `Latin_Ext_C
 | "Latin_Ext_D" -> `Latin_Ext_D
 | "Latin_Ext_E" -> `Latin_Ext_E
+| "Latin_Ext_F" -> `Latin_Ext_F
+| "Latin_Ext_G" -> `Latin_Ext_G
 | "Lepcha" -> `Lepcha
 | "Letterlike_Symbols" -> `Letterlike_Symbols
 | "Limbu" -> `Limbu
@@ -1481,6 +1507,7 @@ let i_block v = Block_v begin match v with
 | "Old_Sogdian" -> `Old_Sogdian
 | "Old_South_Arabian" -> `Old_South_Arabian
 | "Old_Turkic" -> `Old_Turkic
+| "Old_Uyghur" -> `Old_Uyghur
 | "Oriya" -> `Oriya
 | "Ornamental_Dingbats" -> `Ornamental_Dingbats
 | "Osage" -> `Osage
@@ -1542,6 +1569,7 @@ let i_block v = Block_v begin match v with
 | "Takri" -> `Takri
 | "Tamil" -> `Tamil
 | "Tamil_Sup" -> `Tamil_Sup
+| "Tangsa" -> `Tangsa
 | "Tangut" -> `Tangut
 | "Tangut_Components" -> `Tangut_Components
 | "Tangut_Sup" -> `Tangut_Sup
@@ -1551,15 +1579,18 @@ let i_block v = Block_v begin match v with
 | "Tibetan" -> `Tibetan
 | "Tifinagh" -> `Tifinagh
 | "Tirhuta" -> `Tirhuta
+| "Toto" -> `Toto
 | "Transport_And_Map" -> `Transport_And_Map
 | "UCAS" -> `UCAS
 | "UCAS_Ext" -> `UCAS_Ext
+| "UCAS_Ext_A" -> `UCAS_Ext_A
 | "Ugaritic" -> `Ugaritic
 | "VS" -> `VS
 | "VS_Sup" -> `VS_Sup
 | "Vai" -> `Vai
 | "Vedic_Ext" -> `Vedic_Ext
 | "Vertical_Forms" -> `Vertical_Forms
+| "Vithkuqi" -> `Vithkuqi
 | "Wancho" -> `Wancho
 | "Warang_Citi" -> `Warang_Citi
 | "Yezidi" -> `Yezidi
@@ -1567,6 +1598,7 @@ let i_block v = Block_v begin match v with
 | "Yi_Syllables" -> `Yi_Syllables
 | "Yijing" -> `Yijing
 | "Zanabazar_Square" -> `Zanabazar_Square
+| "Znamenny_Music" -> `Znamenny_Music
 | v -> err (err_att_val v)
 end
 
@@ -1868,6 +1900,8 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Teh_Marbuta" -> `Teh_Marbuta
 | "Teh_Marbuta_Goal" -> `Teh_Marbuta_Goal
 | "Teth" -> `Teth
+| "Thin_Yeh" -> `Thin_Yeh
+| "Vertical_Tail" -> `Vertical_Tail
 | "Waw" -> `Waw
 | "Yeh" -> `Yeh
 | "Yeh_Barree" -> `Yeh_Barree
@@ -1989,6 +2023,7 @@ let i_script v = Script_v begin match v with
 | "Cher" -> `Cher
 | "Chrs" -> `Chrs
 | "Copt" -> `Copt
+| "Cpmn" -> `Cpmn
 | "Cprt" -> `Cprt
 | "Cyrl" -> `Cyrl
 | "Deva" -> `Deva
@@ -2068,6 +2103,7 @@ let i_script v = Script_v begin match v with
 | "Orya" -> `Orya
 | "Osge" -> `Osge
 | "Osma" -> `Osma
+| "Ougr" -> `Ougr
 | "Palm" -> `Palm
 | "Pauc" -> `Pauc
 | "Perm" -> `Perm
@@ -2111,8 +2147,11 @@ let i_script v = Script_v begin match v with
 | "Thai" -> `Thai
 | "Tibt" -> `Tibt
 | "Tirh" -> `Tirh
+| "Tnsa" -> `Tnsa
+| "Toto" -> `Toto
 | "Ugar" -> `Ugar
 | "Vaii" -> `Vaii
+| "Vith" -> `Vith
 | "Wara" -> `Wara
 | "Wcho" -> `Wcho
 | "Xpeo" -> `Xpeo
@@ -2426,6 +2465,7 @@ let kSimplifiedVariant = KSimplifiedVariant, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
 let kSpoofingVariant = KSpoofingVariant, o_string
 let kSrc_NushuDuben = KSrc_NushuDuben, o_string
+let kStrange = KStrange, o_string
 let kTGH = KTGH, o_string
 let kTGHZ2013 = KTGHZ2013, o_string
 let kTGT_MergedSrc = KTGT_MergedSrc, o_string

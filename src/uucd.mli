@@ -125,6 +125,7 @@ val block : [
 | `Ancient_Symbols
 | `Arabic
 | `Arabic_Ext_A
+| `Arabic_Ext_B
 | `Arabic_Math
 | `Arabic_PF_A
 | `Arabic_PF_B
@@ -180,6 +181,7 @@ val block : [
 | `Cuneiform_Numbers
 | `Currency_Symbols
 | `Cypriot_Syllabary
+| `Cypro_Minoan
 | `Cyrillic
 | `Cyrillic_Ext_A
 | `Cyrillic_Ext_B
@@ -210,6 +212,7 @@ val block : [
 | `Ethiopic
 | `Ethiopic_Ext
 | `Ethiopic_Ext_A
+| `Ethiopic_Ext_B
 | `Ethiopic_Sup
 | `Geometric_Shapes
 | `Geometric_Shapes_Ext
@@ -249,6 +252,7 @@ val block : [
 | `Javanese
 | `Kaithi
 | `Kana_Ext_A
+| `Kana_Ext_B
 | `Kana_Sup
 | `Kanbun
 | `Kangxi
@@ -270,6 +274,8 @@ val block : [
 | `Latin_Ext_C
 | `Latin_Ext_D
 | `Latin_Ext_E
+| `Latin_Ext_F
+| `Latin_Ext_G
 | `Lepcha
 | `Letterlike_Symbols
 | `Limbu
@@ -336,6 +342,7 @@ val block : [
 | `Old_Sogdian
 | `Old_South_Arabian
 | `Old_Turkic
+| `Old_Uyghur
 | `Oriya
 | `Ornamental_Dingbats
 | `Osage
@@ -397,6 +404,7 @@ val block : [
 | `Takri
 | `Tamil
 | `Tamil_Sup
+| `Tangsa
 | `Tangut
 | `Tangut_Components
 | `Tangut_Sup
@@ -406,15 +414,18 @@ val block : [
 | `Tibetan
 | `Tifinagh
 | `Tirhuta
+| `Toto
 | `Transport_And_Map
 | `UCAS
 | `UCAS_Ext
+| `UCAS_Ext_A
 | `Ugaritic
 | `VS
 | `VS_Sup
 | `Vai
 | `Vedic_Ext
 | `Vertical_Forms
+| `Vithkuqi
 | `Wancho
 | `Warang_Citi
 | `Yezidi
@@ -422,6 +433,7 @@ val block : [
 | `Yi_Syllables
 | `Yijing
 | `Zanabazar_Square
+| `Znamenny_Music
 ] prop
 
 val canonical_combining_class : int prop
@@ -718,6 +730,8 @@ val joining_group : [
 | `Teh_Marbuta
 | `Teh_Marbuta_Goal
 | `Teth
+| `Thin_Yeh
+| `Vertical_Tail
 | `Waw
 | `Yeh
 | `Yeh_Barree
@@ -839,6 +853,7 @@ type script = [
 | `Cher
 | `Chrs
 | `Copt
+| `Cpmn
 | `Cprt
 | `Cyrl
 | `Deva
@@ -918,6 +933,7 @@ type script = [
 | `Orya
 | `Osge
 | `Osma
+| `Ougr
 | `Palm
 | `Pauc
 | `Perm
@@ -961,8 +977,11 @@ type script = [
 | `Thai
 | `Tibt
 | `Tirh
+| `Tnsa
+| `Toto
 | `Ugar
 | `Vaii
+| `Vith
 | `Wara
 | `Wcho
 | `Xpeo
@@ -1149,6 +1168,7 @@ val kSimplifiedVariant : string prop
 val kSpecializedSemanticVariant : string prop
 val kSpoofingVariant : string prop
 val kSrc_NushuDuben : string prop
+val kStrange : string prop
 val kUnihanCore2020 : string prop
 val kTGH : string prop
 val kTGHZ2013 : string prop
