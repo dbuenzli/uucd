@@ -126,6 +126,7 @@ val block : [
 | `Arabic
 | `Arabic_Ext_A
 | `Arabic_Ext_B
+| `Arabic_Ext_C
 | `Arabic_Math
 | `Arabic_PF_A
 | `Arabic_PF_B
@@ -161,6 +162,7 @@ val block : [
 | `CJK_Ext_E
 | `CJK_Ext_F
 | `CJK_Ext_G
+| `CJK_Ext_H
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -186,10 +188,12 @@ val block : [
 | `Cyrillic_Ext_A
 | `Cyrillic_Ext_B
 | `Cyrillic_Ext_C
+| `Cyrillic_Ext_D
 | `Cyrillic_Sup
 | `Deseret
 | `Devanagari
 | `Devanagari_Ext
+| `Devanagari_Ext_A
 | `Diacriticals
 | `Diacriticals_Ext
 | `Diacriticals_For_Symbols
@@ -251,6 +255,7 @@ val block : [
 | `Jamo_Ext_B
 | `Javanese
 | `Kaithi
+| `Kaktovik_Numerals
 | `Kana_Ext_A
 | `Kana_Ext_B
 | `Kana_Sup
@@ -259,6 +264,7 @@ val block : [
 | `Kannada
 | `Katakana
 | `Katakana_Ext
+| `Kawi
 | `Kayah_Li
 | `Kharoshthi
 | `Khitan_Small_Script
@@ -325,6 +331,7 @@ val block : [
 | `NB
 | `NKo
 | `Nabataean
+| `Nag_Mundari
 | `Nandinagari
 | `New_Tai_Lue
 | `Newa
@@ -889,6 +896,7 @@ type script = [
 | `Java
 | `Kali
 | `Kana
+| `Kawi
 | `Khar
 | `Khmr
 | `Khoj
@@ -921,6 +929,7 @@ type script = [
 | `Mtei
 | `Mult
 | `Mymr
+| `Nagm
 | `Nand
 | `Narb
 | `Nbat
@@ -1074,6 +1083,7 @@ val kAlternateHanYu : string prop
 val kAlternateJEF : string prop
 val kAlternateKangXi : string prop
 val kAlternateMorohashi : string prop
+val kAlternateTotalStrokes : string prop
 val kBigFive : string prop
 val kCCCII : string prop
 val kCNS1986 : string prop

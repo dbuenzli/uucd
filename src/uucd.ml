@@ -186,6 +186,7 @@ type key =                            (* the type for property keys (names). *)
 | KAlternateJEF
 | KAlternateKangXi
 | KAlternateMorohashi
+| KAlternateTotalStrokes
 | KBigFive
 | KCCCII
 | KCNS1986
@@ -358,6 +359,7 @@ type script = [
 | `Java
 | `Kali
 | `Kana
+| `Kawi
 | `Khar
 | `Khmr
 | `Khoj
@@ -390,6 +392,7 @@ type script = [
 | `Mtei
 | `Mult
 | `Mymr
+| `Nagm
 | `Nand
 | `Narb
 | `Nbat
@@ -477,6 +480,7 @@ type block_prop = [
 | `Arabic
 | `Arabic_Ext_A
 | `Arabic_Ext_B
+| `Arabic_Ext_C
 | `Arabic_Math
 | `Arabic_PF_A
 | `Arabic_PF_B
@@ -512,6 +516,7 @@ type block_prop = [
 | `CJK_Ext_E
 | `CJK_Ext_F
 | `CJK_Ext_G
+| `CJK_Ext_H
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -537,10 +542,12 @@ type block_prop = [
 | `Cyrillic_Ext_A
 | `Cyrillic_Ext_B
 | `Cyrillic_Ext_C
+| `Cyrillic_Ext_D
 | `Cyrillic_Sup
 | `Deseret
 | `Devanagari
 | `Devanagari_Ext
+| `Devanagari_Ext_A
 | `Diacriticals
 | `Diacriticals_Ext
 | `Diacriticals_For_Symbols
@@ -602,8 +609,10 @@ type block_prop = [
 | `Jamo_Ext_B
 | `Javanese
 | `Kaithi
+| `Kaktovik_Numerals
 | `Kana_Ext_A
 | `Kana_Ext_B
+| `Kawi
 | `Kana_Sup
 | `Kanbun
 | `Kangxi
@@ -676,6 +685,7 @@ type block_prop = [
 | `NB
 | `NKo
 | `Nabataean
+| `Nag_Mundari
 | `Nandinagari
 | `New_Tai_Lue
 | `Newa
@@ -1291,6 +1301,7 @@ let i_block v = Block_v begin match v with
 | "Arabic" -> `Arabic
 | "Arabic_Ext_A" -> `Arabic_Ext_A
 | "Arabic_Ext_B" -> `Arabic_Ext_A
+| "Arabic_Ext_C" -> `Arabic_Ext_C
 | "Arabic_Math" -> `Arabic_Math
 | "Arabic_PF_A" -> `Arabic_PF_A
 | "Arabic_PF_B" -> `Arabic_PF_B
@@ -1326,6 +1337,7 @@ let i_block v = Block_v begin match v with
 | "CJK_Ext_E" -> `CJK_Ext_E
 | "CJK_Ext_F" -> `CJK_Ext_F
 | "CJK_Ext_G" -> `CJK_Ext_G
+| "CJK_Ext_H" -> `CJK_Ext_H
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
@@ -1351,10 +1363,12 @@ let i_block v = Block_v begin match v with
 | "Cyrillic_Ext_A" -> `Cyrillic_Ext_A
 | "Cyrillic_Ext_B" -> `Cyrillic_Ext_B
 | "Cyrillic_Ext_C" -> `Cyrillic_Ext_C
+| "Cyrillic_Ext_D" -> `Cyrillic_Ext_D
 | "Cyrillic_Sup" -> `Cyrillic_Sup
 | "Deseret" -> `Deseret
 | "Devanagari" -> `Devanagari
 | "Devanagari_Ext" -> `Devanagari_Ext
+| "Devanagari_Ext_A" -> `Devanagari_Ext_A
 | "Diacriticals" -> `Diacriticals
 | "Diacriticals_Ext" -> `Diacriticals_Ext
 | "Diacriticals_For_Symbols" -> `Diacriticals_For_Symbols
@@ -1416,8 +1430,10 @@ let i_block v = Block_v begin match v with
 | "Jamo_Ext_B" -> `Jamo_Ext_B
 | "Javanese" -> `Javanese
 | "Kaithi" -> `Kaithi
+| "Kaktovik_Numerals" -> `Kaktovik_Numerals
 | "Kana_Ext_A" -> `Kana_Ext_A
 | "Kana_Ext_B" -> `Kana_Ext_B
+| "Kawi" -> `Kawi
 | "Kana_Sup" -> `Kana_Sup
 | "Kanbun" -> `Kanbun
 | "Kangxi" -> `Kangxi
@@ -1490,6 +1506,7 @@ let i_block v = Block_v begin match v with
 | "NB" -> `NB
 | "NKo" -> `NKo
 | "Nabataean" -> `Nabataean
+| "Nag_Mundari" -> `Nag_Mundari
 | "Nandinagari" -> `Nandinagari
 | "New_Tai_Lue" -> `New_Tai_Lue
 | "Newa" -> `Newa
@@ -2059,6 +2076,7 @@ let i_script v = Script_v begin match v with
 | "Java" -> `Java
 | "Kali" -> `Kali
 | "Kana" -> `Kana
+| "Kawi" -> `Kawi
 | "Khar" -> `Khar
 | "Khmr" -> `Khmr
 | "Khoj" -> `Khoj
@@ -2091,6 +2109,7 @@ let i_script v = Script_v begin match v with
 | "Mtei" -> `Mtei
 | "Mult" -> `Mult
 | "Mymr" -> `Mymr
+| "Nagm" -> `Nagm
 | "Nand" -> `Nand
 | "Narb" -> `Narb
 | "Nbat" -> `Nbat
@@ -2371,6 +2390,7 @@ let kAlternateHanYu = KAlternateHanYu, o_string
 let kAlternateJEF = KAlternateJEF, o_string
 let kAlternateKangXi = KAlternateKangXi, o_string
 let kAlternateMorohashi = KAlternateMorohashi, o_string
+let kAlternateTotalStrokes = KAlternateTotalStrokes, o_string
 let kBigFive = KBigFive, o_string
 let kCCCII = KCCCII, o_string
 let kCNS1986 = KCNS1986, o_string
