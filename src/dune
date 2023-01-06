@@ -1,0 +1,8 @@
+(env
+ (dev
+  (flags
+   (:standard -warn-error -27 -warn-error -32 -warn-error -39))))
+
+(library
+  (public_name uucd)
+  (libraries xmlm))
