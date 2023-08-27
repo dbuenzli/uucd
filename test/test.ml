@@ -1,4 +1,7 @@
-(* This code is in the public domain. *)
+(*---------------------------------------------------------------------------
+   Copyright (c) 2012 The uucd programmers. All rights reserved.
+   SPDX-License-Identifier: CC0-1.0
+  ---------------------------------------------------------------------------*)
 
 let ucd_or_die inf = try
   let ic = if inf = "-" then stdin else open_in inf in
