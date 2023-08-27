@@ -1,21 +1,7 @@
 opam-version: "2.0"
 name: "uucd"
-synopsis: """Unicode character database decoder for OCaml"""
-maintainer: ["Daniel Bünzli <daniel.buenzl i@erratique.ch>"]
-authors: ["The uucd programmers"]
-homepage: "https://erratique.ch/software/uucd"
-doc: "https://erratique.ch/software/uucd/doc/Uucd"
-dev-repo: "git+https://erratique.ch/repos/uucd.git"
-bug-reports: "https://github.com/dbuenzli/uucd/issues"
-license: ["ISC"]
-tags: ["unicode" "database" "decoder" "org:erratique"]
-depends: ["ocaml" {>= "4.01.0"}
-          "ocamlfind" {build}
-          "ocamlbuild" {build}
-          "topkg" {build & >= "1.0.3"}
-          "xmlm"]
-build: [["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]]
-description: """
+synopsis: "Unicode character database decoder for OCaml"
+description: """\
 Uucd is an OCaml module to decode the data of the [Unicode character 
 database][1] from its XML [representation][2]. It provides high-level 
 (but not necessarily efficient) access to the data so that efficient 
@@ -29,3 +15,19 @@ under the ISC license.
 [xmlm]: http://erratique.ch/software/xmlm 
 
 Home page: http://erratique.ch/software/uucd"""
+maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
+authors: "The uucd programmers"
+license: "ISC"
+tags: ["unicode" "database" "decoder" "org:erratique"]
+homepage: "https://erratique.ch/software/uucd"
+doc: "https://erratique.ch/software/uucd/doc/Uucd"
+bug-reports: "https://github.com/dbuenzli/uucd/issues"
+depends: [
+  "ocaml" {>= "4.01.0"}
+  "ocamlfind" {build}
+  "ocamlbuild" {build}
+  "topkg" {build & >= "1.0.3"}
+  "xmlm"
+]
+build: ["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]
+dev-repo: "git+https://erratique.ch/repos/uucd.git"
