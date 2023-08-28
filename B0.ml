@@ -38,7 +38,7 @@ let default =
       {|[["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]]|}
     |> tag B0_opam.tag
     |> add B0_opam.Meta.depends
-      [ "ocaml", {|>= "4.01.0"|};
+      [ "ocaml", {|>= "4.08.0"|};
         "ocamlfind", {|build|};
         "ocamlbuild", {|build|};
         "topkg", {|build & >= "1.0.3"|};

@@ -23,7 +23,7 @@ homepage: "https://erratique.ch/software/uucd"
 doc: "https://erratique.ch/software/uucd/doc/Uucd"
 bug-reports: "https://github.com/dbuenzli/uucd/issues"
 depends: [
-  "ocaml" {>= "4.01.0"}
+  "ocaml" {>= "4.08.0"}
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build & >= "1.0.3"}
