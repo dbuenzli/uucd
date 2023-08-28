@@ -9,14 +9,14 @@ let xmlm = B0_ocaml.libname "xmlm"
 (* Libraries *)
 
 let uucd_lib =
-  let srcs = Fpath.[ `Dir (v "src") ] in
+  let srcs = [ `Dir (Fpath.v "src") ] in
   let requires = [xmlm] in
   B0_ocaml.lib uucd ~doc:"Uucd library" ~srcs ~requires
 
 (* Tests *)
 
 let test =
-  let srcs = Fpath.[`File (v "test/test.ml")] in
+  let srcs = [`File (Fpath.v "test/test.ml")] in
   let requires = [ uucd ] in
   B0_ocaml.exe "test" ~doc:"Test decoder" ~srcs ~requires
 
