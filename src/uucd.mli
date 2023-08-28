@@ -163,6 +163,7 @@ val block : [
 | `CJK_Ext_F
 | `CJK_Ext_G
 | `CJK_Ext_H
+| `CJK_Ext_I
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -556,10 +557,20 @@ val hangul_syllable_type : [ `L | `LV | `LVT | `T | `V | `NA ] prop
 val hex_digit : bool prop
 val hyphen : bool prop
 val id_continue : bool prop
+val id_compat_math_continue : bool prop
+val id_compat_math_start : bool prop
 val id_start : bool prop
 val ideographic : bool prop
 val ids_binary_operator : bool prop
 val ids_trinary_operator : bool prop
+val ids_unary_operator : bool prop
+
+val indic_conjunct_break : [
+| `Consonant
+| `Extend
+| `Linker
+| `None ] prop
+
 val indic_syllabic_category : [
 | `Avagraha
 | `Bindu
@@ -752,7 +763,10 @@ val joining_group : [
 val joining_type : [ `U | `C | `T | `D | `L | `R ] prop
 val line_break : [
 | `AI
+| `AK
 | `AL
+| `AP
+| `AS
 | `B2
 | `BA
 | `BB
@@ -788,6 +802,8 @@ val line_break : [
 | `SG
 | `SP
 | `SY
+| `VF
+| `VI
 | `WJ
 | `XX
 | `ZW
@@ -815,10 +831,13 @@ val nfc_quick_check : [ `True | `False | `Maybe ] prop
 val nfd_quick_check : [ `True | `False | `Maybe ] prop
 val nfkc_quick_check : [ `True | `False | `Maybe ] prop
 val nfkc_casefold : [`Self | `Cps of cp list] prop
+val nfkc_simple_casefold : [ `Self | `Cps of cp list ] prop
 val nfkd_quick_check : [ `True | `False | `Maybe ] prop
 val noncharacter_code_point : bool prop
 val numeric_type : [ `None | `De | `Di | `Nu ] prop
-val numeric_value : [`NaN | `Frac of int * int | `Num of int64] prop
+val numeric_value :
+  [ `NaN | `Nums of [`Frac of int * int | `Num of int64 ] list] prop
+
 val other_alphabetic : bool prop
 val other_default_ignorable_code_point : bool prop
 val other_grapheme_extend : bool prop
@@ -1134,11 +1153,12 @@ val kIRG_TSource : string prop
 val kIRG_USource : string prop
 val kIRG_UKSource : string prop
 val kIRG_VSource : string prop
-val kJHJ : string prop
-val kJIS0213 : string prop
 val kJa : string prop
+val kJapanese : string prop
 val kJapaneseKun : string prop
 val kJapaneseOn : string prop
+val kJHJ : string prop
+val kJIS0213 : string prop
 val kJinmeiyoKanji : string prop
 val kJis0 : string prop
 val kJis1 : string prop
@@ -1157,6 +1177,7 @@ val kMainlandTelegraph : string prop
 val kMandarin : string prop
 val kMatthews : string prop
 val kMeyerWempe : string prop
+val kMojiJoho : string prop
 val kMorohashi : string prop
 val kNelson : string prop
 val kOtherNumeric : string prop
@@ -1175,6 +1196,8 @@ val kReading : string prop
 val kSBGY : string prop
 val kSemanticVariant : string prop
 val kSimplifiedVariant : string prop
+val kSMSZD2003Index : string prop
+val kSMSZD2003Readings : string prop
 val kSpecializedSemanticVariant : string prop
 val kSpoofingVariant : string prop
 val kSrc_NushuDuben : string prop
@@ -1188,9 +1211,11 @@ val kTang : string prop
 val kTotalStrokes : string prop
 val kTraditionalVariant : string prop
 val kVietnamese : string prop
+val kVietnameseNumeric : string prop
 val kWubi : string prop
 val kXHC1983 : string prop
 val kXerox : string prop
+val kZhuangNumeric : string prop
 val kZVariant : string prop
 
 (** {1:db Unicode character databases} *)

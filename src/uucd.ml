@@ -117,10 +117,14 @@ type key =                            (* the type for property keys (names). *)
 | Hex_digit
 | Hyphen
 | Id_continue
+| Id_compat_math_continue
+| Id_compat_math_start
 | Id_start
 | Ideographic
 | Ids_binary_operator
 | Ids_trinary_operator
+| Ids_unary_operator
+| Indic_conjunct_break
 | Indic_syllabic_category
 | Indic_matra_category
 | Indic_positional_category
@@ -140,6 +144,7 @@ type key =                            (* the type for property keys (names). *)
 | Nfd_quick_check
 | Nfkc_quick_check
 | Nfkc_casefold
+| Nfkc_simple_casefold
 | Nfkd_quick_check
 | Noncharacter_code_point
 | Numeric_type
@@ -237,6 +242,7 @@ type key =                            (* the type for property keys (names). *)
 | KIRG_USource
 | KIRG_UKSource
 | KIRG_VSource
+| KJapanese
 | KJHJ
 | KJIS0213
 | KJa
@@ -260,6 +266,7 @@ type key =                            (* the type for property keys (names). *)
 | KMandarin
 | KMatthews
 | KMeyerWempe
+| KMojiJoho
 | KMorohashi
 | KNelson
 | KOtherNumeric
@@ -278,6 +285,8 @@ type key =                            (* the type for property keys (names). *)
 | KSBGY
 | KSemanticVariant
 | KSimplifiedVariant
+| KSMSZD2003Index
+| KSMSZD2003Readings
 | KSpecializedSemanticVariant
 | KSpoofingVariant
 | KSrc_NushuDuben
@@ -291,9 +300,11 @@ type key =                            (* the type for property keys (names). *)
 | KTraditionalVariant
 | KUnihanCore2020
 | KVietnamese
+| KVietnameseNumeric
 | KWubi
 | KXHC1983
 | KXerox
+| KZhuangNumeric
 | KZVariant
 | Other of (string * string)                           (* expanded XML name. *)
 
@@ -517,6 +528,7 @@ type block_prop = [
 | `CJK_Ext_F
 | `CJK_Ext_G
 | `CJK_Ext_H
+| `CJK_Ext_I
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -905,6 +917,11 @@ type value =                                (* the type for property values. *)
   | `ZWJ ]
 | Hangul_syllable_type_v of [ `L | `LV | `LVT | `T | `V | `NA ]
 | Int_v of int
+| Indic_conjunct_break_v of
+    [ `Consonant
+    | `Extend
+    | `Linker
+    | `None ]
 | Indic_syllabic_category_v of
     [ `Avagraha
     | `Bindu
@@ -1089,7 +1106,10 @@ type value =                                (* the type for property values. *)
 | Joining_type_v of [ `U | `C | `T | `D | `L | `R ]
 | Line_break_v of [
     | `AI
+    | `AK
     | `AL
+    | `AP
+    | `AS
     | `B2
     | `BA
     | `BB
@@ -1100,6 +1120,8 @@ type value =                                (* the type for property values. *)
     | `CM
     | `CP
     | `CR
+    | `EB
+    | `EM
     | `EX
     | `GL
     | `H2
@@ -1125,11 +1147,11 @@ type value =                                (* the type for property values. *)
     | `SG
     | `SP
     | `SY
+    | `VF
+    | `VI
     | `WJ
     | `XX
     | `ZW
-    | `EB
-    | `EM
     | `ZWJ
   ]
 | Name_v of [`Pattern of string | `Name of string ]
@@ -1137,7 +1159,8 @@ type value =                                (* the type for property values. *)
     (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment])
       list
 | Numeric_type_v of [ `None | `De | `Di | `Nu ]
-| Numeric_value_v of [`NaN | `Frac of int * int | `Num of int64 ]
+| Numeric_value_v of
+    [ `NaN | `Nums of [`Frac of int * int | `Num of int64 ] list]
 | Script_v of script
 | Script_extensions_v of script list
 | Sentence_break_v of [
@@ -1213,6 +1236,10 @@ let o_hangul_syllable_type =
   function Hangul_syllable_type_v v -> v | _ -> assert false
 
 let o_int = function Int_v v -> v | _ -> assert false
+
+let o_indic_conjunct_break =
+  function Indic_conjunct_break_v v -> v | _ -> assert false
+
 let o_indic_syllabic_category =
   function Indic_syllabic_category_v v -> v | _ -> assert false
 
@@ -1338,6 +1365,7 @@ let i_block v = Block_v begin match v with
 | "CJK_Ext_F" -> `CJK_Ext_F
 | "CJK_Ext_G" -> `CJK_Ext_G
 | "CJK_Ext_H" -> `CJK_Ext_H
+| "CJK_Ext_I" -> `CJK_Ext_I
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
@@ -1739,6 +1767,14 @@ let i_hangul_syllable_type v = Hangul_syllable_type_v begin match v with
 end
 
 let i_int v = try Int_v (int_of_string v) with Failure _ -> err (err_att_val v)
+let i_indic_conjunct_break v = Indic_conjunct_break_v begin match v with
+| "Consonant" -> `Consonant
+| "Extend" -> `Extend
+| "Linker" -> `Linker
+| "None" -> `None
+| v -> err (err_att_val v)
+end
+
 let i_indic_syllabic_category v = Indic_syllabic_category_v begin match v with
 | "Avagraha" -> `Avagraha
 | "Bindu" -> `Bindu
@@ -1942,7 +1978,10 @@ end
 
 let i_line_break v = Line_break_v begin match v with
 | "AI" -> `AI
+| "AK" -> `AK
 | "AL" -> `AL
+| "AP" -> `AP
+| "AS" -> `AS
 | "B2" -> `B2
 | "BA" -> `BA
 | "BB" -> `BB
@@ -1980,6 +2019,8 @@ let i_line_break v = Line_break_v begin match v with
 | "SG" -> `SG
 | "SP" -> `SP
 | "SY" -> `SY
+| "VF" -> `VF
+| "VI" -> `VI
 | "WJ" -> `WJ
 | "XX" -> `XX
 | "ZW" -> `ZW
@@ -2004,13 +2045,15 @@ let i_numeric_type v = Numeric_type_v begin match v with
 | v -> err (err_att_val v)
 end
 
-let i_numeric_value v = Numeric_value_v begin
-  try
-    match (split_string v '/') with
-    | ["NaN"] -> `NaN
-    | [num; denom;] -> `Frac (int_of_string num, int_of_string denom)
-    | [num ] -> `Num (Int64.of_string num)
+let i_numeric_value v = Numeric_value_v begin try match String.trim v with
+|  "NaN" -> `NaN
+| s ->
+    let base s = match split_string (String.trim s) '/' with
+    | [num; denom] -> `Frac (int_of_string num, int_of_string denom)
+    | [num] -> `Num (Int64.of_string num)
     | _ -> failwith ""
+    in
+    `Nums (List.map base (split_string s ' '))
   with Failure _ -> err (err_att_val v)
 end
 
@@ -2317,10 +2360,14 @@ let hangul_syllable_type = Hangul_syllable_type, o_hangul_syllable_type
 let hex_digit = Hex_digit, o_bool
 let hyphen = Hyphen, o_bool
 let id_continue = Id_continue, o_bool
+let id_compat_math_continue = Id_compat_math_continue, o_bool
+let id_compat_math_start = Id_compat_math_start, o_bool
 let id_start = Id_start, o_bool
 let ideographic = Ideographic, o_bool
 let ids_binary_operator = Ids_binary_operator, o_bool
 let ids_trinary_operator = Ids_trinary_operator, o_bool
+let ids_unary_operator = Ids_unary_operator, o_bool
+let indic_conjunct_break = Indic_conjunct_break, o_indic_conjunct_break
 let indic_syllabic_category = Indic_syllabic_category, o_indic_syllabic_category
 let indic_matra_category = Indic_matra_category, o_indic_matra_category
 let indic_positional_category =
@@ -2341,6 +2388,7 @@ let nfc_quick_check = Nfc_quick_check, o_bool_maybe
 let nfd_quick_check = Nfd_quick_check, o_bool_maybe
 let nfkc_quick_check = Nfkc_quick_check, o_bool_maybe
 let nfkc_casefold = Nfkc_casefold, o_cps_map
+let nfkc_simple_casefold = Nfkc_simple_casefold, o_cps_map
 let nfkd_quick_check = Nfkd_quick_check, o_bool_maybe
 let noncharacter_code_point = Noncharacter_code_point, o_bool
 let numeric_type = Numeric_type, o_numeric_type
@@ -2444,6 +2492,7 @@ let kIRG_VSource = KIRG_VSource, o_string
 let kJHJ = KJHJ, o_string
 let kJIS0213 = KJIS0213, o_string
 let kJa = KJa, o_string
+let kJapanese = KJapanese, o_string
 let kJapaneseKun = KJapaneseKun, o_string
 let kJapaneseOn = KJapaneseOn, o_string
 let kJinmeiyoKanji = KJinmeiyoKanji, o_string
@@ -2464,6 +2513,7 @@ let kMainlandTelegraph = KMainlandTelegraph, o_string
 let kMandarin = KMandarin, o_string
 let kMatthews = KMatthews, o_string
 let kMeyerWempe = KMeyerWempe, o_string
+let kMojiJoho = KMojiJoho, o_string
 let kMorohashi = KMorohashi, o_string
 let kNelson = KNelson, o_string
 let kOtherNumeric = KOtherNumeric, o_string
@@ -2482,6 +2532,8 @@ let kReading = KReading, o_string
 let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
+let kSMSZD2003Index = KSMSZD2003Index, o_string
+let kSMSZD2003Readings = KSMSZD2003Readings, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
 let kSpoofingVariant = KSpoofingVariant, o_string
 let kSrc_NushuDuben = KSrc_NushuDuben, o_string
@@ -2495,9 +2547,11 @@ let kTotalStrokes = KTotalStrokes, o_string
 let kTraditionalVariant = KTraditionalVariant, o_string
 let kUnihanCore2020 = KUnihanCore2020, o_string
 let kVietnamese = KVietnamese, o_string
+let kVietnameseNumeric = KVietnameseNumeric, o_string
 let kWubi = KWubi, o_string
 let kXHC1983 = KXHC1983, o_string
 let kXerox = KXerox, o_string
+let kZhuangNumeric = KZhuangNumeric, o_string
 let kZVariant = KZVariant, o_string
 
 (* Unicode Character Databases *)
@@ -2588,11 +2642,15 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "Gr_Link" (Grapheme_link, i_bool);
   map "Hex" (Hex_digit, i_bool);
   map "Hyphen" (Hyphen, i_bool);
+  map "ID_Compat_Math_Continue" (Id_compat_math_continue, i_bool);
+  map "ID_Compat_Math_Start" (Id_compat_math_start, i_bool);
   map "IDC" (Id_continue, i_bool);
   map "IDS" (Id_start, i_bool);
   map "IDSB" (Ids_binary_operator, i_bool);
   map "IDST" (Ids_trinary_operator, i_bool);
+  map "IDSU" (Ids_unary_operator, i_bool);
   map "Ideo" (Ideographic, i_bool);
+  map "InCB" (Indic_conjunct_break, i_indic_conjunct_break);
   map "InSC" (Indic_syllabic_category, i_indic_syllabic_category);
   map "InMC" (Indic_matra_category, i_indic_matra_category);
   map "InPC" (Indic_positional_category, i_indic_positional_category);
@@ -2606,6 +2664,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "NFD_QC" (Nfd_quick_check, i_bool_maybe);
   map "NFKC_QC" (Nfkc_quick_check, i_bool_maybe);
   map "NFKC_CF" (Nfkc_casefold, i_cps_map ~empty:true);
+  map "NFKC_SCF" (Nfkc_simple_casefold, i_cps_map ~empty:true);
   map "NFKD_QC" (Nfkd_quick_check, i_bool_maybe);
   map "OAlpha" (Other_alphabetic, i_bool);
   map "ODI" (Other_default_ignorable_code_point, i_bool);
@@ -2729,6 +2788,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kIRG_USource" (KIRG_USource, i_string);
   map "kIRG_UKSource" (KIRG_UKSource, i_string);
   map "kIRG_VSource" (KIRG_VSource, i_string);
+  map "kJapanese" (KJapanese, i_string);
   map "kJHJ" (KJHJ, i_string);
   map "kJIS0213" (KJIS0213, i_string);
   map "kJa" (KJa, i_string);
@@ -2770,6 +2830,8 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kSBGY" (KSBGY, i_string);
   map "kSemanticVariant" (KSemanticVariant, i_string);
   map "kSimplifiedVariant" (KSimplifiedVariant, i_string);
+  map "kSMSZD2003Index" (KSMSZD2003Index, i_string);
+  map "kSMSZD2003Readings" (KSMSZD2003Readings, i_string);
   map "kSpecializedSemanticVariant" (KSpecializedSemanticVariant, i_string);
   map "kSpoofingVariant" (KSpoofingVariant, i_string);
   map "kSrc_NushuDuben" (KSrc_NushuDuben, i_string);
@@ -2781,9 +2843,11 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kTotalStrokes" (KTotalStrokes, i_string);
   map "kTraditionalVariant" (KTraditionalVariant, i_string);
   map "kVietnamese" (KVietnamese, i_string);
+  map "kVietnameseNumeric" (KVietnameseNumeric, i_string);
   map "kWubi" (KWubi, i_string);
   map "kXHC1983" (KXHC1983, i_string);
   map "kXerox" (KXerox, i_string);
+  map "kZhuangNumeric" (KZhuangNumeric, i_string);
   map "kZVariant" (KZVariant, i_string);
   fun m (n, v) ->
     try match n with

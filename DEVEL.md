@@ -6,7 +6,7 @@ Download the latest xml unicode database from:
    
 uncompress it to, for example `/tmp/ucd.xml` and run
 
-    b0 -- test /tmp/ucd.xml
+    b0 -- test /tmp/ucd.xml > /dev/null
    
 this will likely fail with a parse error. Adjust the parser and 
 datatypes with the help of: 
