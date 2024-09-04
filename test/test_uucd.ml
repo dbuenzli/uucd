@@ -20,9 +20,9 @@ let test_decode () =
         Test.option ~__POS__ (Uucd.find props Uucd.general_category) (Some `Zs)
     | `Error e ->
         let (l0, c0), (l1, c1) = Uucd.decoded_range d in
-        Test.failf ~__POS__ "%s:%d.%d-%d.%d: %s\n%!" inf l0 c0 l1 c1 e
+        Test.failstop ~__POS__ "%s:%d.%d-%d.%d: %s\n%!" inf l0 c0 l1 c1 e
   with
-  | Sys_error e -> Test.failf "%s" e ~__POS__
+  | Sys_error e -> Test.failstop "%s" e ~__POS__
 
 let main () =
   Test.main @@ fun () ->
