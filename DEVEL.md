@@ -1,7 +1,7 @@
 # New Unicode release 
 
-Bump the Unicode release number at the top of the `B0.ml` 
-file. Verify that everything is as expected with:
+Bump the Unicode release number at the top of the `B0.ml` file and in
+`pkg/pkg.ml`. Verify that everything is as expected with:
 
     b0 -- unicode-version
 

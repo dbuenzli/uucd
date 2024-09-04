@@ -1,6 +1,5 @@
 Uucd — Unicode character database decoder for OCaml
--------------------------------------------------------------------------------
-%%VERSION%%
+===================================================
 
 Uucd is an OCaml module to decode the data of the [Unicode character 
 database][1] from its XML [representation][2]. It provides high-level 
@@ -14,7 +13,7 @@ under the ISC license.
 [2]: http://www.unicode.org/reports/tr42/
 [xmlm]: http://erratique.ch/software/xmlm 
 
-Home page: http://erratique.ch/software/uucd  
+Home page: <http://erratique.ch/software/uucd>  
 
 ## Installation
 
@@ -24,7 +23,6 @@ Uucd can be installed with `opam`:
 
 If you don't use `opam` consult the [`opam`](opam) file for build
 instructions and a complete specification of the dependencies.
-
 
 ## Documentation
 

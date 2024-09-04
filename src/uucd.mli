@@ -207,6 +207,7 @@ val block : [
 | `Early_Dynastic_Cuneiform
 | `Egyptian_Hieroglyph_Format_Controls
 | `Egyptian_Hieroglyphs
+| `Egyptian_Hieroglyphs_Ext_A
 | `Elbasan
 | `Elymaic
 | `Emoticons
@@ -219,6 +220,7 @@ val block : [
 | `Ethiopic_Ext_A
 | `Ethiopic_Ext_B
 | `Ethiopic_Sup
+| `Garay
 | `Geometric_Shapes
 | `Geometric_Shapes_Ext
 | `Georgian
@@ -233,6 +235,7 @@ val block : [
 | `Gujarati
 | `Gunjala_Gondi
 | `Gurmukhi
+| `Gurung_Khema
 | `Half_And_Full_Forms
 | `Half_Marks
 | `Hangul
@@ -273,6 +276,7 @@ val block : [
 | `Khmer_Symbols
 | `Khojki
 | `Khudawadi
+| `Kirat_Rai
 | `Lao
 | `Latin_1_Sup
 | `Latin_Ext_A
@@ -329,6 +333,7 @@ val block : [
 | `Myanmar
 | `Myanmar_Ext_A
 | `Myanmar_Ext_B
+| `Myanmar_Ext_C
 | `NB
 | `NKo
 | `Nabataean
@@ -341,6 +346,7 @@ val block : [
 | `Nyiakeng_Puachue_Hmong
 | `OCR
 | `Ogham
+| `Ol_Onal
 | `Ol_Chiki
 | `Old_Hungarian
 | `Old_Italic
@@ -387,6 +393,7 @@ val block : [
 | `Specials
 | `Sundanese
 | `Sundanese_Sup
+| `Sunuwar
 | `Sup_Arrows_A
 | `Sup_Arrows_B
 | `Sup_Arrows_C
@@ -400,6 +407,7 @@ val block : [
 | `Syloti_Nagri
 | `Symbols_And_Pictographs_Ext_A
 | `Symbols_For_Legacy_Computing
+| `Symbols_For_Legacy_Computing_Sup
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -422,8 +430,10 @@ val block : [
 | `Tibetan
 | `Tifinagh
 | `Tirhuta
+| `Todhri
 | `Toto
 | `Transport_And_Map
+| `Tulu_Tigalari
 | `UCAS
 | `UCAS_Ext
 | `UCAS_Ext_A
@@ -600,6 +610,7 @@ val indic_syllabic_category : [
 | `Number_Joiner
 | `Other
 | `Pure_Killer
+| `Reordering_Killer
 | `Register_Shifter
 | `Syllable_Modifier
 | `Tone_Letter
@@ -681,6 +692,7 @@ val joining_group : [
 | `Heth
 | `Kaf
 | `Kaph
+| `Kashmiri_Yeh
 | `Khaph
 | `Knotted_Heh
 | `Lam
@@ -823,6 +835,8 @@ val name : [`Pattern of string | `Name of string ] prop
     needed). E.g. the pattern ["CJK UNIFIED IDEOGRAPH-#"] associated
     to code point [U+3400] gives the name ["CJK UNIFIED IDEOGRAPH-3400"].  *)
 
+val modifier_combining_mark : bool prop
+
 val name_alias :
   (string * [`Abbreviation | `Alternate | `Control | `Correction | `Figment])
 list prop
@@ -891,6 +905,7 @@ type script = [
 | `Elba
 | `Elym
 | `Ethi
+| `Gara
 | `Geor
 | `Glag
 | `Gong
@@ -899,6 +914,7 @@ type script = [
 | `Gran
 | `Grek
 | `Gujr
+| `Gukh
 | `Guru
 | `Hang
 | `Hani
@@ -920,6 +936,7 @@ type script = [
 | `Khmr
 | `Khoj
 | `Knda
+| `Krai
 | `Kthi
 | `Kits
 | `Lana
@@ -957,6 +974,7 @@ type script = [
 | `Nshu
 | `Ogam
 | `Olck
+| `Onao
 | `Orkh
 | `Orya
 | `Osge
@@ -989,6 +1007,7 @@ type script = [
 | `Sora
 | `Soyo
 | `Sund
+| `Sunu
 | `Sylo
 | `Syrc
 | `Tagb
@@ -1006,7 +1025,9 @@ type script = [
 | `Tibt
 | `Tirh
 | `Tnsa
+| `Todr
 | `Toto
+| `Tutg
 | `Ugar
 | `Vaii
 | `Vith
@@ -1117,6 +1138,7 @@ val kCowles : string prop
 val kDaeJaweon : string prop
 val kDefinition : string prop
 val kEACC : string prop
+val kFanqie : string prop
 val kFenn : string prop
 val kFennIndex : string prop
 val kFourCornerCode : string prop
@@ -1214,6 +1236,7 @@ val kVietnamese : string prop
 val kVietnameseNumeric : string prop
 val kWubi : string prop
 val kXHC1983 : string prop
+val kZhuang : string prop
 val kXerox : string prop
 val kZhuangNumeric : string prop
 val kZVariant : string prop
@@ -1243,6 +1266,9 @@ type cjk_radical = string * cp * cp
 type emoji_source = cp list * int option * int option * int option
 (** The type for emoji sources. Unicode, docomo, kddi, softbank. *)
 
+type do_not_emit = { instead_of : cp list; use : cp list; because : string; }
+(** The type for do not emit character sequences. *)
+
 type t =
   { description : string;
     repertoire : props Cpmap.t;
@@ -1253,6 +1279,7 @@ type t =
     standardized_variants : standardized_variant list;
     cjk_radicals : cjk_radical list;
     emoji_sources : emoji_source list;
+    do_not_emit : do_not_emit list
 }
 (** The type for Unicode character databases.
 

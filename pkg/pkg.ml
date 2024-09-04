@@ -5,10 +5,9 @@ open Topkg
 
 let distrib =
   (* FIXME OPAMv2, move this to an x-unicode-version field in the opam file. *)
-  let watermarks = ("UNICODE_VERSION", `String "14.0.0") :: Pkg.watermarks in
+  let watermarks = ("UNICODE_VERSION", `String "16.0.0") :: Pkg.watermarks in
   Pkg.distrib ~watermarks ()
 
 let () =
   Pkg.describe "uucd" ~distrib @@ fun c ->
-  Ok [ Pkg.mllib ~api:["Uucd"] "src/uucd.mllib";
-       Pkg.test ~run:false "test/test"; ]
+  Ok [ Pkg.mllib ~api:["Uucd"] "src/uucd.mllib"; ]

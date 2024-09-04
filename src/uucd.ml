@@ -138,6 +138,7 @@ type key =                            (* the type for property keys (names). *)
 | Lowercase
 | Lowercase_mapping
 | Math
+| Modifier_combining_mark
 | Name
 | Name_alias
 | Nfc_quick_check
@@ -206,6 +207,7 @@ type key =                            (* the type for property keys (names). *)
 | KDaeJaweon
 | KDefinition
 | KEACC
+| KFanqie
 | KFenn
 | KFennIndex
 | KFourCornerCode
@@ -304,6 +306,7 @@ type key =                            (* the type for property keys (names). *)
 | KWubi
 | KXHC1983
 | KXerox
+| KZhuang
 | KZhuangNumeric
 | KZVariant
 | Other of (string * string)                           (* expanded XML name. *)
@@ -346,6 +349,7 @@ type script = [
 | `Elba
 | `Elym
 | `Ethi
+| `Gara
 | `Geor
 | `Glag
 | `Gong
@@ -354,6 +358,7 @@ type script = [
 | `Gran
 | `Grek
 | `Gujr
+| `Gukh
 | `Guru
 | `Hang
 | `Hani
@@ -375,6 +380,7 @@ type script = [
 | `Khmr
 | `Khoj
 | `Knda
+| `Krai
 | `Kthi
 | `Kits
 | `Lana
@@ -412,6 +418,7 @@ type script = [
 | `Nshu
 | `Ogam
 | `Olck
+| `Onao
 | `Orkh
 | `Orya
 | `Osge
@@ -444,6 +451,7 @@ type script = [
 | `Sora
 | `Soyo
 | `Sund
+| `Sunu
 | `Sylo
 | `Syrc
 | `Tagb
@@ -461,7 +469,9 @@ type script = [
 | `Tibt
 | `Tirh
 | `Tnsa
+| `Todr
 | `Toto
+| `Tutg
 | `Ugar
 | `Vaii
 | `Vith
@@ -572,6 +582,7 @@ type block_prop = [
 | `Early_Dynastic_Cuneiform
 | `Egyptian_Hieroglyph_Format_Controls
 | `Egyptian_Hieroglyphs
+| `Egyptian_Hieroglyphs_Ext_A
 | `Elbasan
 | `Elymaic
 | `Emoticons
@@ -584,6 +595,7 @@ type block_prop = [
 | `Ethiopic_Ext_A
 | `Ethiopic_Ext_B
 | `Ethiopic_Sup
+| `Garay
 | `Geometric_Shapes
 | `Geometric_Shapes_Ext
 | `Georgian
@@ -598,6 +610,7 @@ type block_prop = [
 | `Gujarati
 | `Gunjala_Gondi
 | `Gurmukhi
+| `Gurung_Khema
 | `Half_And_Full_Forms
 | `Half_Marks
 | `Hangul
@@ -624,13 +637,13 @@ type block_prop = [
 | `Kaktovik_Numerals
 | `Kana_Ext_A
 | `Kana_Ext_B
-| `Kawi
 | `Kana_Sup
 | `Kanbun
 | `Kangxi
 | `Kannada
 | `Katakana
 | `Katakana_Ext
+| `Kawi
 | `Kayah_Li
 | `Kharoshthi
 | `Khitan_Small_Script
@@ -638,6 +651,7 @@ type block_prop = [
 | `Khmer_Symbols
 | `Khojki
 | `Khudawadi
+| `Kirat_Rai
 | `Lao
 | `Latin_1_Sup
 | `Latin_Ext_A
@@ -694,6 +708,7 @@ type block_prop = [
 | `Myanmar
 | `Myanmar_Ext_A
 | `Myanmar_Ext_B
+| `Myanmar_Ext_C
 | `NB
 | `NKo
 | `Nabataean
@@ -706,6 +721,7 @@ type block_prop = [
 | `Nyiakeng_Puachue_Hmong
 | `OCR
 | `Ogham
+| `Ol_Onal
 | `Ol_Chiki
 | `Old_Hungarian
 | `Old_Italic
@@ -752,6 +768,7 @@ type block_prop = [
 | `Specials
 | `Sundanese
 | `Sundanese_Sup
+| `Sunuwar
 | `Sup_Arrows_A
 | `Sup_Arrows_B
 | `Sup_Arrows_C
@@ -765,6 +782,7 @@ type block_prop = [
 | `Syloti_Nagri
 | `Symbols_And_Pictographs_Ext_A
 | `Symbols_For_Legacy_Computing
+| `Symbols_For_Legacy_Computing_Sup
 | `Syriac
 | `Syriac_Sup
 | `Tagalog
@@ -787,8 +805,10 @@ type block_prop = [
 | `Tibetan
 | `Tifinagh
 | `Tirhuta
+| `Todhri
 | `Toto
 | `Transport_And_Map
+| `Tulu_Tigalari
 | `UCAS
 | `UCAS_Ext
 | `UCAS_Ext_A
@@ -951,6 +971,7 @@ type value =                                (* the type for property values. *)
     | `Number_Joiner
     | `Other
     | `Pure_Killer
+    | `Reordering_Killer
     | `Register_Shifter
     | `Syllable_Modifier
     | `Tone_Letter
@@ -1025,6 +1046,7 @@ type value =                                (* the type for property values. *)
     | `Heth
     | `Kaf
     | `Kaph
+    | `Kashmiri_Yeh
     | `Khaph
     | `Knotted_Heh
     | `Lam
@@ -1409,6 +1431,7 @@ let i_block v = Block_v begin match v with
 | "Early_Dynastic_Cuneiform" -> `Early_Dynastic_Cuneiform
 | "Egyptian_Hieroglyph_Format_Controls" -> `Egyptian_Hieroglyph_Format_Controls
 | "Egyptian_Hieroglyphs" -> `Egyptian_Hieroglyphs
+| "Egyptian_Hieroglyphs_Ext_A" -> `Egyptian_Hieroglyphs_Ext_A
 | "Elbasan" -> `Elbasan
 | "Elymaic" -> `Elymaic
 | "Emoticons" -> `Emoticons
@@ -1421,6 +1444,7 @@ let i_block v = Block_v begin match v with
 | "Ethiopic_Ext_A" -> `Ethiopic_Ext_A
 | "Ethiopic_Ext_B" -> `Ethiopic_Ext_B
 | "Ethiopic_Sup" -> `Ethiopic_Sup
+| "Garay" -> `Garay
 | "Geometric_Shapes" -> `Geometric_Shapes
 | "Geometric_Shapes_Ext" -> `Geometric_Shapes_Ext
 | "Georgian" -> `Georgian
@@ -1435,6 +1459,7 @@ let i_block v = Block_v begin match v with
 | "Gujarati" -> `Gujarati
 | "Gunjala_Gondi" -> `Gunjala_Gondi
 | "Gurmukhi" -> `Gurmukhi
+| "Gurung_Khema" -> `Gurung_Khema
 | "Half_And_Full_Forms" -> `Half_And_Full_Forms
 | "Half_Marks" -> `Half_Marks
 | "Hangul" -> `Hangul
@@ -1475,6 +1500,7 @@ let i_block v = Block_v begin match v with
 | "Khmer_Symbols" -> `Khmer_Symbols
 | "Khojki" -> `Khojki
 | "Khudawadi" -> `Khudawadi
+| "Kirat_Rai" -> `Kirat_Rai
 | "Lao" -> `Lao
 | "Latin_1_Sup" -> `Latin_1_Sup
 | "Latin_Ext_A" -> `Latin_Ext_A
@@ -1531,6 +1557,7 @@ let i_block v = Block_v begin match v with
 | "Myanmar" -> `Myanmar
 | "Myanmar_Ext_A" -> `Myanmar_Ext_A
 | "Myanmar_Ext_B" -> `Myanmar_Ext_B
+| "Myanmar_Ext_C" -> `Myanmar_Ext_C
 | "NB" -> `NB
 | "NKo" -> `NKo
 | "Nabataean" -> `Nabataean
@@ -1544,6 +1571,7 @@ let i_block v = Block_v begin match v with
 | "OCR" -> `OCR
 | "Ogham" -> `Ogham
 | "Ol_Chiki" -> `Ol_Chiki
+| "Ol_Onal" -> `Ol_Onal
 | "Old_Hungarian" -> `Old_Hungarian
 | "Old_Italic" -> `Old_Italic
 | "Old_North_Arabian" -> `Old_North_Arabian
@@ -1589,6 +1617,7 @@ let i_block v = Block_v begin match v with
 | "Specials" -> `Specials
 | "Sundanese" -> `Sundanese
 | "Sundanese_Sup" -> `Sundanese_Sup
+| "Sunuwar" -> `Sunuwar
 | "Sup_Arrows_A" -> `Sup_Arrows_A
 | "Sup_Arrows_B" -> `Sup_Arrows_B
 | "Sup_Arrows_C" -> `Sup_Arrows_C
@@ -1602,6 +1631,7 @@ let i_block v = Block_v begin match v with
 | "Syloti_Nagri" -> `Syloti_Nagri
 | "Symbols_And_Pictographs_Ext_A" -> `Symbols_And_Pictographs_Ext_A
 | "Symbols_For_Legacy_Computing" -> `Symbols_For_Legacy_Computing
+| "Symbols_For_Legacy_Computing_Sup" -> `Symbols_For_Legacy_Computing_Sup
 | "Syriac" -> `Syriac
 | "Syriac_Sup" -> `Syriac_Sup
 | "Tagalog" -> `Tagalog
@@ -1624,8 +1654,10 @@ let i_block v = Block_v begin match v with
 | "Tibetan" -> `Tibetan
 | "Tifinagh" -> `Tifinagh
 | "Tirhuta" -> `Tirhuta
+| "Todhri" -> `Todhri
 | "Toto" -> `Toto
 | "Transport_And_Map" -> `Transport_And_Map
+| "Tulu_Tigalari" -> `Tulu_Tigalari
 | "UCAS" -> `UCAS
 | "UCAS_Ext" -> `UCAS_Ext
 | "UCAS_Ext_A" -> `UCAS_Ext_A
@@ -1804,6 +1836,7 @@ let i_indic_syllabic_category v = Indic_syllabic_category_v begin match v with
 | "Number_Joiner" -> `Number_Joiner
 | "Other" -> `Other
 | "Pure_Killer" -> `Pure_Killer
+| "Reordering_Killer" -> `Reordering_Killer
 | "Register_Shifter" -> `Register_Shifter
 | "Syllable_Modifier" -> `Syllable_Modifier
 | "Tone_Letter" -> `Tone_Letter
@@ -1886,6 +1919,7 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Heth" -> `Heth
 | "Kaf" -> `Kaf
 | "Kaph" -> `Kaph
+| "Kashmiri_Yeh" -> `Kashmiri_Yeh
 | "Khaph" -> `Khaph
 | "Knotted_Heh" -> `Knotted_Heh
 | "Lam" -> `Lam
@@ -2095,6 +2129,7 @@ let i_script v = Script_v begin match v with
 | "Elba" -> `Elba
 | "Elym" -> `Elym
 | "Ethi" -> `Ethi
+| "Gara" -> `Gara
 | "Geor" -> `Geor
 | "Glag" -> `Glag
 | "Gong" -> `Gong
@@ -2103,6 +2138,7 @@ let i_script v = Script_v begin match v with
 | "Gran" -> `Gran
 | "Grek" -> `Grek
 | "Gujr" -> `Gujr
+| "Gukh" -> `Gukh
 | "Guru" -> `Guru
 | "Hang" -> `Hang
 | "Hani" -> `Hani
@@ -2124,6 +2160,7 @@ let i_script v = Script_v begin match v with
 | "Khmr" -> `Khmr
 | "Khoj" -> `Khoj
 | "Knda" -> `Knda
+| "Krai" -> `Krai
 | "Kthi" -> `Kthi
 | "Kits" -> `Kits
 | "Lana" -> `Lana
@@ -2161,6 +2198,7 @@ let i_script v = Script_v begin match v with
 | "Nshu" -> `Nshu
 | "Ogam" -> `Ogam
 | "Olck" -> `Olck
+| "Onao" -> `Onao
 | "Orkh" -> `Orkh
 | "Orya" -> `Orya
 | "Osge" -> `Osge
@@ -2193,6 +2231,7 @@ let i_script v = Script_v begin match v with
 | "Sora" -> `Sora
 | "Soyo" -> `Soyo
 | "Sund" -> `Sund
+| "Sunu" -> `Sunu
 | "Sylo" -> `Sylo
 | "Syrc" -> `Syrc
 | "Tagb" -> `Tagb
@@ -2210,7 +2249,9 @@ let i_script v = Script_v begin match v with
 | "Tibt" -> `Tibt
 | "Tirh" -> `Tirh
 | "Tnsa" -> `Tnsa
+| "Todr" -> `Todr
 | "Toto" -> `Toto
+| "Tutg" -> `Tutg
 | "Ugar" -> `Ugar
 | "Vaii" -> `Vaii
 | "Vith" -> `Vith
@@ -2382,6 +2423,7 @@ let logical_order_exception = Logical_order_exception, o_bool
 let lowercase = Lowercase, o_bool
 let lowercase_mapping = Lowercase_mapping, o_cps_map
 let math = Math, o_bool
+let modifier_combining_mark = Modifier_combining_mark, o_bool
 let name = Name, o_name
 let name_alias = Name_alias, o_name_alias
 let nfc_quick_check = Nfc_quick_check, o_bool_maybe
@@ -2453,6 +2495,7 @@ let kCowles = KCowles, o_string
 let kDaeJaweon = KDaeJaweon, o_string
 let kDefinition = KDefinition, o_string
 let kEACC = KEACC, o_string
+let kFanqie = KFanqie, o_string
 let kFenn = KFenn, o_string
 let kFennIndex = KFennIndex, o_string
 let kFourCornerCode = KFourCornerCode, o_string
@@ -2551,6 +2594,7 @@ let kVietnameseNumeric = KVietnameseNumeric, o_string
 let kWubi = KWubi, o_string
 let kXHC1983 = KXHC1983, o_string
 let kXerox = KXerox, o_string
+let kZhuang = KZhuang, o_string
 let kZhuangNumeric = KZhuangNumeric, o_string
 let kZVariant = KZVariant, o_string
 
@@ -2564,6 +2608,7 @@ type standardized_variant =
 
 type cjk_radical = string * cp * cp
 type emoji_source = cp list * int option * int option * int option
+type do_not_emit = { instead_of : cp list; use : cp list; because : string; }
 
 type t =
   { description : string;
@@ -2574,7 +2619,8 @@ type t =
     normalization_corrections : normalization_correction list;
     standardized_variants : standardized_variant list;
     cjk_radicals : cjk_radical list;
-    emoji_sources : emoji_source list; }
+    emoji_sources : emoji_source list;
+    do_not_emit : do_not_emit list; }
 
 let cp_props db cp =
   try Some (Cpmap.find cp db.repertoire) with Not_found -> None
@@ -2592,10 +2638,12 @@ let n_blocks = (ns_ucd, "blocks")
 let n_char = (ns_ucd, "char")
 let n_cjk_radical = (ns_ucd, "cjk-radical")
 let n_cjk_radicals = (ns_ucd, "cjk-radicals")
+let n_do_not_emit = (ns_ucd, "do-not-emit")
 let n_description = (ns_ucd, "description")
 let n_emoji_source = (ns_ucd, "emoji-source")
 let n_emoji_sources = (ns_ucd, "emoji-sources")
 let n_group = (ns_ucd, "group")
+let n_instead = (ns_ucd, "instead")
 let n_name_alias = (ns_ucd, "name-alias")
 let n_named_sequence = (ns_ucd, "named-sequence")
 let n_named_sequences = (ns_ucd, "named-sequences")
@@ -2659,6 +2707,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "LOE" (Logical_order_exception, i_bool);
   map "Lower" (Lowercase, i_bool);
   map "Math" (Math, i_bool);
+  map "MCM" (Modifier_combining_mark, i_bool);
   map "NChar" (Noncharacter_code_point, i_bool);
   map "NFC_QC" (Nfc_quick_check, i_bool_maybe);
   map "NFD_QC" (Nfd_quick_check, i_bool_maybe);
@@ -2752,6 +2801,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kDaeJaweon" (KDaeJaweon, i_string);
   map "kDefinition" (KDefinition, i_string);
   map "kEACC" (KEACC, i_string);
+  map "kFanqie" (KFanqie, i_string);
   map "kFenn" (KFenn, i_string);
   map "kFennIndex" (KFennIndex, i_string);
   map "kFourCornerCode" (KFourCornerCode, i_string);
@@ -2847,6 +2897,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kWubi" (KWubi, i_string);
   map "kXHC1983" (KXHC1983, i_string);
   map "kXerox" (KXerox, i_string);
+  map "kZhuang" (KZhuang, i_string);
   map "kZhuangNumeric" (KZhuangNumeric, i_string);
   map "kZVariant" (KZVariant, i_string);
   fun m (n, v) ->
@@ -3017,6 +3068,15 @@ let p_emoji_sources d =
   in
   p_seq n_emoji_source es_atts d
 
+let p_do_not_emit d =
+  let instead_atts atts =
+    let instead_of = cps_of_string (attv "of" atts) in
+    let use = cps_of_string (attv "use" atts) in
+    let because = attv "because" atts in
+    { instead_of; use; because }
+  in
+  p_seq n_instead instead_atts d
+
 let p_ucd d =
   let description = ref None in
   let repertoire = ref None in
@@ -3027,6 +3087,7 @@ let p_ucd d =
   let standardized_variants = ref None in
   let cjk_radicals = ref None in
   let emoji_sources = ref None in
+  let do_not_emit = ref None in
   let set n r p d = if !r <> None then err (err_dup n) else r := Some (p d) in
   while (Xmlm.peek d <> `El_end) do match Xmlm.input d with
   | `El_start (n, _) when n = n_description ->
@@ -3047,6 +3108,8 @@ let p_ucd d =
       set n cjk_radicals p_cjk_radicals d
   | `El_start (n, _) when n = n_emoji_sources ->
       set n emoji_sources p_emoji_sources d
+  | `El_start (n, _) when n = n_do_not_emit ->
+      set n do_not_emit p_do_not_emit d
   | `El_start (n, _) -> skip_el d                        (* foreign markup *)
   | `Data _ -> err err_data
   | _ -> assert false
@@ -3062,7 +3125,8 @@ let p_ucd d =
     normalization_corrections = some !normalization_corrections [];
     standardized_variants = some !standardized_variants [];
     cjk_radicals = some !cjk_radicals [];
-    emoji_sources = some !emoji_sources []; }
+    emoji_sources = some !emoji_sources [];
+    do_not_emit = some !do_not_emit []; }
 
 type src = [ `Channel of in_channel | `String of string ]
 type decoder = Xmlm.input
