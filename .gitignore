@@ -1,9 +1,5 @@
-_build
-.merlin
 _b0
+_build
 tmp
-\.\#*
-\#*#
-*.native
-*.byte
 *.install
+test/ucd.xml
