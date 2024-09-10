@@ -14,7 +14,7 @@ under the ISC license.
 [2]: http://www.unicode.org/reports/tr42/
 [xmlm]: http://erratique.ch/software/xmlm 
 
-Home page: http://erratique.ch/software/uucd"""
+Home page: <http://erratique.ch/software/uucd>"""
 maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
 authors: "The uucd programmers"
 license: "ISC"

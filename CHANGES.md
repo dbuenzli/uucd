@@ -1,7 +1,12 @@
+v16.0.0 2024-09-11 Zagreb
+-------------------------
+
+- Support for Unicode 16.0.0
+
 v15.1.0 2023-09-15 Zagreb
 -------------------------
 
-- support for Unicode 15.1.0 
+- Support for Unicode 15.1.0
 
 v15.0.0 2022-09-15 Zagreb
 -------------------------
