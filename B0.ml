@@ -23,7 +23,7 @@ let download_ucdxml =
   let doc = "Download the Unicode character database to test/ucd.xml" in
   B0_unit.of_action "download-ucdxml" ~doc @@ fun env _ ~args:_ ->
   let* unzip = B0_env.get_cmd env (Cmd.arg "unzip") in
-  let version = String.of_version unicode_version in
+  let version = B0_version.to_string unicode_version in
   let ucd_url = Fmt.str "%s/%s/ucdxml/ucd.all.grouped.zip" uc_base version in
   let ucd_file = B0_env.in_scope_dir env ~/"test/ucd.xml" in
   Result.join @@ Os.File.with_tmp_fd @@ fun tmpfile tmpfd ->
@@ -36,7 +36,7 @@ let download_ucdxml =
 let show_version =
   B0_unit.of_action "unicode-version" ~doc:"Show supported unicode version" @@
   fun _ _ ~args:_ ->
-  Ok (Log.stdout (fun m -> m "%s" (String.of_version unicode_version)))
+  Ok (Log.stdout (fun m -> m "%s" (B0_version.to_string unicode_version)))
 
 (* Tests *)
 
