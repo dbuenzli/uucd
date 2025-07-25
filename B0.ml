@@ -74,7 +74,7 @@ let default =
       [ "ocaml", {|>= "4.08.0"|};
         "ocamlfind", {|build|};
         "ocamlbuild", {|build|};
-        "topkg", {|build & >= "1.0.3"|};
+        "topkg", {|build & >= "1.1.0"|};
         "xmlm", {||} ]
   in
   B0_pack.make "default" ~doc:"uucd package" ~meta ~locked:true @@
