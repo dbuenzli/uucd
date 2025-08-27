@@ -100,22 +100,15 @@ type key =                            (* the type for property keys (names). *)
 | Emoji_modifier_base
 | Emoji_component
 | Equivalent_unified_ideograph
-| Expands_on_nfc
-| Expands_on_nfd
-| Expands_on_nfkc
-| Expands_on_nfkd
 | Extender
 | Extended_pictographic
-| Fc_nfkc_closure
 | Full_composition_exclusion
 | General_category
 | Grapheme_base
 | Grapheme_cluster_break
 | Grapheme_extend
-| Grapheme_link
 | Hangul_syllable_type
 | Hex_digit
-| Hyphen
 | Id_continue
 | Id_compat_math_continue
 | Id_compat_math_start
@@ -128,7 +121,6 @@ type key =                            (* the type for property keys (names). *)
 | Indic_syllabic_category
 | Indic_matra_category
 | Indic_positional_category
-| Iso_comment
 | Jamo_short_name
 | Join_control
 | Joining_group
@@ -216,7 +208,6 @@ type key =                            (* the type for property keys (names). *)
 | KGB1
 | KGB3
 | KGB5
-| KGB7
 | KGB8
 | KGSR
 | KGradeLevel
@@ -247,7 +238,6 @@ type key =                            (* the type for property keys (names). *)
 | KJapanese
 | KJHJ
 | KJIS0213
-| KJa
 | KJapaneseKun
 | KJapaneseOn
 | KJinmeiyoKanji
@@ -2456,21 +2446,14 @@ let emoji_modifier_base = Emoji_modifier_base, o_bool
 let emoji_component = Emoji_component, o_bool
 let equivalent_unified_ideograph = Equivalent_unified_ideograph, o_cp_opt
 let extended_pictographic = Extended_pictographic, o_bool
-let expands_on_nfc = Expands_on_nfc, o_bool
-let expands_on_nfd = Expands_on_nfd, o_bool
-let expands_on_nfkc = Expands_on_nfkc, o_bool
-let expands_on_nfkd = Expands_on_nfkd, o_bool
 let extender = Extender, o_bool
-let fc_nfkc_closure = Fc_nfkc_closure, o_cps_map
 let full_composition_exclusion = Full_composition_exclusion, o_bool
 let general_category = General_category, o_general_category
 let grapheme_base = Grapheme_base, o_bool
 let grapheme_cluster_break = Grapheme_cluster_break, o_grapheme_cluster_break
 let grapheme_extend = Grapheme_extend, o_bool
-let grapheme_link = Grapheme_link, o_bool
 let hangul_syllable_type = Hangul_syllable_type, o_hangul_syllable_type
 let hex_digit = Hex_digit, o_bool
-let hyphen = Hyphen, o_bool
 let id_continue = Id_continue, o_bool
 let id_compat_math_continue = Id_compat_math_continue, o_bool
 let id_compat_math_start = Id_compat_math_start, o_bool
@@ -2484,7 +2467,6 @@ let indic_syllabic_category = Indic_syllabic_category, o_indic_syllabic_category
 let indic_matra_category = Indic_matra_category, o_indic_matra_category
 let indic_positional_category =
   Indic_positional_category, o_indic_positional_category
-let iso_comment = Iso_comment, o_string
 let jamo_short_name = Jamo_short_name, o_string
 let join_control = Join_control, o_bool
 let joining_group = Joining_group, o_joining_group
@@ -2575,7 +2557,6 @@ let kGB0 = KGB0, o_string
 let kGB1 = KGB1, o_string
 let kGB3 = KGB3, o_string
 let kGB5 = KGB5, o_string
-let kGB7 = KGB7, o_string
 let kGB8 = KGB8, o_string
 let kGSR = KGSR, o_string
 let kGradeLevel = KGradeLevel, o_string
@@ -2605,7 +2586,6 @@ let kIRG_UKSource = KIRG_UKSource, o_string
 let kIRG_VSource = KIRG_VSource, o_string
 let kJHJ = KJHJ, o_string
 let kJIS0213 = KJIS0213, o_string
-let kJa = KJa, o_string
 let kJapanese = KJapanese, o_string
 let kJapaneseKun = KJapaneseKun, o_string
 let kJapaneseOn = KJapaneseOn, o_string
@@ -2690,12 +2670,10 @@ let kEH_AltSeq = KEH_AltSeq, o_string
 
 type block = (cp * cp) * string
 type named_sequence = string * cp list
-type normalization_correction = cp * cp list * cp list * (int * int * int)
 type standardized_variant =
   cp list * string * [ `Isolate | `Initial | `Medial | `Final ] list
 
 type cjk_radical = string * cp * cp
-type emoji_source = cp list * int option * int option * int option
 type do_not_emit = { instead_of : cp list; use : cp list; because : string; }
 
 type t =
@@ -2704,10 +2682,8 @@ type t =
     blocks : block list;
     named_sequences : named_sequence list;
     provisional_named_sequences : named_sequence list;
-    normalization_corrections : normalization_correction list;
     standardized_variants : standardized_variant list;
     cjk_radicals : cjk_radical list;
-    emoji_sources : emoji_source list;
     do_not_emit : do_not_emit list; }
 
 let cp_props db cp =
@@ -2728,16 +2704,12 @@ let n_cjk_radical = (ns_ucd, "cjk-radical")
 let n_cjk_radicals = (ns_ucd, "cjk-radicals")
 let n_do_not_emit = (ns_ucd, "do-not-emit")
 let n_description = (ns_ucd, "description")
-let n_emoji_source = (ns_ucd, "emoji-source")
-let n_emoji_sources = (ns_ucd, "emoji-sources")
 let n_group = (ns_ucd, "group")
 let n_instead = (ns_ucd, "instead")
 let n_name_alias = (ns_ucd, "name-alias")
 let n_named_sequence = (ns_ucd, "named-sequence")
 let n_named_sequences = (ns_ucd, "named-sequences")
 let n_noncharacter = (ns_ucd, "noncharacter")
-let n_normalization_correction = (ns_ucd, "normalization-correction")
-let n_normalization_corrections = (ns_ucd, "normalization-corrections")
 let n_provisional_named_sequences = (ns_ucd, "provisional-named-sequences")
 let n_repertoire = (ns_ucd, "repertoire")
 let n_reserved = (ns_ucd, "reserved")
@@ -2771,13 +2743,10 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "Dia" (Diacritic, i_bool);
   map "EqUIdeo" (Equivalent_unified_ideograph, i_cp_opt);
   map "Ext" (Extender, i_bool);
-  map "FC_NFKC" (Fc_nfkc_closure, i_cps_map ~empty:false);
   map "GCB" (Grapheme_cluster_break, i_grapheme_cluster_break);
   map "Gr_Base" (Grapheme_base, i_bool);
   map "Gr_Ext" (Grapheme_extend, i_bool);
-  map "Gr_Link" (Grapheme_link, i_bool);
   map "Hex" (Hex_digit, i_bool);
-  map "Hyphen" (Hyphen, i_bool);
   map "ID_Compat_Math_Continue" (Id_compat_math_continue, i_bool);
   map "ID_Compat_Math_Start" (Id_compat_math_start, i_bool);
   map "IDC" (Id_continue, i_bool);
@@ -2829,10 +2798,6 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "WSpace" (White_space, i_bool);
   map "XIDC" (Xid_continue, i_bool);
   map "XIDS" (Xid_start, i_bool);
-  map "XO_NFC" (Expands_on_nfc, i_bool);
-  map "XO_NFD" (Expands_on_nfd, i_bool);
-  map "XO_NFKC" (Expands_on_nfkc, i_bool);
-  map "XO_NFKD" (Expands_on_nfkd, i_bool);
   map "age" (Age, i_age);
   map "bc" (Bidi_class, i_bidi_class);
   map "blk" (Block, i_block);
@@ -2852,7 +2817,6 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "ExtPict" (Extended_pictographic, i_bool);
   map "gc" (General_category, i_general_category);
   map "hst" (Hangul_syllable_type, i_hangul_syllable_type);
-  map "isc" (Iso_comment, i_string);
   map "jg" (Joining_group, i_joining_group);
   map "jt" (Joining_type, i_joining_type);
   map "lb" (Line_break, i_line_break);
@@ -2898,7 +2862,6 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kGB1" (KGB1, i_string);
   map "kGB3" (KGB3, i_string);
   map "kGB5" (KGB5, i_string);
-  map "kGB7" (KGB7, i_string);
   map "kGB8" (KGB8, i_string);
   map "kGSR" (KGSR, i_string);
   map "kGradeLevel" (KGradeLevel, i_string);
@@ -2929,7 +2892,6 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kJapanese" (KJapanese, i_string);
   map "kJHJ" (KJHJ, i_string);
   map "kJIS0213" (KJIS0213, i_string);
-  map "kJa" (KJa, i_string);
   map "kJapaneseKun" (KJapaneseKun, i_string);
   map "kJapaneseOn" (KJapaneseOn, i_string);
   map "kJinmeiyoKanji" (KJinmeiyoKanji, i_string);
@@ -3117,22 +3079,6 @@ let p_named_sequences d =
   let ns_atts atts = attv "name" atts, cps_of_string (attv "cps" atts) in
   p_seq n_named_sequence ns_atts d
 
-let p_normalization_corrections d =
-  let version_of_string v =
-    try
-      match List.map int_of_string (split_string v '.') with
-      | [v1; v2; v3;] -> (v1, v2, v3)
-      | _ -> failwith ""
-    with Failure _ -> err (err_att_val v)
-  in
-  let nc_atts atts =
-    cp_of_string (attv "cp" atts),
-    cps_of_string (attv "old" atts),
-    cps_of_string (attv "new" atts),
-    version_of_string (attv "version" atts)
-  in
-  p_seq n_normalization_correction nc_atts d
-
 let p_standardized_variants d =
   let when_of_string v =
     let w s = match s with
@@ -3159,16 +3105,6 @@ let p_cjk_radicals d =
   in
   p_seq n_cjk_radical cjk_r_atts d
 
-let p_emoji_sources d =
-  let es_atts atts =
-    let opt_int v = if v = "" then None else Some (cp_of_string v) in
-    cps_of_string (attv "unicode" atts),
-    opt_int (attv "docomo" atts),
-    opt_int (attv "kddi" atts),
-    opt_int (attv "softbank" atts)
-  in
-  p_seq n_emoji_source es_atts d
-
 let p_do_not_emit d =
   let instead_atts atts =
     let instead_of = cps_of_string (attv "of" atts) in
@@ -3184,10 +3120,8 @@ let p_ucd d =
   let blocks = ref None in
   let named_sequences = ref None in
   let provisional_named_sequences = ref None in
-  let normalization_corrections = ref None in
   let standardized_variants = ref None in
   let cjk_radicals = ref None in
-  let emoji_sources = ref None in
   let do_not_emit = ref None in
   let set n r p d = if !r <> None then err (err_dup n) else r := Some (p d) in
   while (Xmlm.peek d <> `El_end) do match Xmlm.input d with
@@ -3201,14 +3135,10 @@ let p_ucd d =
       set n named_sequences p_named_sequences d
   | `El_start (n, _) when n = n_provisional_named_sequences ->
       set n provisional_named_sequences p_named_sequences d
-  | `El_start (n, _) when n = n_normalization_corrections ->
-      set n normalization_corrections p_normalization_corrections d
   | `El_start (n, _) when n = n_standardized_variants ->
       set n standardized_variants p_standardized_variants d
   | `El_start (n, _) when n = n_cjk_radicals ->
       set n cjk_radicals p_cjk_radicals d
-  | `El_start (n, _) when n = n_emoji_sources ->
-      set n emoji_sources p_emoji_sources d
   | `El_start (n, _) when n = n_do_not_emit ->
       set n do_not_emit p_do_not_emit d
   | `El_start (n, _) -> skip_el d                        (* foreign markup *)
@@ -3223,10 +3153,8 @@ let p_ucd d =
     blocks = some !blocks [];
     named_sequences = some !named_sequences [];
     provisional_named_sequences = some !provisional_named_sequences [];
-    normalization_corrections = some !normalization_corrections [];
     standardized_variants = some !standardized_variants [];
     cjk_radicals = some !cjk_radicals [];
-    emoji_sources = some !emoji_sources [];
     do_not_emit = some !do_not_emit []; }
 
 type src = [ `Channel of in_channel | `String of string ]

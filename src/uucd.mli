@@ -506,13 +506,8 @@ val emoji_modifier : bool prop
 val emoji_modifier_base : bool prop
 val emoji_component : bool prop
 val equivalent_unified_ideograph : cp option prop
-val expands_on_nfc : bool prop
-val expands_on_nfd : bool prop
-val expands_on_nfkc : bool prop
-val expands_on_nfkd : bool prop
 val extended_pictographic : bool prop
 val extender : bool prop
-val fc_nfkc_closure : [ `Self | `Cps of cp list ] prop
 val full_composition_exclusion : bool prop
 val general_category : [
 | `Lu
@@ -570,10 +565,8 @@ val grapheme_cluster_break : [
 ] prop
 
 val grapheme_extend : bool prop
-val grapheme_link : bool prop
 val hangul_syllable_type : [ `L | `LV | `LVT | `T | `V | `NA ] prop
 val hex_digit : bool prop
-val hyphen : bool prop
 val id_continue : bool prop
 val id_compat_math_continue : bool prop
 val id_compat_math_start : bool prop
@@ -668,7 +661,6 @@ val indic_positional_category : [
 | `Visual_Order_Left
 ] prop
 
-val iso_comment : string prop
 val jamo_short_name : string prop
 val join_control : bool prop
 val joining_group : [
@@ -1176,7 +1168,6 @@ val kGB0 : string prop
 val kGB1 : string prop
 val kGB3 : string prop
 val kGB5 : string prop
-val kGB7 : string prop
 val kGB8 : string prop
 val kGSR : string prop
 val kGradeLevel : string prop
@@ -1204,7 +1195,6 @@ val kIRG_TSource : string prop
 val kIRG_USource : string prop
 val kIRG_UKSource : string prop
 val kIRG_VSource : string prop
-val kJa : string prop
 val kJapanese : string prop
 val kJapaneseKun : string prop
 val kJapaneseOn : string prop
@@ -1294,11 +1284,6 @@ type block = (cp * cp) * string
 type named_sequence = string * cp list
 (** The type for named sequences. Sequence name, code point sequence. *)
 
-type normalization_correction =
-    cp * cp list * cp list * (int * int * int)
-(** The type for normalization corrections.
-    Code point, old normalization, new normalization, version *)
-
 type standardized_variant =
     cp list * string * [ `Isolate | `Initial | `Medial | `Final ] list
 (** The type for standarized variants. Code point sequence,
@@ -1307,9 +1292,6 @@ type standardized_variant =
 type cjk_radical = string * cp * cp
 (** The type for CJK radicals. Radical number, CJK radical character,
     CJK unified ideograph. *)
-
-type emoji_source = cp list * int option * int option * int option
-(** The type for emoji sources. Unicode, docomo, kddi, softbank. *)
 
 type do_not_emit = { instead_of : cp list; use : cp list; because : string; }
 (** The type for do not emit character sequences. *)
@@ -1320,10 +1302,8 @@ type t =
     blocks : block list;
     named_sequences : named_sequence list;
     provisional_named_sequences : named_sequence list;
-    normalization_corrections : normalization_correction list;
     standardized_variants : standardized_variant list;
     cjk_radicals : cjk_radical list;
-    emoji_sources : emoji_source list;
     do_not_emit : do_not_emit list
 }
 (** The type for Unicode character databases.
