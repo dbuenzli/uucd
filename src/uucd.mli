@@ -140,6 +140,7 @@ val block : [
 | `Bassa_Vah
 | `Batak
 | `Bengali
+| `Beria_Erfe
 | `Bhaiksuki
 | `Block_Elements
 | `Bopomofo
@@ -164,6 +165,7 @@ val block : [
 | `CJK_Ext_G
 | `CJK_Ext_H
 | `CJK_Ext_I
+| `CJK_Ext_J
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -321,6 +323,7 @@ val block : [
 | `Misc_Math_Symbols_B
 | `Misc_Pictographs
 | `Misc_Symbols
+| `Misc_Symbols_Sup
 | `Misc_Technical
 | `Modi
 | `Modifier_Letters
@@ -380,9 +383,11 @@ val block : [
 | `Samaritan
 | `Saurashtra
 | `Sharada
+| `Sharada_Sup
 | `Shavian
 | `Shorthand_Format_Controls
 | `Siddham
+| `Sidetic
 | `Sinhala
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
@@ -417,12 +422,14 @@ val block : [
 | `Tai_Tham
 | `Tai_Viet
 | `Tai_Xuan_Jing
+| `Tai_Yo
 | `Takri
 | `Tamil
 | `Tamil_Sup
 | `Tangsa
 | `Tangut
 | `Tangut_Components
+| `Tangut_Components_Sup
 | `Tangut_Sup
 | `Telugu
 | `Thaana
@@ -431,6 +438,7 @@ val block : [
 | `Tifinagh
 | `Tirhuta
 | `Todhri
+| `Tolong_Siki
 | `Toto
 | `Transport_And_Map
 | `Tulu_Tigalari
@@ -644,6 +652,7 @@ val indic_positional_category : [
 | `Bottom
 | `Bottom_And_Left
 | `Bottom_And_Right
+| `Invisible
 | `Left
 | `Left_And_Right
 | `NA
@@ -760,6 +769,7 @@ val joining_group : [
 | `Teh_Marbuta
 | `Teh_Marbuta_Goal
 | `Teth
+| `Thin_Noon
 | `Thin_Yeh
 | `Vertical_Tail
 | `Waw
@@ -770,6 +780,20 @@ val joining_group : [
 | `Yudh_He
 | `Zain
 | `Zhain
+| `BAA
+| `FA
+| `HAA
+| `HA_GOAL
+| `HA
+| `CAF
+| `KNOTTED_HA
+| `RA
+| `SWASH_CAF
+| `HAMZAH_ON_HA_GOAL
+| `TAA_MARBUTAH
+| `YA_BARREE
+| `YA
+| `ALEF_MAQSURAH
 ] prop
 
 val joining_type : [ `U | `C | `T | `D | `L | `R ] prop
@@ -793,6 +817,7 @@ val line_break : [
 | `GL
 | `H2
 | `H3
+| `HH
 | `HL
 | `HY
 | `ID
@@ -880,6 +905,7 @@ type script = [
 | `Bass
 | `Batk
 | `Beng
+| `Berf
 | `Bhks
 | `Bopo
 | `Brah
@@ -1000,6 +1026,7 @@ type script = [
 | `Shaw
 | `Shrd
 | `Sidd
+| `Sidt
 | `Sind
 | `Sinh
 | `Sogd
@@ -1017,6 +1044,7 @@ type script = [
 | `Taml
 | `Tang
 | `Tavt
+| `Tayo
 | `Telu
 | `Tfng
 | `Tglg
@@ -1026,6 +1054,7 @@ type script = [
 | `Tirh
 | `Tnsa
 | `Todr
+| `Tols
 | `Toto
 | `Tutg
 | `Ugar
@@ -1230,6 +1259,7 @@ val kTGHZ2013 : string prop
 val kTGT_MergedSrc : string prop
 val kTaiwanTelegraph : string prop
 val kTang : string prop
+val kTayNumeric : string prop
 val kTotalStrokes : string prop
 val kTraditionalVariant : string prop
 val kVietnamese : string prop
@@ -1240,6 +1270,21 @@ val kZhuang : string prop
 val kXerox : string prop
 val kZhuangNumeric : string prop
 val kZVariant : string prop
+
+(** {1:unikemet Unikemet properties} *)
+
+val kEH_Cat : string prop
+val kEH_Core : string prop
+val kEH_Desc : string prop
+val kEH_Func : string prop
+val kEH_FVal : string prop
+val kEH_UniK : string prop
+val kEH_JSesh : string prop
+val kEH_HG : string prop
+val kEH_IFAO : string prop
+val kEH_NoMirror : bool prop
+val kEH_NoRotate : bool prop
+val kEH_AltSeq : string prop
 
 (** {1:db Unicode character databases} *)
 

@@ -298,6 +298,7 @@ type key =                            (* the type for property keys (names). *)
 | KTGT_MergedSrc
 | KTaiwanTelegraph
 | KTang
+| KTayNumeric
 | KTotalStrokes
 | KTraditionalVariant
 | KUnihanCore2020
@@ -309,6 +310,19 @@ type key =                            (* the type for property keys (names). *)
 | KZhuang
 | KZhuangNumeric
 | KZVariant
+(* Unikemet *)
+| KEH_Cat
+| KEH_Core
+| KEH_Desc
+| KEH_Func
+| KEH_FVal
+| KEH_UniK
+| KEH_JSesh
+| KEH_HG
+| KEH_IFAO
+| KEH_NoMirror
+| KEH_NoRotate
+| KEH_AltSeq
 | Other of (string * string)                           (* expanded XML name. *)
 
 type script = [
@@ -324,6 +338,7 @@ type script = [
 | `Bass
 | `Batk
 | `Beng
+| `Berf
 | `Bhks
 | `Bopo
 | `Brah
@@ -444,6 +459,7 @@ type script = [
 | `Shaw
 | `Shrd
 | `Sidd
+| `Sidt
 | `Sind
 | `Sinh
 | `Sogd
@@ -461,6 +477,7 @@ type script = [
 | `Taml
 | `Tang
 | `Tavt
+| `Tayo
 | `Telu
 | `Tfng
 | `Tglg
@@ -470,6 +487,7 @@ type script = [
 | `Tirh
 | `Tnsa
 | `Todr
+| `Tols
 | `Toto
 | `Tutg
 | `Ugar
@@ -515,6 +533,7 @@ type block_prop = [
 | `Bassa_Vah
 | `Batak
 | `Bengali
+| `Beria_Erfe
 | `Bhaiksuki
 | `Block_Elements
 | `Bopomofo
@@ -539,6 +558,7 @@ type block_prop = [
 | `CJK_Ext_G
 | `CJK_Ext_H
 | `CJK_Ext_I
+| `CJK_Ext_J
 | `CJK_Radicals_Sup
 | `CJK_Strokes
 | `CJK_Symbols
@@ -696,6 +716,7 @@ type block_prop = [
 | `Misc_Math_Symbols_B
 | `Misc_Pictographs
 | `Misc_Symbols
+| `Misc_Symbols_Sup
 | `Misc_Technical
 | `Modi
 | `Modifier_Letters
@@ -755,9 +776,11 @@ type block_prop = [
 | `Samaritan
 | `Saurashtra
 | `Sharada
+| `Sharada_Sup
 | `Shavian
 | `Shorthand_Format_Controls
 | `Siddham
+| `Sidetic
 | `Sinhala
 | `Sinhala_Archaic_Numbers
 | `Small_Forms
@@ -792,12 +815,14 @@ type block_prop = [
 | `Tai_Tham
 | `Tai_Viet
 | `Tai_Xuan_Jing
+| `Tai_Yo
 | `Takri
 | `Tamil
 | `Tamil_Sup
 | `Tangsa
 | `Tangut
 | `Tangut_Components
+| `Tangut_Components_Sup
 | `Tangut_Sup
 | `Telugu
 | `Thaana
@@ -806,6 +831,7 @@ type block_prop = [
 | `Tifinagh
 | `Tirhuta
 | `Todhri
+| `Tolong_Siki
 | `Toto
 | `Transport_And_Map
 | `Tulu_Tigalari
@@ -1002,6 +1028,7 @@ type value =                                (* the type for property values. *)
     | `Bottom
     | `Bottom_And_Left
     | `Bottom_And_Right
+    | `Invisible
     | `Left
     | `Left_And_Right
     | `NA
@@ -1114,6 +1141,7 @@ type value =                                (* the type for property values. *)
     | `Teh_Marbuta
     | `Teh_Marbuta_Goal
     | `Teth
+    | `Thin_Noon
     | `Thin_Yeh
     | `Vertical_Tail
     | `Waw
@@ -1124,7 +1152,20 @@ type value =                                (* the type for property values. *)
     | `Yudh_He
     | `Zain
     | `Zhain
-  ]
+    | `BAA
+    | `FA
+    | `HAA
+    | `HA_GOAL
+    | `HA
+    | `CAF
+    | `KNOTTED_HA
+    | `RA
+    | `SWASH_CAF
+    | `HAMZAH_ON_HA_GOAL
+    | `TAA_MARBUTAH
+    | `YA_BARREE
+    | `YA
+    | `ALEF_MAQSURAH ]
 | Joining_type_v of [ `U | `C | `T | `D | `L | `R ]
 | Line_break_v of [
     | `AI
@@ -1148,6 +1189,7 @@ type value =                                (* the type for property values. *)
     | `GL
     | `H2
     | `H3
+    | `HH
     | `HL
     | `HY
     | `ID
@@ -1364,6 +1406,7 @@ let i_block v = Block_v begin match v with
 | "Bassa_Vah" -> `Bassa_Vah
 | "Batak" -> `Batak
 | "Bengali" -> `Bengali
+| "Beria_Erfe" -> `Beria_Erfe
 | "Bhaiksuki" -> `Bhaiksuki
 | "Block_Elements" -> `Block_Elements
 | "Bopomofo" -> `Bopomofo
@@ -1388,6 +1431,7 @@ let i_block v = Block_v begin match v with
 | "CJK_Ext_G" -> `CJK_Ext_G
 | "CJK_Ext_H" -> `CJK_Ext_H
 | "CJK_Ext_I" -> `CJK_Ext_I
+| "CJK_Ext_J" -> `CJK_Ext_J
 | "CJK_Radicals_Sup" -> `CJK_Radicals_Sup
 | "CJK_Strokes" -> `CJK_Strokes
 | "CJK_Symbols" -> `CJK_Symbols
@@ -1545,6 +1589,7 @@ let i_block v = Block_v begin match v with
 | "Misc_Math_Symbols_B" -> `Misc_Math_Symbols_B
 | "Misc_Pictographs" -> `Misc_Pictographs
 | "Misc_Symbols" -> `Misc_Symbols
+| "Misc_Symbols_Sup" -> `Misc_Symbols_Sup
 | "Misc_Technical" -> `Misc_Technical
 | "Modi" -> `Modi
 | "Modifier_Letters" -> `Modifier_Letters
@@ -1604,9 +1649,11 @@ let i_block v = Block_v begin match v with
 | "Samaritan" -> `Samaritan
 | "Saurashtra" -> `Saurashtra
 | "Sharada" -> `Sharada
+| "Sharada_Sup" -> `Sharada_Sup
 | "Shavian" -> `Shavian
 | "Shorthand_Format_Controls" -> `Shorthand_Format_Controls
 | "Siddham" -> `Siddham
+| "Sidetic" -> `Sidetic
 | "Sinhala" -> `Sinhala
 | "Sinhala_Archaic_Numbers" -> `Sinhala_Archaic_Numbers
 | "Small_Forms" -> `Small_Forms
@@ -1641,12 +1688,14 @@ let i_block v = Block_v begin match v with
 | "Tai_Tham" -> `Tai_Tham
 | "Tai_Viet" -> `Tai_Viet
 | "Tai_Xuan_Jing" -> `Tai_Xuan_Jing
+| "Tai_Yo" -> `Tai_Yo
 | "Takri" -> `Takri
 | "Tamil" -> `Tamil
 | "Tamil_Sup" -> `Tamil_Sup
 | "Tangsa" -> `Tangsa
 | "Tangut" -> `Tangut
 | "Tangut_Components" -> `Tangut_Components
+| "Tangut_Components_Sup" -> `Tangut_Components_Sup
 | "Tangut_Sup" -> `Tangut_Sup
 | "Telugu" -> `Telugu
 | "Thaana" -> `Thaana
@@ -1655,6 +1704,7 @@ let i_block v = Block_v begin match v with
 | "Tifinagh" -> `Tifinagh
 | "Tirhuta" -> `Tirhuta
 | "Todhri" -> `Todhri
+| "Tolong_Siki" -> `Tolong_Siki
 | "Toto" -> `Toto
 | "Transport_And_Map" -> `Transport_And_Map
 | "Tulu_Tigalari" -> `Tulu_Tigalari
@@ -1873,6 +1923,7 @@ begin match v with
 | "Bottom" -> `Bottom
 | "Bottom_And_Left" -> `Bottom_And_Right
 | "Bottom_And_Right" -> `Bottom_And_Right
+| "Invisible" -> `Invisible
 | "Left" -> `Left
 | "Left_And_Right" -> `Left_And_Right
 | "NA" -> `NA
@@ -1987,6 +2038,7 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Teh_Marbuta" -> `Teh_Marbuta
 | "Teh_Marbuta_Goal" -> `Teh_Marbuta_Goal
 | "Teth" -> `Teth
+| "Thin_Noon" -> `Thin_Noon
 | "Thin_Yeh" -> `Thin_Yeh
 | "Vertical_Tail" -> `Vertical_Tail
 | "Waw" -> `Waw
@@ -1997,6 +2049,20 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Yudh_He" -> `Yudh_He
 | "Zain" -> `Zain
 | "Zhain" -> `Zhain
+| "BAA" -> `BAA
+| "FA" -> `FA
+| "HAA" -> `HAA
+| "HA_GOAL" -> `HA_GOAL
+| "HA" -> `HA
+| "CAF" -> `CAF
+| "KNOTTED_HA" -> `KNOTTED_HA
+| "RA" -> `RA
+| "SWASH_CAF" -> `SWASH_CAF
+| "HAMZAH_ON_HA_GOAL" -> `HAMZAH_ON_HA_GOAL
+| "TAA_MARBUTAH" -> `TAA_MARBUTAH
+| "YA_BARREE" -> `YA_BARREE
+| "YA" -> `YA
+| "ALEF_MAQSURAH " -> `ALEF_MAQSURAH
 | v -> err (err_att_val v)
 end
 
@@ -2032,6 +2098,7 @@ let i_line_break v = Line_break_v begin match v with
 | "GL" -> `GL
 | "H2" -> `H2
 | "H3" -> `H3
+| "HH" -> `HH
 | "HL" -> `HL
 | "HY" -> `HY
 | "ID" -> `ID
@@ -2104,6 +2171,7 @@ let i_script v = Script_v begin match v with
 | "Bass" -> `Bass
 | "Batk" -> `Batk
 | "Beng" -> `Beng
+| "Berf" -> `Berf
 | "Bhks" -> `Bhks
 | "Bopo" -> `Bopo
 | "Brah" -> `Brah
@@ -2224,6 +2292,7 @@ let i_script v = Script_v begin match v with
 | "Shaw" -> `Shaw
 | "Shrd" -> `Shrd
 | "Sidd" -> `Sidd
+| "Sidt" -> `Sidt
 | "Sind" -> `Sind
 | "Sinh" -> `Sinh
 | "Sogd" -> `Sogd
@@ -2241,6 +2310,7 @@ let i_script v = Script_v begin match v with
 | "Taml" -> `Taml
 | "Tang" -> `Tang
 | "Tavt" -> `Tavt
+| "Tayo" -> `Tayo
 | "Telu" -> `Telu
 | "Tfng" -> `Tfng
 | "Tglg" -> `Tglg
@@ -2250,6 +2320,7 @@ let i_script v = Script_v begin match v with
 | "Tirh" -> `Tirh
 | "Tnsa" -> `Tnsa
 | "Todr" -> `Todr
+| "Tols" -> `Tols
 | "Toto" -> `Toto
 | "Tutg" -> `Tutg
 | "Ugar" -> `Ugar
@@ -2344,7 +2415,7 @@ let find props (k, o) = try Some (o (Pmap.find k props)) with Not_found -> None
 let unknown_prop name = (Other name), o_string
 
 
-(* non hunihan properties *)
+(* non hunihan and unikemet properties *)
 
 let uax_42_element = UAX_42_element, o_uax_42_element    (* artefact of Uucd *)
 
@@ -2586,6 +2657,7 @@ let kTGHZ2013 = KTGHZ2013, o_string
 let kTGT_MergedSrc = KTGT_MergedSrc, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
+let kTayNumeric = KTayNumeric, o_string
 let kTotalStrokes = KTotalStrokes, o_string
 let kTraditionalVariant = KTraditionalVariant, o_string
 let kUnihanCore2020 = KUnihanCore2020, o_string
@@ -2597,6 +2669,22 @@ let kXerox = KXerox, o_string
 let kZhuang = KZhuang, o_string
 let kZhuangNumeric = KZhuangNumeric, o_string
 let kZVariant = KZVariant, o_string
+
+(* Unikemet properties *)
+
+let kEH_Cat = KEH_Cat, o_string
+let kEH_Core = KEH_Core, o_string
+let kEH_Desc = KEH_Desc, o_string
+let kEH_Func = KEH_Func, o_string
+let kEH_FVal = KEH_FVal, o_string
+let kEH_UniK = KEH_UniK, o_string
+let kEH_JSesh = KEH_JSesh, o_string
+let kEH_HG = KEH_HG, o_string
+let kEH_IFAO = KEH_IFAO, o_string
+let kEH_NoMirror = KEH_NoMirror, o_bool
+let kEH_NoRotate = KEH_NoRotate, o_bool
+let kEH_AltSeq = KEH_AltSeq, o_string
+
 
 (* Unicode Character Databases *)
 
@@ -2890,6 +2978,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kTGT_MergedSrc" (KTGT_MergedSrc, i_string);
   map "kTaiwanTelegraph" (KTaiwanTelegraph, i_string);
   map "kTang" (KTang, i_string);
+  map "kTayNumeric" (KTayNumeric, i_string);
   map "kTotalStrokes" (KTotalStrokes, i_string);
   map "kTraditionalVariant" (KTraditionalVariant, i_string);
   map "kVietnamese" (KVietnamese, i_string);
@@ -2900,6 +2989,18 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kZhuang" (KZhuang, i_string);
   map "kZhuangNumeric" (KZhuangNumeric, i_string);
   map "kZVariant" (KZVariant, i_string);
+  map "kEH_Cat" (KEH_Cat, i_string);
+  map "kEH_Core" (KEH_Core, i_string);
+  map "kEH_Desc" (KEH_Desc, i_string);
+  map "kEH_Func" (KEH_Func, i_string);
+  map "kEH_FVal" (KEH_FVal, i_string);
+  map "kEH_UniK" (KEH_UniK, i_string);
+  map "kEH_JSesh" (KEH_JSesh, i_string);
+  map "kEH_HG" (KEH_HG, i_string);
+  map "kEH_IFAO" (KEH_IFAO, i_string);
+  map "kEH_NoMirror" (KEH_NoMirror, i_bool);
+  map "kEH_NoRotate" (KEH_NoRotate, i_bool);
+  map "kEH_AltSeq" (KEH_AltSeq, i_string);
   fun m (n, v) ->
     try match n with
     | ("", p) ->
