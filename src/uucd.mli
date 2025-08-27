@@ -1221,6 +1221,8 @@ val kMeyerWempe : string prop
 val kMojiJoho : string prop
 val kMorohashi : string prop
 val kNelson : string prop
+val kNSHU_DubenSrc : string prop
+val kNSHU_Reading : string prop
 val kOtherNumeric : string prop
 val kPhonetic : string prop
 val kPrimaryNumeric : string prop
@@ -1231,9 +1233,7 @@ val kRSKanWa : string prop
 val kRSKangXi : string prop
 val kRSKorean : string prop
 val kRSMerged : string prop
-val kRSTUnicode : string prop
 val kRSUnicode : string prop
-val kReading : string prop
 val kSBGY : string prop
 val kSemanticVariant : string prop
 val kSimplifiedVariant : string prop
@@ -1241,12 +1241,12 @@ val kSMSZD2003Index : string prop
 val kSMSZD2003Readings : string prop
 val kSpecializedSemanticVariant : string prop
 val kSpoofingVariant : string prop
-val kSrc_NushuDuben : string prop
 val kStrange : string prop
 val kUnihanCore2020 : string prop
 val kTGH : string prop
 val kTGHZ2013 : string prop
 val kTGT_MergedSrc : string prop
+val kTGT_RSUnicode : string prop
 val kTaiwanTelegraph : string prop
 val kTang : string prop
 val kTayNumeric : string prop

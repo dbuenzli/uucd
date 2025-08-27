@@ -261,6 +261,8 @@ type key =                            (* the type for property keys (names). *)
 | KMojiJoho
 | KMorohashi
 | KNelson
+| KNSHU_DubenSrc
+| KNSHU_Reading
 | KOtherNumeric
 | KPhonetic
 | KPrimaryNumeric
@@ -271,9 +273,7 @@ type key =                            (* the type for property keys (names). *)
 | KRSKangXi
 | KRSKorean
 | KRSMerged
-| KRSTUnicode
 | KRSUnicode
-| KReading
 | KSBGY
 | KSemanticVariant
 | KSimplifiedVariant
@@ -281,11 +281,11 @@ type key =                            (* the type for property keys (names). *)
 | KSMSZD2003Readings
 | KSpecializedSemanticVariant
 | KSpoofingVariant
-| KSrc_NushuDuben
 | KStrange
 | KTGH
 | KTGHZ2013
 | KTGT_MergedSrc
+| KTGT_RSUnicode
 | KTaiwanTelegraph
 | KTang
 | KTayNumeric
@@ -2610,6 +2610,8 @@ let kMeyerWempe = KMeyerWempe, o_string
 let kMojiJoho = KMojiJoho, o_string
 let kMorohashi = KMorohashi, o_string
 let kNelson = KNelson, o_string
+let kNSHU_DubenSrc = KNSHU_DubenSrc, o_string
+let kNSHU_Reading = KNSHU_Reading, o_string
 let kOtherNumeric = KOtherNumeric, o_string
 let kPhonetic = KPhonetic, o_string
 let kPrimaryNumeric = KPrimaryNumeric, o_string
@@ -2620,9 +2622,7 @@ let kRSKanWa = KRSKanWa, o_string
 let kRSKangXi = KRSKangXi, o_string
 let kRSKorean = KRSKorean, o_string
 let kRSMerged = KRSMerged, o_string
-let kRSTUnicode = KRSTUnicode, o_string
 let kRSUnicode = KRSUnicode, o_string
-let kReading = KReading, o_string
 let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
@@ -2630,11 +2630,11 @@ let kSMSZD2003Index = KSMSZD2003Index, o_string
 let kSMSZD2003Readings = KSMSZD2003Readings, o_string
 let kSpecializedSemanticVariant = KSpecializedSemanticVariant, o_string
 let kSpoofingVariant = KSpoofingVariant, o_string
-let kSrc_NushuDuben = KSrc_NushuDuben, o_string
 let kStrange = KStrange, o_string
 let kTGH = KTGH, o_string
 let kTGHZ2013 = KTGHZ2013, o_string
 let kTGT_MergedSrc = KTGT_MergedSrc, o_string
+let kTGT_RSUnicode = KTGT_RSUnicode, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
 let kTayNumeric = KTayNumeric, o_string
@@ -2914,6 +2914,8 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kMeyerWempe" (KMeyerWempe, i_string);
   map "kMorohashi" (KMorohashi, i_string);
   map "kNelson" (KNelson, i_string);
+  map "kNSHU_DubenSrc" (KNSHU_DubenSrc, i_string);
+  map "kNSHU_Reading" (KNSHU_Reading, i_string);
   map "kOtherNumeric" (KOtherNumeric, i_string);
   map "kPhonetic" (KPhonetic, i_string);
   map "kPrimaryNumeric" (KPrimaryNumeric, i_string);
@@ -2924,9 +2926,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kRSKangXi" (KRSKangXi, i_string);
   map "kRSKorean" (KRSKorean, i_string);
   map "kRSMerged" (KRSMerged, i_string);
-  map "kRSTUnicode" (KRSTUnicode, i_string);
   map "kRSUnicode" (KRSUnicode, i_string);
-  map "kReading" (KReading, i_string);
   map "kSBGY" (KSBGY, i_string);
   map "kSemanticVariant" (KSemanticVariant, i_string);
   map "kSimplifiedVariant" (KSimplifiedVariant, i_string);
@@ -2934,10 +2934,10 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kSMSZD2003Readings" (KSMSZD2003Readings, i_string);
   map "kSpecializedSemanticVariant" (KSpecializedSemanticVariant, i_string);
   map "kSpoofingVariant" (KSpoofingVariant, i_string);
-  map "kSrc_NushuDuben" (KSrc_NushuDuben, i_string);
   map "kTGH" (KTGH, i_string);
   map "kTGHZ2013" (KTGHZ2013, i_string);
   map "kTGT_MergedSrc" (KTGT_MergedSrc, i_string);
+  map "kTGT_RSUnicode" (KTGT_RSUnicode, i_string);
   map "kTaiwanTelegraph" (KTaiwanTelegraph, i_string);
   map "kTang" (KTang, i_string);
   map "kTayNumeric" (KTayNumeric, i_string);
