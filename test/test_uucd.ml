@@ -10,8 +10,8 @@ let test_decode =
   Test.test "Uucd.decode" @@ fun file ->
   Test.noraise ~__POS__ @@ fun () ->
   let cwd = Os.Dir.cwd () |> Result.error_to_failure in
-  let inf = Fpath.(cwd // v "test/ucd.xml") in
-  let inf = Fpath.to_string inf in
+  let inf = Filepath.(cwd // v "test/ucd.xml") in
+  let inf = Filepath.to_string inf in
   try
     In_channel.with_open_bin inf @@ fun ic ->
     let d = Uucd.decoder (`Channel ic) in
