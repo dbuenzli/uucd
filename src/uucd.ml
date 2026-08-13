@@ -239,11 +239,17 @@ type key =                            (* the type for property keys (names). *)
 | KJHJ
 | KJIS0213
 | KJapaneseKun
+| KJapaneseNewVariant
+| KJapaneseOldVariant
 | KJapaneseOn
 | KJinmeiyoKanji
 | KJis0
 | KJis1
 | KJoyoKanji
+| KJURC_NCReading
+| KJURC_Numeric
+| KJURC_RSUnicode
+| KJURC_Src
 | KKPS0
 | KKPS1
 | KKSC0
@@ -276,6 +282,12 @@ type key =                            (* the type for property keys (names). *)
 | KRSUnicode
 | KSBGY
 | KSemanticVariant
+| KSEAL_CCZSrc
+| KSEAL_DYCSrc
+| KSEAL_MCJK
+| KSEAL_QJZSrc
+| KSEAL_Rad
+| KSEAL_THXSrc
 | KSimplifiedVariant
 | KSMSZD2003Index
 | KSMSZD2003Readings
@@ -285,6 +297,7 @@ type key =                            (* the type for property keys (names). *)
 | KTGH
 | KTGHZ2013
 | KTGT_MergedSrc
+| KTGT_Numeric
 | KTGT_RSUnicode
 | KTaiwanTelegraph
 | KTang
@@ -340,6 +353,7 @@ type script = [
 | `Cari
 | `Cham
 | `Cher
+| `Chis
 | `Chrs
 | `Copt
 | `Cpmn
@@ -378,6 +392,7 @@ type script = [
 | `Hung
 | `Ital
 | `Java
+| `Jurc
 | `Kali
 | `Kana
 | `Kawi
@@ -431,6 +446,7 @@ type script = [
 | `Ougr
 | `Palm
 | `Pauc
+| `Pcun
 | `Perm
 | `Phag
 | `Phli
@@ -445,6 +461,7 @@ type script = [
 | `Samr
 | `Sarb
 | `Saur
+| `Seal
 | `Sgnw
 | `Shaw
 | `Shrd
@@ -514,6 +531,7 @@ type block_prop = [
 | `Arabic_PF_A
 | `Arabic_PF_B
 | `Arabic_Sup
+| `Archaic_Cuneiform_Numerals
 | `Armenian
 | `Arrows
 | `Avestan
@@ -523,6 +541,7 @@ type block_prop = [
 | `Bassa_Vah
 | `Batak
 | `Bengali
+| `Bengali_Sup
 | `Beria_Erfe
 | `Bhaiksuki
 | `Block_Elements
@@ -534,6 +553,7 @@ type block_prop = [
 | `Buginese
 | `Buhid
 | `Byzantine_Music
+| `Chisoi
 | `CJK
 | `CJK_Compat
 | `CJK_Compat_Forms
@@ -643,6 +663,8 @@ type block_prop = [
 | `Jamo_Ext_A
 | `Jamo_Ext_B
 | `Javanese
+| `Jurchen
+| `Jurchen_Radicals
 | `Kaithi
 | `Kaktovik_Numerals
 | `Kana_Ext_A
@@ -702,6 +724,7 @@ type block_prop = [
 | `Meroitic_Hieroglyphs
 | `Miao
 | `Misc_Arrows
+| `Misc_Arrows_Ext
 | `Misc_Math_Symbols_A
 | `Misc_Math_Symbols_B
 | `Misc_Pictographs
@@ -716,6 +739,7 @@ type block_prop = [
 | `Mro
 | `Multani
 | `Music
+| `Music_Sup
 | `Myanmar
 | `Myanmar_Ext_A
 | `Myanmar_Ext_B
@@ -765,6 +789,7 @@ type block_prop = [
 | `Runic
 | `Samaritan
 | `Saurashtra
+| `Seal
 | `Sharada
 | `Sharada_Sup
 | `Shavian
@@ -842,8 +867,7 @@ type block_prop = [
 | `Yi_Syllables
 | `Yijing
 | `Zanabazar_Square
-| `Znamenny_Music
-]
+| `Znamenny_Music ]
 
 type value =                                (* the type for property values. *)
 | Age_v of [ `Version of int * int | `Unassigned ]
@@ -1044,6 +1068,16 @@ type value =                                (* the type for property values. *)
     | `Beh
     | `Beth
     | `Burushaski_Yeh_Barree
+    | `Crown_Ain
+    | `Crown_Beh
+    | `Crown_Feh
+    | `Crown_Hah
+    | `Crown_Heh
+    | `Crown_Kaf
+    | `Crown_Meem
+    | `Crown_Sad
+    | `Crown_Seen
+    | `Crown_Tah
     | `Dal
     | `Dalath_Rish
     | `E
@@ -1387,6 +1421,7 @@ let i_block v = Block_v begin match v with
 | "Arabic_PF_A" -> `Arabic_PF_A
 | "Arabic_PF_B" -> `Arabic_PF_B
 | "Arabic_Sup" -> `Arabic_Sup
+| "Archaic_Cuneiform_Numerals" -> `Archaic_Cuneiform_Numerals
 | "Armenian" -> `Armenian
 | "Arrows" -> `Arrows
 | "Avestan" -> `Avestan
@@ -1396,6 +1431,7 @@ let i_block v = Block_v begin match v with
 | "Bassa_Vah" -> `Bassa_Vah
 | "Batak" -> `Batak
 | "Bengali" -> `Bengali
+| "Bengali_Sup" -> `Bengali_Sup
 | "Beria_Erfe" -> `Beria_Erfe
 | "Bhaiksuki" -> `Bhaiksuki
 | "Block_Elements" -> `Block_Elements
@@ -1407,6 +1443,7 @@ let i_block v = Block_v begin match v with
 | "Buginese" -> `Buginese
 | "Buhid" -> `Buhid
 | "Byzantine_Music" -> `Byzantine_Music
+| "Chisoi" -> `Chisoi
 | "CJK" -> `CJK
 | "CJK_Compat" -> `CJK_Compat
 | "CJK_Compat_Forms" -> `CJK_Compat_Forms
@@ -1516,6 +1553,8 @@ let i_block v = Block_v begin match v with
 | "Jamo_Ext_A" -> `Jamo_Ext_A
 | "Jamo_Ext_B" -> `Jamo_Ext_B
 | "Javanese" -> `Javanese
+| "Jurchen" -> `Jurchen
+| "Jurchen_Radicals" -> `Jurchen_Radicals
 | "Kaithi" -> `Kaithi
 | "Kaktovik_Numerals" -> `Kaktovik_Numerals
 | "Kana_Ext_A" -> `Kana_Ext_A
@@ -1575,6 +1614,7 @@ let i_block v = Block_v begin match v with
 | "Meroitic_Hieroglyphs" -> `Meroitic_Hieroglyphs
 | "Miao" -> `Miao
 | "Misc_Arrows" -> `Misc_Arrows
+| "Misc_Arrows_Ext" -> `Misc_Arrows_Ext
 | "Misc_Math_Symbols_A" -> `Misc_Math_Symbols_A
 | "Misc_Math_Symbols_B" -> `Misc_Math_Symbols_B
 | "Misc_Pictographs" -> `Misc_Pictographs
@@ -1589,6 +1629,7 @@ let i_block v = Block_v begin match v with
 | "Mro" -> `Mro
 | "Multani" -> `Multani
 | "Music" -> `Music
+| "Music_Sup" -> `Music_Sup
 | "Myanmar" -> `Myanmar
 | "Myanmar_Ext_A" -> `Myanmar_Ext_A
 | "Myanmar_Ext_B" -> `Myanmar_Ext_B
@@ -1638,6 +1679,7 @@ let i_block v = Block_v begin match v with
 | "Runic" -> `Runic
 | "Samaritan" -> `Samaritan
 | "Saurashtra" -> `Saurashtra
+| "Seal" -> `Seal
 | "Sharada" -> `Sharada
 | "Sharada_Sup" -> `Sharada_Sup
 | "Shavian" -> `Shavian
@@ -1941,6 +1983,16 @@ let i_joining_group v = Joining_group_v begin match v with
 | "Beh" -> `Beh
 | "Beth" -> `Beth
 | "Burushaski_Yeh_Barree" -> `Burushaski_Yeh_Barree
+| "Crown_Ain" -> `Crown_Ain
+| "Crown_Beh" -> `Crown_Beh
+| "Crown_Feh" -> `Crown_Feh
+| "Crown_Hah" -> `Crown_Hah
+| "Crown_Heh" -> `Crown_Heh
+| "Crown_Kaf" -> `Crown_Kaf
+| "Crown_Meem" -> `Crown_Meem
+| "Crown_Sad" -> `Crown_Sad
+| "Crown_Seen" -> `Crown_Seen
+| "Crown_Tah" -> `Crown_Tah
 | "Dal" -> `Dal
 | "Dalath_Rish" -> `Dalath_Rish
 | "E" -> `E
@@ -2173,6 +2225,7 @@ let i_script v = Script_v begin match v with
 | "Cari" -> `Cari
 | "Cham" -> `Cham
 | "Cher" -> `Cher
+| "Chis" -> `Chis
 | "Chrs" -> `Chrs
 | "Copt" -> `Copt
 | "Cpmn" -> `Cpmn
@@ -2211,6 +2264,7 @@ let i_script v = Script_v begin match v with
 | "Hung" -> `Hung
 | "Ital" -> `Ital
 | "Java" -> `Java
+| "Jurc" -> `Jurc
 | "Kali" -> `Kali
 | "Kana" -> `Kana
 | "Kawi" -> `Kawi
@@ -2264,6 +2318,7 @@ let i_script v = Script_v begin match v with
 | "Ougr" -> `Ougr
 | "Palm" -> `Palm
 | "Pauc" -> `Pauc
+| "Pcun" -> `Pcun
 | "Perm" -> `Perm
 | "Phag" -> `Phag
 | "Phli" -> `Phli
@@ -2278,6 +2333,7 @@ let i_script v = Script_v begin match v with
 | "Samr" -> `Samr
 | "Sarb" -> `Sarb
 | "Saur" -> `Saur
+| "Seal" -> `Seal
 | "Sgnw" -> `Sgnw
 | "Shaw" -> `Shaw
 | "Shrd" -> `Shrd
@@ -2588,11 +2644,17 @@ let kJHJ = KJHJ, o_string
 let kJIS0213 = KJIS0213, o_string
 let kJapanese = KJapanese, o_string
 let kJapaneseKun = KJapaneseKun, o_string
+let kJapaneseNewVariant = KJapaneseNewVariant, o_string
+let kJapaneseOldVariant = KJapaneseOldVariant, o_string
 let kJapaneseOn = KJapaneseOn, o_string
 let kJinmeiyoKanji = KJinmeiyoKanji, o_string
 let kJis0 = KJis0, o_string
 let kJis1 = KJis1, o_string
 let kJoyoKanji = KJoyoKanji, o_string
+let kJURC_NCReading = KJURC_NCReading, o_string
+let kJURC_Numeric = KJURC_Numeric, o_string
+let kJURC_RSUnicode = KJURC_RSUnicode, o_string
+let kJURC_Src = KJURC_Src, o_string
 let kKPS0 = KKPS0, o_string
 let kKPS1 = KKPS1, o_string
 let kKSC0 = KKSC0, o_string
@@ -2625,6 +2687,12 @@ let kRSMerged = KRSMerged, o_string
 let kRSUnicode = KRSUnicode, o_string
 let kSBGY = KSBGY, o_string
 let kSemanticVariant = KSemanticVariant, o_string
+let kSEAL_CCZSrc = KSEAL_CCZSrc, o_string
+let kSEAL_DYCSrc = KSEAL_DYCSrc, o_string
+let kSEAL_MCJK = KSEAL_MCJK, o_string
+let kSEAL_QJZSrc = KSEAL_QJZSrc, o_string
+let kSEAL_Rad = KSEAL_Rad, o_string
+let kSEAL_THXSrc = KSEAL_THXSrc, o_string
 let kSimplifiedVariant = KSimplifiedVariant, o_string
 let kSMSZD2003Index = KSMSZD2003Index, o_string
 let kSMSZD2003Readings = KSMSZD2003Readings, o_string
@@ -2634,6 +2702,7 @@ let kStrange = KStrange, o_string
 let kTGH = KTGH, o_string
 let kTGHZ2013 = KTGHZ2013, o_string
 let kTGT_MergedSrc = KTGT_MergedSrc, o_string
+let kTGT_Numeric = KTGT_Numeric, o_string
 let kTGT_RSUnicode = KTGT_RSUnicode, o_string
 let kTaiwanTelegraph = KTaiwanTelegraph, o_string
 let kTang = KTang, o_string
@@ -2893,11 +2962,17 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kJHJ" (KJHJ, i_string);
   map "kJIS0213" (KJIS0213, i_string);
   map "kJapaneseKun" (KJapaneseKun, i_string);
+  map "kJapaneseNewVariant" (KJapaneseNewVariant, i_string);
+  map "kJapaneseOldVariant" (KJapaneseOldVariant, i_string);
   map "kJapaneseOn" (KJapaneseOn, i_string);
   map "kJinmeiyoKanji" (KJinmeiyoKanji, i_string);
   map "kJis0" (KJis0, i_string);
   map "kJis1" (KJis1, i_string);
   map "kJoyoKanji"  (KJoyoKanji, i_string);
+  map "kJURC_NCReading" (KJURC_NCReading, i_string);
+  map "kJURC_Numeric" (KJURC_Numeric, i_string);
+  map "kJURC_RSUnicode" (KJURC_RSUnicode, i_string);
+  map "kJURC_Src" (KJURC_Src, i_string);
   map "kKPS0" (KKPS0, i_string);
   map "kKPS1" (KKPS1, i_string);
   map "kKSC0" (KKSC0, i_string);
@@ -2929,6 +3004,12 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kRSUnicode" (KRSUnicode, i_string);
   map "kSBGY" (KSBGY, i_string);
   map "kSemanticVariant" (KSemanticVariant, i_string);
+  map "kSEAL_CCZSrc" (KSEAL_CCZSrc, i_string);
+  map "kSEAL_DYCSrc" (KSEAL_DYCSrc, i_string);
+  map "kSEAL_MCJK" (KSEAL_MCJK, i_string);
+  map "kSEAL_QJZSrc" (KSEAL_QJZSrc, i_string);
+  map "kSEAL_Rad" (KSEAL_Rad, i_string);
+  map "kSEAL_THXSrc" (KSEAL_THXSrc, i_string);
   map "kSimplifiedVariant" (KSimplifiedVariant, i_string);
   map "kSMSZD2003Index" (KSMSZD2003Index, i_string);
   map "kSMSZD2003Readings" (KSMSZD2003Readings, i_string);
@@ -2937,6 +3018,7 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kTGH" (KTGH, i_string);
   map "kTGHZ2013" (KTGHZ2013, i_string);
   map "kTGT_MergedSrc" (KTGT_MergedSrc, i_string);
+  map "kTGT_Numeric" (KTGT_Numeric, i_string);
   map "kTGT_RSUnicode" (KTGT_RSUnicode, i_string);
   map "kTaiwanTelegraph" (KTaiwanTelegraph, i_string);
   map "kTang" (KTang, i_string);

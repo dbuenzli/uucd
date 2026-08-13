@@ -131,6 +131,7 @@ val block : [
 | `Arabic_PF_A
 | `Arabic_PF_B
 | `Arabic_Sup
+| `Archaic_Cuneiform_Numerals
 | `Armenian
 | `Arrows
 | `Avestan
@@ -140,6 +141,7 @@ val block : [
 | `Bassa_Vah
 | `Batak
 | `Bengali
+| `Bengali_Sup
 | `Beria_Erfe
 | `Bhaiksuki
 | `Block_Elements
@@ -151,6 +153,7 @@ val block : [
 | `Buginese
 | `Buhid
 | `Byzantine_Music
+| `Chisoi
 | `CJK
 | `CJK_Compat
 | `CJK_Compat_Forms
@@ -260,6 +263,8 @@ val block : [
 | `Jamo_Ext_A
 | `Jamo_Ext_B
 | `Javanese
+| `Jurchen
+| `Jurchen_Radicals
 | `Kaithi
 | `Kaktovik_Numerals
 | `Kana_Ext_A
@@ -319,6 +324,7 @@ val block : [
 | `Meroitic_Hieroglyphs
 | `Miao
 | `Misc_Arrows
+| `Misc_Arrows_Ext
 | `Misc_Math_Symbols_A
 | `Misc_Math_Symbols_B
 | `Misc_Pictographs
@@ -333,6 +339,7 @@ val block : [
 | `Mro
 | `Multani
 | `Music
+| `Music_Sup
 | `Myanmar
 | `Myanmar_Ext_A
 | `Myanmar_Ext_B
@@ -382,6 +389,7 @@ val block : [
 | `Runic
 | `Samaritan
 | `Saurashtra
+| `Seal
 | `Sharada
 | `Sharada_Sup
 | `Shavian
@@ -674,6 +682,16 @@ val joining_group : [
 | `Beh
 | `Beth
 | `Burushaski_Yeh_Barree
+| `Crown_Ain
+| `Crown_Beh
+| `Crown_Feh
+| `Crown_Hah
+| `Crown_Heh
+| `Crown_Kaf
+| `Crown_Meem
+| `Crown_Sad
+| `Crown_Seen
+| `Crown_Tah
 | `Dal
 | `Dalath_Rish
 | `E
@@ -909,6 +927,7 @@ type script = [
 | `Cari
 | `Cham
 | `Cher
+| `Chis
 | `Chrs
 | `Copt
 | `Cpmn
@@ -947,6 +966,7 @@ type script = [
 | `Hung
 | `Ital
 | `Java
+| `Jurc
 | `Kali
 | `Kana
 | `Kawi
@@ -1000,6 +1020,7 @@ type script = [
 | `Ougr
 | `Palm
 | `Pauc
+| `Pcun
 | `Perm
 | `Phag
 | `Phli
@@ -1014,6 +1035,7 @@ type script = [
 | `Samr
 | `Sarb
 | `Saur
+| `Seal
 | `Sgnw
 | `Shaw
 | `Shrd
@@ -1204,6 +1226,10 @@ val kJinmeiyoKanji : string prop
 val kJis0 : string prop
 val kJis1 : string prop
 val kJoyoKanji : string prop
+val kJURC_NCReading : string prop
+val kJURC_Numeric : string prop
+val kJURC_RSUnicode : string prop
+val kJURC_Src : string prop
 val kKPS0 : string prop
 val kKPS1 : string prop
 val kKSC0 : string prop
@@ -1236,6 +1262,12 @@ val kRSMerged : string prop
 val kRSUnicode : string prop
 val kSBGY : string prop
 val kSemanticVariant : string prop
+val kSEAL_CCZSrc : string prop
+val kSEAL_DYCSrc : string prop
+val kSEAL_MCJK : string prop
+val kSEAL_QJZSrc : string prop
+val kSEAL_Rad : string prop
+val kSEAL_THXSrc : string prop
 val kSimplifiedVariant : string prop
 val kSMSZD2003Index : string prop
 val kSMSZD2003Readings : string prop
