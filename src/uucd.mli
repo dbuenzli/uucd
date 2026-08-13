@@ -1202,10 +1202,8 @@ val kHanyuPinlu : string prop
 val kHanyuPinyin : string prop
 val kIBMJapan : string prop
 val kIICore : string prop
-val kIRGDaeJaweon : string prop
 val kIRGDaiKanwaZiten : string prop
 val kIRGHanyuDaZidian : string prop
-val kIRGKangXi : string prop
 val kIRG_GSource : string prop
 val kIRG_HSource : string prop
 val kIRG_JSource : string prop

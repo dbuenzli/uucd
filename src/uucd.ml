@@ -220,10 +220,8 @@ type key =                            (* the type for property keys (names). *)
 | KHanyuPinyin
 | KIBMJapan
 | KIICore
-| KIRGDaeJaweon
 | KIRGDaiKanwaZiten
 | KIRGHanyuDaZidian
-| KIRGKangXi
 | KIRG_GSource
 | KIRG_HSource
 | KIRG_JSource
@@ -2625,10 +2623,8 @@ let kHanyuPinlu = KHanyuPinlu, o_string
 let kHanyuPinyin = KHanyuPinyin, o_string
 let kIBMJapan = KIBMJapan, o_string
 let kIICore = KIICore, o_string
-let kIRGDaeJaweon = KIRGDaeJaweon, o_string
 let kIRGDaiKanwaZiten = KIRGDaiKanwaZiten, o_string
 let kIRGHanyuDaZidian = KIRGHanyuDaZidian, o_string
-let kIRGKangXi = KIRGKangXi, o_string
 let kIRG_GSource = KIRG_GSource, o_string
 let kIRG_HSource = KIRG_HSource, o_string
 let kIRG_JSource = KIRG_JSource, o_string
@@ -2943,10 +2939,8 @@ let add_prop : value Pmap.t -> Xmlm.attribute -> value Pmap.t =
   map "kHanyuPinyin" (KHanyuPinyin, i_string);
   map "kIBMJapan" (KIBMJapan, i_string);
   map "kIICore" (KIICore, i_string);
-  map "kIRGDaeJaweon" (KIRGDaeJaweon, i_string);
   map "kIRGDaiKanwaZiten" (KIRGDaiKanwaZiten, i_string);
   map "kIRGHanyuDaZidian" (KIRGHanyuDaZidian, i_string);
-  map "kIRGKangXi" (KIRGKangXi, i_string);
   map "kIRG_GSource" (KIRG_GSource, i_string);
   map "kIRG_HSource" (KIRG_HSource, i_string);
   map "kIRG_JSource" (KIRG_JSource, i_string);
